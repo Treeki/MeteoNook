@@ -39,6 +39,13 @@ for row in lines:
 			# plain old string (mostly)
 			data[lang][key] = tstr
 
+
+# english is ~special~
+data['en-GB'] = {'lang': 'English (UK)'}
+data['en-US'] = {'lang': 'English (US)'}
+del data['en']['lang']
+
+
 with open('js/translations.js', 'w') as f:
 	f.write('export default ')
 	json.dump(data, f, indent=4)

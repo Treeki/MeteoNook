@@ -20,7 +20,7 @@
 			<b-col md v-for='(month, colNum) in row' :key='colNum'>
 				<div class='monthBlock border mt-3 p-2 rounded' @click='selectMonth(month)'>
 					<span class='font-weight-bold'>
-						{{ $t('lstMonths' + (month.month - 1)) }} {{ month.year }}
+						{{ $d(month.startDate, 'yearMonth') }}
 					</span>
 					<div class='monthData'>
 						✨ {{ $tc('yLight', month.lightShowerCount) }}

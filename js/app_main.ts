@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { ButtonPlugin, CalendarPlugin, DropdownPlugin, FormCheckboxPlugin, FormRadioPlugin, LayoutPlugin, NavbarPlugin, TabsPlugin, FormGroupPlugin, ModalPlugin, FormSelectPlugin, InputGroupPlugin } from 'bootstrap-vue'
-import VueI18n from 'vue-i18n'
+import VueI18n, { DateTimeFormats } from 'vue-i18n'
 
 Vue.use(ButtonPlugin)
 Vue.use(CalendarPlugin)
@@ -26,11 +26,19 @@ document.body.appendChild(root)
 
 import messages from './translations'
 
-console.log(messages)
+const dateTimeFormats: DateTimeFormats = {}
+for (const k of Object.keys(messages)) {
+	dateTimeFormats[k] = {
+		short: {year: 'numeric', month: '2-digit', day: '2-digit'},
+		yearMonth: {year: 'numeric', month: 'long'}
+	}
+}
+
 const i18n = new VueI18n({
-	locale: 'en',
+	locale: 'en-GB',
 	fallbackLocale: 'en',
-	messages
+	messages,
+	dateTimeFormats
 })
 
 import App from './components/App.vue'

@@ -2,16 +2,16 @@
 	<div>
 		<p class='mt-3'>{{ $t('sIntro') }}</p>
 		<h4 class='mt-4'>{{ $t('sTTypes') }}</h4>
-		<div v-html="$t('sTypes1')"></div>
+		<div v-html="timeify($t('sTypes1'))"></div>
 		<p>(Image goes here)</p>
-		<div v-html="$t('sTypes2')"></div>
+		<div v-html="timeify($t('sTypes2'))"></div>
 		<h4 class='mt-4'>{{ $t('sTStars') }}</h4>
-		<div v-html="$t('sStars')"></div>
+		<div v-html="timeify($t('sStars'))"></div>
 		<h4 class='mt-4'>{{ $t('sTTips') }}</h4>
-		<div v-html="$t('sTips')"></div>
+		<div v-html="timeify($t('sTips'))"></div>
 
 		<h4 class='mt-4'>{{ $t('tStep1') }}</h4>
-		<b-form-radio-group stacked id='seedFinderHemisphere' v-model='hemisphere'>
+		<b-form-radio-group class='mb-3' stacked id='seedFinderHemisphere' v-model='hemisphere'>
 			<b-form-radio value='0'>{{ $t('tNorthernHemi') }}</b-form-radio>
 			<b-form-radio value='1'>{{ $t('tSouthernHemi') }}</b-form-radio>
 		</b-form-radio-group>
@@ -25,7 +25,15 @@
 
 		<h4 class='mt-4'>{{ $t('tStep2') }}</h4>
 		<div class='d-sm-flex'>
-			<b-calendar class='align-self-start mr-3' locale='en-US' v-model='selectedDay' value-as-date></b-calendar>
+			<b-calendar
+				class='align-self-start mr-3'
+				min='2000-01-01' max='2060-12-31'
+				label-help=''
+				:locale='$i18n.locale'
+				v-model='selectedDay'
+				:date-info-fn='dateClass'
+				value-as-date
+				></b-calendar>
 			<day-editor class='flex-grow-1' :day='getDay(selectedDay)' :hemisphere='hemisphere'>
 			</day-editor>
 		</div>
@@ -36,7 +44,7 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import DayEditor from './DayEditor.vue'
-import {createDayInfo, DayInfo, DayType, ShowerType, Hemisphere} from '../model'
+import {createDayInfo, DayInfo, DayType, ShowerType, Hemisphere, isDayNonEmpty} from '../model'
 
 @Component({components: {DayEditor}})
 export default class SeedFinder extends Vue {
@@ -53,6 +61,18 @@ export default class SeedFinder extends Vue {
 	
 	resetData() {
 		this.days = {}
+	}
+
+	timeify(str: string): string {
+		return str
+	}
+
+	dateClass(ymd: string, date: Date): string {
+		const key = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+		const day = this.days[key]
+		if (day !== undefined && isDayNonEmpty(day))
+			return 'table-info'
+		return ''
 	}
 }
 </script>

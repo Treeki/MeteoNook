@@ -3,13 +3,18 @@
 	<b-navbar variant='light' toggleable='md'>
 		<b-container>
 			<b-navbar-brand tag='span'>MeteoNook Alpha</b-navbar-brand>
-			<b-dropdown id='dropdown-settings' :text="$t('mSettings')" ref='dropdown'>
+			<b-dropdown id='dropdown-settings' :text="$t('mSettings')" ref='dropdown' right>
 				<b-dropdown-header>{{ $t('mTimeFormat') }}</b-dropdown-header>
 				<b-dropdown-item-button>{{ $t('mTime12') }}</b-dropdown-item-button>
 				<b-dropdown-item-button>{{ $t('mTime24') }}</b-dropdown-item-button>
 				<b-dropdown-divider></b-dropdown-divider>
 				<b-dropdown-header>{{ $t('mLanguage') }}</b-dropdown-header>
-				<b-dropdown-item-button v-for='lang in languages' :key='lang'>
+				<b-dropdown-item-button
+					v-for='lang in languages'
+					:active='lang == currentLanguage'
+					:key='lang'
+					@click='setLanguage(lang)'
+				>
 					{{ getLanguageName(lang) }}
 				</b-dropdown-item-button>
 			</b-dropdown>
@@ -47,6 +52,7 @@ import MonthlyView from './MonthlyView.vue'
 import DayModal from './DayModal.vue'
 import { Forecast, DayForecast, Hemisphere } from '../model'
 import { BTab } from 'bootstrap-vue'
+import { LocaleMessage } from 'vue-i18n'
 
 @Component({components: {WelcomePage, SeedFinder, YearlyView, MonthlyView, DayModal}})
 export default class App extends Vue {
@@ -66,11 +72,17 @@ export default class App extends Vue {
 		this.$bvModal.show('dayModal')
 	}
 
-	get languages() {
-		return this.$i18n.availableLocales
+	get languages(): string[] {
+		return this.$i18n.availableLocales.filter(k => this.$i18n.getLocaleMessage(k).lang !== undefined)
 	}
-	getLanguageName(key: string) {
+	get currentLanguage(): string {
+		return this.$i18n.locale
+	}
+	getLanguageName(key: string): LocaleMessage {
 		return this.$i18n.getLocaleMessage(key).lang
+	}
+	setLanguage(key: string) {
+		this.$root.$i18n.locale = key
 	}
 }
 </script>

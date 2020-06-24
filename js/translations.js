@@ -1,6 +1,5 @@
 export default {
     "en": {
-        "lang": "English",
         "title": "MeteoNook for {island}",
         "mSettings": "Settings",
         "mTimeFormat": "Time format",
@@ -378,5 +377,11 @@ export default {
         "credThank3": "Adem\u00e1s, gracias a:",
         "footerCopy": "MeteoNook es &copy; de Ash Wolf (<a href='https://twitter.com/_Ninji'>@_Ninji</a>), 2020. Esta web no esta asociada con ni avalada por Nintendo.",
         "footerDonate": "\u00bfQuieres apoyarme?"
+    },
+    "en-GB": {
+        "lang": "English (UK)"
+    },
+    "en-US": {
+        "lang": "English (US)"
     }
 }

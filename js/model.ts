@@ -123,6 +123,7 @@ export class Forecast {
 
 
 export class MonthForecast {
+	readonly startDate: Date
 	readonly days: DayForecast[]
 	readonly auroraCount: number
 	readonly rainbowCount: number
@@ -137,6 +138,8 @@ export class MonthForecast {
 		readonly year: number,
 		readonly month: number
 	) {
+		this.startDate = new Date(year, month - 1, 1)
+
 		const dayCount = getMonthLength(year, month)
 		this.days = []
 		this.auroraCount = 0

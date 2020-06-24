@@ -5,7 +5,7 @@
 		<h3 class='mt-3'>{{ $t('hTLog') }}</h3>
 		<ul>
 			<li v-for='(entry, index) in changelogEntries' :key='index'>
-				<b>{{ $d(entry.date) }}</b>: {{ entry.text }}
+				<b>{{ $d(entry.date, 'short') }}</b>: {{ entry.text }}
 			</li>
 		</ul>
 		<h3 class='mt-3'>{{ $t('hTFAQ') }}</h3>
