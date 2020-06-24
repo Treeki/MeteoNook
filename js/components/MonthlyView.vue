@@ -6,19 +6,21 @@
 	<div>
 		<div class='d-flex border-bottom pb-2'>
 			<b-button variant='outline-secondary' size='sm' :disabled='prevDisabled' @click='forecast.setPreviousMonth()'>
-				&laquo; {{ this.previousMonth }}
+				&laquo; {{ $t('lstMonths' + (this.previousMonth - 1)) }}
 			</b-button>
 			<span class='flex-grow-1 font-weight-bold text-center'>
-				{{ this.forecast.month }} {{ this.forecast.year }}
+				{{ $t('lstMonths' + (this.forecast.month - 1)) }} {{ this.forecast.year }}
 			</span>
 			<b-button variant='outline-secondary' size='sm' :disabled='nextDisabled' @click='forecast.setNextMonth()'>
-				{{ this.nextMonth }} &raquo;
+				{{ $t('lstMonths' + (this.nextMonth - 1)) }} &raquo;
 			</b-button>
 		</div>
 
 		<b-row class='my-2' v-for='day in month.days' :key='day.day' @click='dayClicked(day)'>
 			<b-col sm='4'>
-				{{ day.day }}. {{ day.pattern }}
+				{{ $t('lstWeekdays' + day.date.getDay()) }}
+				{{ day.day }}.
+				{{ day.patternName }}
 			</b-col>
 			<b-col sm='8'>
 				PatStuff

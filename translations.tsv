@@ -1,6 +1,13 @@
 	en	es
 lang	English	Español
 title	MeteoNook for {island}	MeteoNook para {island}
+		
+mSettings	Settings	Opciones
+mTimeFormat	Time format	Sistema horario
+mTime12	12 hours	12 horas
+mTime24	24 hours	24 horas
+mLanguage	Language	Idioma
+		
 hTab	Welcome	Inicio
 sTab	Seed	Semilla
 yTab	Yearly	Anual
@@ -113,12 +120,12 @@ tsFooter	This is very powerful, but be careful - it's difficult to get these rig
 tsCancel	Cancel	Cancelar
 tsSave	Save	Guardar
 		
-yLight	✨ 1 light shower | ✨ {n} light showers	✨ 1 lluvia leve de meteoritos | ✨ {n} lluvias leves de meteoritos
-yHeavy	🌠 1 heavy shower | 🌠 {n} heavy showers	🌠 1 lluvia fuerte de meteoritos | 🌠 {n} lluvias fuertes de meteoritos
-yRainbow	🌈 1 rainbow | 🌈 {n} rainbows	🌈 {n} arcoíris
+yLight	1 light shower | {n} light showers	1 lluvia leve de meteoritos | {n} lluvias leves de meteoritos
+yHeavy	1 heavy shower | {n} heavy showers	1 lluvia fuerte de meteoritos | {n} lluvias fuertes de meteoritos
+yRainbow	1 rainbow | {n} rainbows	{n} arcoíris
 yRainbowDouble	({n} double)	({n} double)
-yAuroraN	🌌 1 aurora borealis day | 🌌 {n} aurora borealis days	🌌 1 día con aurora | 🌌 {n} días con aurora
-yAuroraS	🌌 1 aurora australis day | 🌌 {n} aurora australis days	🌌 1 día con aurora | 🌌 {n} días con aurora
+yAuroraN	1 aurora borealis day | {n} aurora borealis days	1 día con aurora | {n} días con aurora
+yAuroraS	1 aurora australis day | {n} aurora australis days	1 día con aurora | {n} días con aurora
 		
 dTitlePreview	Preview of pattern {pattern}	Ejemplo del patrón {pattern}
 dTitleDay	Weather for {date} ({pattern})	El tiempo para {date} ({pattern})

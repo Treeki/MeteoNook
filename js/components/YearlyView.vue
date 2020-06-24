@@ -16,12 +16,25 @@
 			</b-button>
 		</div>
 
-		<b-row v-for='i in 4' :key='i'>
-			<b-col md v-for='j in 3' :key='j'>
-				<div class='monthBlock border mt-3 p-2 rounded' @click='selectMonth(i,j)'>
-					<span class='font-weight-bold'>Month</span>
+		<b-row v-for='(row, rowNum) in monthBlocks' :key='rowNum'>
+			<b-col md v-for='(month, colNum) in row' :key='colNum'>
+				<div class='monthBlock border mt-3 p-2 rounded' @click='selectMonth(month)'>
+					<span class='font-weight-bold'>
+						{{ $t('lstMonths' + (month.month - 1)) }} {{ month.year }}
+					</span>
 					<div class='monthData'>
-						Data
+						✨ {{ $tc('yLight', month.lightShowerCount) }}
+						<br/>
+						🌠 {{ $tc('yHeavy', month.heavyShowerCount) }}
+						<template v-if='month.rainbowCount > 0'>
+							<br/>
+							🌈 {{ $tc('yRainbow', month.rainbowCount) }}
+							{{ (month.doubleRainbowCount > 0) ? $tc('yRainbowDouble', month.doubleRainbowCount) : '' }}
+						</template>
+						<template v-if='month.auroraCount > 0'>
+							<br/>
+							🌌 {{ $tc('yAurora' + forecast.hemiSuffix, month.auroraCount) }}
+						</template>
 					</div>
 				</div>
 			</b-col>
@@ -32,7 +45,7 @@
 <script lang='ts'>
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import {Forecast} from '../model'
+import {Forecast, MonthForecast} from '../model'
 import {isSpecialDay} from '../../pkg'
 
 const YearlyViewProps = Vue.extend({
@@ -56,10 +69,20 @@ export default class YearlyView extends YearlyViewProps {
 		return this.forecast.year + 1
 	}
 
-	selectMonth(i: number, j: number) {
-		console.log(`clique: ${i} . ${j}`)
-		const month = ((i - 1) * 3) + j
-		this.forecast.month = month
+	get monthBlocks(): MonthForecast[][] {
+		const rows = []
+		for (let y = 0; y < 4; y++) {
+			const row = []
+			for (let x = 0; x < 3; x++) {
+				row.push(this.forecast.monthForecasts[y * 3 + x])
+			}
+			rows.push(row)
+		}
+		return rows
+	}
+
+	selectMonth(monthFC: MonthForecast) {
+		this.forecast.month = monthFC.month
 		this.$emit('switch-to-monthly')
 	}
 }
