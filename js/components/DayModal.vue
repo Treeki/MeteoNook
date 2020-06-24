@@ -7,13 +7,13 @@
 <script lang='ts'>
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import {DayInfo, DayType, Forecast} from '../model'
+import {DayInfo, DayType, Forecast, DayForecast} from '../model'
 
 const DayModalProps = Vue.extend({
 	props: {
 		id: String,
 		forecast: Forecast,
-		date: Date
+		day: DayForecast
 	}
 })
 

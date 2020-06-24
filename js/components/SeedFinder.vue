@@ -2,7 +2,9 @@
 	<div>
 		<p class='mt-3'>{{ $t('sIntro') }}</p>
 		<h4 class='mt-4'>{{ $t('sTTypes') }}</h4>
-		<div v-html="$t('sTypes')"></div>
+		<div v-html="$t('sTypes1')"></div>
+		<p>(Image goes here)</p>
+		<div v-html="$t('sTypes2')"></div>
 		<h4 class='mt-4'>{{ $t('sTStars') }}</h4>
 		<div v-html="$t('sStars')"></div>
 		<h4 class='mt-4'>{{ $t('sTTips') }}</h4>

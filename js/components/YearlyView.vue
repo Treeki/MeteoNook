@@ -35,14 +35,14 @@ import Component from 'vue-class-component'
 import {Forecast} from '../model'
 import {isSpecialDay} from '../../pkg'
 
-const YearlyForecastProps = Vue.extend({
+const YearlyViewProps = Vue.extend({
 	props: {
 		forecast: Forecast
 	}
 })
 
 @Component
-export default class YearlyForecast extends YearlyForecastProps {
+export default class YearlyView extends YearlyViewProps {
 	get prevDisabled() {
 		return this.forecast.year <= 2000
 	}

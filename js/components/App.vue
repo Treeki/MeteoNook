@@ -25,15 +25,15 @@
 				<seed-finder></seed-finder>
 			</b-tab>
 			<b-tab :title="$t('yTab')">
-				<yearly-forecast :forecast='forecast' @switch-to-monthly='switchToMonthly'></yearly-forecast>
+				<yearly-view :forecast='forecast' @switch-to-monthly='switchToMonthly'></yearly-view>
 			</b-tab>
 			<b-tab :title="$t('mTab')" ref='monthlyTab'>
-				<monthly-forecast :forecast='forecast' @show-day='showDayModal'></monthly-forecast>
+				<monthly-view :forecast='forecast' :month='forecast.currentMonth' @show-day='showDayModal'></monthly-view>
 			</b-tab>
 		</b-tabs>
 	</b-container>
 
-	<day-modal id='dayModal' :forecast='forecast' :date='dayModalDate'></day-modal>
+	<day-modal id='dayModal' :forecast='forecast' :day='dayModalData'></day-modal>
 </div>
 </template>
 
@@ -42,16 +42,16 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import WelcomePage from './WelcomePage.vue'
 import SeedFinder from './SeedFinder.vue'
-import YearlyForecast from './YearlyForecast.vue'
-import MonthlyForecast from './MonthlyForecast.vue'
+import YearlyView from './YearlyView.vue'
+import MonthlyView from './MonthlyView.vue'
 import DayModal from './DayModal.vue'
-import { Forecast } from '../model'
+import { Forecast, DayForecast, Hemisphere } from '../model'
 import { BTab } from 'bootstrap-vue'
 
-@Component({components: {WelcomePage, SeedFinder, YearlyForecast, MonthlyForecast, DayModal}})
+@Component({components: {WelcomePage, SeedFinder, YearlyView, MonthlyView, DayModal}})
 export default class App extends Vue {
 	forecast = new Forecast()
-	dayModalDate = new Date()
+	dayModalData = new DayForecast(Hemisphere.Northern, 0, 1970, 1, 1)
 
 	$refs!: {
 		monthlyTab: BTab
@@ -61,8 +61,8 @@ export default class App extends Vue {
 		this.$refs.monthlyTab.activate()
 	}
 
-	showDayModal(year: number, month: number, day: number) {
-		this.dayModalDate = new Date(year, month, day)
+	showDayModal(day: DayForecast) {
+		this.dayModalData = day
 		this.$bvModal.show('dayModal')
 	}
 

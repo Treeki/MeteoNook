@@ -1,6 +1,13 @@
 use web_sys::console;
 use wasm_bindgen::prelude::*;
 use std::convert::TryInto;
+use std::num::Wrapping;
+
+macro_rules! log {
+	( $( $t:tt )* ) => {
+		web_sys::console::log_1(&format!( $( $t )* ).into());
+	}
+}
 
 mod data;
 pub use data::*;
@@ -39,22 +46,40 @@ pub fn is_special_day(hemi: Hemisphere, y: u16, m: u8, d: u8) -> SpecialDay {
 
 
 
+fn compute_seed_ymd(base: u32, year_mult: u32, month_mult: u32, day_mult: u32, year: u16, month: u8, day: u8) -> u32 {
+	let y = year_mult.wrapping_mul(year as u32);
+	let m = month_mult.wrapping_mul(month as u32);
+	let d = day_mult.wrapping_mul(day as u32);
+	(base | 0x80000000).wrapping_add(y).wrapping_add(m).wrapping_add(d)
+}
+fn compute_seed_ymdh(base: u32, year_mult: u32, month_mult: u32, day_mult: u32, hour_mult: u32, year: u16, month: u8, day: u8, hour: u8) -> u32 {
+	let seed = compute_seed_ymd(base, year_mult, month_mult, day_mult, year, month, day);
+	let h = hour_mult.wrapping_mul(hour as u32);
+	seed.wrapping_add(h)
+}
+
 struct Random {
-	a: u32, b: u32, c: u32, d: u32
+	a: Wrapping<u32>, b: Wrapping<u32>, c: Wrapping<u32>, d: Wrapping<u32>
 }
 
 impl Random {
+	pub fn with_state(a: u32, b: u32, c: u32, d: u32) -> Random {
+		Random { a: Wrapping(a), b: Wrapping(b), c: Wrapping(c), d: Wrapping(d) }
+	}
+
 	pub fn with_seed(seed: u32) -> Random {
-		let mut r = Random { a: 0, b: 0, c: 0, d: 0 };
+		let mut r = Random { a: Wrapping(0), b: Wrapping(0), c: Wrapping(0), d: Wrapping(0) };
 		r.init(seed);
 		r
 	}
 
 	pub fn init(&mut self, seed: u32) {
-		self.a = 0x6c078965 * (seed ^ (seed >> 30)) + 1;
-		self.b = 0x6c078965 * (self.a ^ (self.a >> 30)) + 2;
-		self.c = 0x6c078965 * (self.b ^ (self.b >> 30)) + 3;
-		self.d = 0x6c078965 * (self.c ^ (self.c >> 30)) + 4;
+		let seed = Wrapping(seed);
+		let mult = Wrapping(0x6c078965u32);
+		self.a = (seed ^ (seed >> 30)) * mult + Wrapping(1);
+		self.b = (self.a ^ (self.a >> 30)) * mult + Wrapping(2);
+		self.c = (self.b ^ (self.b >> 30)) * mult + Wrapping(3);
+		self.d = (self.c ^ (self.c >> 30)) * mult + Wrapping(4);
 	}
 
 	pub fn roll(&mut self) -> u32 {
@@ -63,7 +88,7 @@ impl Random {
 		self.b = self.c;
 		self.c = self.d;
 		self.d = n ^ (n >> 8) ^ self.d ^ (self.d >> 19);
-		self.d
+		self.d.0
 	}
 
 	pub fn roll_max(&mut self, limit: u32) -> u32 {
@@ -77,14 +102,16 @@ impl Random {
 }
 
 
-fn from_linear_hour(linear_hour: u8) -> u8 {
+#[wasm_bindgen(js_name = fromLinearHour)]
+pub fn from_linear_hour(linear_hour: u8) -> u8 {
 	if linear_hour < 5 {
 		19 + linear_hour
 	} else {
 		linear_hour - 5
 	}
 }
-fn to_linear_hour(hour: u8) -> u8 {
+#[wasm_bindgen(js_name = toLinearHour)]
+pub fn to_linear_hour(hour: u8) -> u8 {
 	if hour >= 19 {
 		hour - 19
 	} else {
@@ -120,21 +147,6 @@ fn get_next_day(year: u16, month: u8, day: u8) -> (u16, u8, u8) {
 	}
 	(year, month, day)
 }
-/*
-fn get_next_day(year: &mut u16, month: &mut u8, day: &mut u8) {
-	let leap = (year & 3) == 0;
-	day += 1;
-	let month_len = if leap && month == 2 { 29 } else { MONTH_LENGTHS[(month - 1) as usize] };
-	if (day - 1) == month_len {
-		month += 1;
-		day = 1;
-		if month == 13 {
-			month = 1;
-			year += 1;
-		}
-	}
-}
-*/
 
 fn normalise_late_ymd(year: u16, month: u8, day: u8, hour: u8) -> (u16, u8, u8) {
 	if hour < 5 {
@@ -252,12 +264,12 @@ pub fn get_fog_level(hemi: Hemisphere, month: u8, day: u8) -> FogLevel {
 
 #[wasm_bindgen(js_name = checkWaterFog)]
 pub fn check_water_fog(seed: u32, year: u16, month: u8, day: u8) -> bool {
-	let mut rng = Random {
-		a: (year as u32) << 8,
-		b: (month as u32) << 8,
-		c: (day as u32) << 8,
-		d: seed | 0x80000000
-	};
+	let mut rng = Random::with_state(
+		(year as u32) << 8,
+		(month as u32) << 8,
+		(day as u32) << 8,
+		seed | 0x80000000u32
+	);
 	rng.roll();
 	rng.roll();
 	(rng.roll() & 1) == 1
@@ -272,7 +284,7 @@ pub fn get_rainbow_info(hemi: Hemisphere, seed: u32, year: u16, month: u8, day: 
 	if get_sp_weather_level(hemi, month, day) == SpWeatherLevel::Rainbow {
 		match pattern.kind() {
 			PatternKind::CloudFine | PatternKind::FineRain => {
-				let seed = seed + 0x80000000 + 0x1000 * ((year as u32) * 0x1000 + (month as u32) * 0x40 + (day as u32));
+				let seed = compute_seed_ymd(seed, 0x1000000, 0x40000, 0x1000, year, month, day);
 				let mut rng = Random::with_seed(seed);
 				rng.roll();
 				rng.roll();
@@ -315,10 +327,8 @@ pub fn get_pattern(hemi: Hemisphere, seed: u32, year: u16, month: u8, day: u8) -
 		return Pattern::EventDay00;
 	}
 
-	let adjust_y = 0x2000000 * (year as u32);
-	let adjust_m = 0x200000 * (month as u32);
-	let adjust_d = 0x10000 * (day as u32);
-	let mut rng = Random::with_seed(seed + 0x80000000 + adjust_y + adjust_m + adjust_d);
+	let seed = compute_seed_ymd(seed, 0x2000000, 0x200000, 0x10000, year, month, day);
+	let mut rng = Random::with_seed(seed);
 	rng.roll();
 	rng.roll();
 	let rate_set = match hemi {
@@ -366,11 +376,8 @@ pub fn is_light_shower_pattern(pattern: Pattern) -> bool {
 pub fn get_wind_power(seed: u32, year: u16, month: u8, day: u8, hour: u8, pattern: Pattern) -> u8 {
 	use WindType::*;
 	let (year, month, day) = normalise_late_ymd(year, month, day, hour);
-	let adjust_y = 0x2000000 * (year as u32);
-	let adjust_m = 0x200000 * (month as u32);
-	let adjust_d = 0x10000 * (day as u32);
-	let adjust_h = hour as u32;
-	let mut rng = Random::with_seed(seed + 0x80000000 + adjust_y + adjust_m + adjust_d + adjust_h);
+	let seed = compute_seed_ymdh(seed, 0x2000000, 0x200000, 0x10000, 1, year, month, day, hour);
+	let mut rng = Random::with_seed(seed);
 	rng.roll();
 	rng.roll();
 	match WINDS[pattern as usize][hour as usize] {
@@ -419,7 +426,7 @@ pub fn can_have_shooting_stars(hour: u8, pattern: Pattern) -> bool {
 
 
 fn query_stars_internal(seed_base: u32, minute: u8, pattern: Pattern) -> Option<(u8, u64)> {
-	let mut rng = Random::with_seed(seed_base + (minute as u32) * 0x100);
+	let mut rng = Random::with_seed(seed_base.wrapping_add((minute as u32) * 0x100));
 	let star_count = match pattern {
 		Pattern::Fine00 => {
 			// heavy shower
@@ -461,11 +468,7 @@ static mut LAST_STAR_SECONDS: [u8;8] = [0;8];
 #[wasm_bindgen(js_name = queryStars)]
 pub fn query_stars(seed: u32, year: u16, month: u8, day: u8, hour: u8, minute: u8, pattern: Pattern) -> u8 {
 	let (year, month, day) = normalise_late_ymd(year, month, day, hour);
-	let adjust_y = 0x20000 * (year as u32);
-	let adjust_m = 0x2000 * (month as u32);
-	let adjust_d = 0x100 * (day as u32);
-	let adjust_h = 0x10000 * (hour as u32);
-	let seed = seed + 0x80000000 + adjust_y + adjust_m + adjust_d + adjust_h;
+	let seed = compute_seed_ymdh(seed, 0x20000, 0x2000, 0x100, 0x10000, year, month, day, hour);
 	match query_stars_internal(seed, minute, pattern) {
 		None => 0,
 		Some((star_count, star_field)) => {

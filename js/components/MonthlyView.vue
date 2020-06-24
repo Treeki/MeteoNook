@@ -16,9 +16,9 @@
 			</b-button>
 		</div>
 
-		<b-row class='my-2' v-for='day in dayCount' :key='day' @click='dayClicked(day)'>
+		<b-row class='my-2' v-for='day in month.days' :key='day.day' @click='dayClicked(day)'>
 			<b-col sm='4'>
-				{{ day }}. PatName
+				{{ day.day }}. {{ day.pattern }}
 			</b-col>
 			<b-col sm='8'>
 				PatStuff
@@ -30,17 +30,18 @@
 <script lang='ts'>
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import {Forecast} from '../model'
+import {Forecast, MonthForecast, DayForecast} from '../model'
 import {isSpecialDay, getMonthLength} from '../../pkg'
 
-const MonthlyForecastProps = Vue.extend({
+const MonthlyViewProps = Vue.extend({
 	props: {
-		forecast: Forecast
+		forecast: Forecast,
+		month: MonthForecast
 	}
 })
 
 @Component
-export default class MonthlyForecast extends MonthlyForecastProps {
+export default class MonthlyView extends MonthlyViewProps {
 	get prevDisabled() {
 		return (this.forecast.year <= 2000) && (this.forecast.month == 1)
 	}
@@ -58,8 +59,8 @@ export default class MonthlyForecast extends MonthlyForecastProps {
 		return getMonthLength(this.forecast.year, this.forecast.month)
 	}
 
-	dayClicked(day: number) {
-		this.$emit('show-day', this.forecast.year, this.forecast.month, day)
+	dayClicked(day: DayForecast) {
+		this.$emit('show-day', day)
 	}
 }
 </script>

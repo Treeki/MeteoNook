@@ -1,6 +1,6 @@
 	en	es
 lang	English	Español
-title	MeteoNook for %s	MeteoNook para %s
+title	MeteoNook for {island}	MeteoNook para {island}
 hTab	Welcome	Inicio
 sTab	Seed	Semilla
 yTab	Yearly	Anual
@@ -36,7 +36,8 @@ hASource	No plans at the moment. I'm reluctant to share any more open code/tools
 		
 sIntro	Before you can forecast your island's weather, you'll need to determine what weather seed it has. This tool will find it for you once you've provided enough data about your island's weather. The more information you provide, the easier it will be!	Para obtener previsiones en tu isla, tendrás que determinar la semilla ambiental. Esta herramienta te ayudará a encontrarla con los datos que introduces sobre el tiempo en tu isla. Cuanta más información, ¡más fácil será!
 sTTypes	Weather Types	Tipos de tiempo
-sTypes	Each hour in Animal Crossing has a type of weather - clear ☀️, sunny 🌤, cloudy 🌥️️, rain clouds ☁, rain/snow 🌧 and heavy rain/snow ⛈️. If you know what type you have in a particular hour, then add it in this section.%%_img_%%Clouds are easiest to identify at the start of the hour (X:00), so if the sky is fully clear at 13:00, then 13H is definitely <b>clear ☀️</b>. At 13:30, the weather will be a mix of the 13H weather and the 14H weather.%%Rain and snow last for the whole hour, so if you see rain at any point between 13H and 14H, then 13H is definitely <b>rain/snow 🌧</b> or <b>heavy rain/snow ⛈️</b>.%%If you're not sure about the cloud type within a given hour, you can pick 'Not sure (no rain/snow)' or 'Not sure (rain/snow)'.%%You don't need to enter these on days where you've seen a heavy shower, rainbow or aurora borealis, because that information is good enough to pin down that day's pattern perfectly.	Cada hora en Animal Crossing tiene asociado un tipo de tiempo - claro ☀️, soleado 🌤, nublado 🌥️️, nube de lluvia ☁, lluvia/nieve 🌧 y lluvia/nieve fuerte ⛈️. Si sabes qué tipo tienes a una cierta hora, añádelo en esta sección.%%_img_%%Las nubes son más fáciles de identificar al comienzo de la hora (X:00), así que si el cielo esta completamente claro a las 13:00, puedes estar seguro de que 13H es <b>claro ☀️</b>. A las 13:30, el tiempo será una mezcla entre el tiempo de las 13H y el tiempo de las 14H.%%Lluvia y nieve duran por la hora entera, así que si ves lluvia en cualquier punto entre las 13H y las 14H, sabes que el tiempo a las 13H es <b>lluvia/nieve 🌧</b> o <b>lluvia/nieve fuerte ⛈️</b>.%%Si no estás seguro de qué tipo de nubes tienes, puedes elegir 'No estoy seguro (no hay lluvia o nieve)' o 'No estoy seguro (lluvia o nieve)'.%%No necesitas esta información en días en que has visto una lluvia fuerte de meteoritos, un arcoíris o la aurora, porque esos temas son bastante para adivinar el patrón del día sin margen de error.
+sTypes1	Each hour in Animal Crossing has a type of weather - clear ☀️, sunny 🌤, cloudy 🌥️️, rain clouds ☁, rain/snow 🌧 and heavy rain/snow ⛈️. If you know what type you have in a particular hour, then add it in this section.	Cada hora en Animal Crossing tiene asociado un tipo de tiempo - claro ☀️, soleado 🌤, nublado 🌥️️, nube de lluvia ☁, lluvia/nieve 🌧 y lluvia/nieve fuerte ⛈️. Si sabes qué tipo tienes a una cierta hora, añádelo en esta sección.
+sTypes2	Clouds are easiest to identify at the start of the hour (X:00), so if the sky is fully clear at 13:00, then 13H is definitely <b>clear ☀️</b>. At 13:30, the weather will be a mix of the 13H weather and the 14H weather.%%Rain and snow last for the whole hour, so if you see rain at any point between 13H and 14H, then 13H is definitely <b>rain/snow 🌧</b> or <b>heavy rain/snow ⛈️</b>.%%If you're not sure about the cloud type within a given hour, you can pick 'Not sure (no rain/snow)' or 'Not sure (rain/snow)'.%%You don't need to enter these on days where you've seen a heavy shower, rainbow or aurora borealis, because that information is good enough to pin down that day's pattern perfectly.	Las nubes son más fáciles de identificar al comienzo de la hora (X:00), así que si el cielo esta completamente claro a las 13:00, puedes estar seguro de que 13H es <b>claro ☀️</b>. A las 13:30, el tiempo será una mezcla entre el tiempo de las 13H y el tiempo de las 14H.%%Lluvia y nieve duran por la hora entera, así que si ves lluvia en cualquier punto entre las 13H y las 14H, sabes que el tiempo a las 13H es <b>lluvia/nieve 🌧</b> o <b>lluvia/nieve fuerte ⛈️</b>.%%Si no estás seguro de qué tipo de nubes tienes, puedes elegir 'No estoy seguro (no hay lluvia o nieve)' o 'No estoy seguro (lluvia o nieve)'.%%No necesitas esta información en días en que has visto una lluvia fuerte de meteoritos, un arcoíris o la aurora, porque esos temas son bastante para adivinar el patrón del día sin margen de error.
 sTStars	Shooting Star Times	Horario de Meteoritos
 sStars	If you note down the exact in-game time (hour and minute) when shooting stars have appeared during a meteor shower, then this information will help the process. You will always get 5 or 8 shooting stars in a minute where they appear.%%If you're sure that there are no stars in a specific time period, you can add it to the Gaps section to help the algorithm out. The <b>Make from Times</b> button will automatically create gaps between every time you've put in.%%By clicking <b>Edit Seconds</b>, you can add down-to-the-second times for each star. This is a very good way to find your seed quickly, but it can be very difficult to get the timing correct as the in-game clock doesn't show seconds.%%<b>Heavy showers</b> will give you 5 or 8 stars a minute, very frequently (every other minute on average), between 19H and 04H. <b>Light showers</b> will give you 5 stars a minute, in very rare bursts.	Si apuntas el tiempo exacto (hora y minuto) según el reloj del juego en que aparecen unos meteoritos, estos datos te ayudarán a encontrar tu semilla. En cada minuto con meteoritos, siempre habrán 5 u 8.%%Si estás seguro de que no aparecen meteoritos en un periodo de tiempo, puedes añadirlo a la sección de Huecos para ayudar al proceso. El botón <b>Hacer del horario</b> creará huecos entre los meteoritos que ya has puesto.%%Si haces clic en <b>Segundos</b>, puedes poner tiempos precisos hasta el segundo para cada meteorito. Es una manera muy eficaz de buscar tu semilla, pero también es muy difícil determinar los tiempos porque el reloj en el juego no muestra los segundos.%%Las <b>lluvias fuertes</b> te darán 5 u 8 meteoritos cada minuto, con alta frecuencia (en el 50% de los minutos, de media), entre las 19H y las 04H. Las <b>lluvias leves</b> te darán 5 meteoritos cada minuto, con muy baja frecuencia.
 sTTips	Tips	Sugerencias
@@ -47,7 +48,7 @@ tNorthernHemi	Northern hemisphere	Hemisferio norte
 tSouthernHemi	Southern hemisphere	Hemisferio sur
 tnorthern	northern	norte
 tsouthern	southern	sur
-tSpecialDay	⚠️ Careful: In the {hemi} hemisphere, this day is <b>{day}</b>!{warn}	⚠️ Aviso: En el hemisferio %h, este día es <b>%s</b>!%w
+tSpecialDay	⚠️ Careful: In the {hemi} hemisphere, this day is <b>{day}</b>!{warn}	⚠️ Aviso: En el hemisferio {hemi}, este día es <b>{day}</b>!{warn}
 tSpDayWarnEv	 This forces the EventDay00 weather pattern if you have the event unlocked.	 Esto fuerza el patrón EventDay00 si tienes este evento activo.
 tSpDayWarnRS	 This forces the EventDay00 weather pattern if you have Resident Services upgraded.	 Esto fuerza el patrón EventDay00 si has reformado la oficina de gestión vecinal.
 tSpDayWarn	 This forces the EventDay00 weather pattern.	 Esto fuerza el patrón EventDay00.
@@ -85,16 +86,17 @@ tCancel	Cancel Search	Cancelar búsqueda
 tWorking	Searching...	Buscando...
 tInfoDefault	Once you've filled in the information above, click Start Search to begin the process.	Cuando hayas rellenado los datos, haz clic en 'Comenzar búsqueda' para... comenzar la búsqueda.
 tInfoRunning	Searching, hold on...	Buscando, espera...
-tInfoRunningC	Searching, hold on... Found %d possible {seed|seeds} so far:	Buscando, espera... %d {semilla posible|semillas posibles} encontrada:
+tInfoRunningC	Searching, hold on... Found {seeds} so far:	Buscando, espera... {seeds} encontrada:
+tInfoPossibleSeeds	1 possible seed | {n} possible seeds	1 semilla posible | {n} semillas posibles
 tInfoMoreData	You haven't entered enough weather information to narrow down your island's seed.	Estos datos no son suficientes para determinar la semilla ambiental en tu isla.
 tInfoNoSeeds	There are no seeds that match the information you entered. Please double-check it!	No hay semillas que encajen con los datos que has puesto. ¡Compruébalos, por favor!
-tInfoMultiSeed	It looks like there are %d seeds that fit the information you've given: %s. You can look at these by putting them into Step 3 below to see how they compare to your island, or you can add more data above and try searching again.	Parece que hay %d semillas que encajan con la información que has puesto: %s. Si quieres comprobarlas, puedes introducir cada una en el paso 3 para ver cómo se comparan con el tiempo en tu isla. Si no, añade más datos en este paso e intenta buscar otra vez.
-tInfoSeed	Your island's weather seed is <b>%d</b>. Write it down somewhere for safekeeping, and move onto Step 3!	La semilla ambiental en tu isla es <b>%d</b>. Apúntala en algún lado para no perderla, ¡y sigue al 3º paso!
-tStarConflict	You have a gap saying that at %t on %d, there both is and isn't a star. Please fix it!	Tienes un hueco diciendo que a las %t del %d hubo y no hubo un meteorito. ¡Arregla eso!
-tBadRainbowN	You said %s has a rainbow, but that can't happen in the northern hemisphere - they begin on the 25th February and end on the 25th November.	Dijiste que el %d hubo un arcoíris, pero esto no puede pasar en el hemisferio norte - aparecen desde el 25 de febrero hasta el 25 de noviembre.
-tBadRainbowS	You said %s has a rainbow, but that can't happen in the southern hemisphere - they begin on the 25th August and end on the 25th May.	Dijiste que el %d hubo un arcoíris, pero esto no puede pasar en el hemisferio sur - aparecen desde el 25 de agosto hasta el 25 de mayo.
-tBadAuroraN	You said %s has the aurora borealis, but that can't happen in the northern hemisphere - it begins on the 11th December and ends on the 24th February.	Dijiste que el %d hubo una aurora, pero esto no puede pasar en el hemisferio norte - aparecen desde el 11 de diciembre hasta el 24 de febrero.
-tBadAuroraS	You said %s has the aurora australis, but that can't happen in the southern hemisphere - it begins on the 11th June and ends on the 24th August.	Dijiste que el %d hubo una aurora, pero esto no puede pasar en el hemisferio sur - aparecen desde el 11 de junio hasta el 24 de agosto.
+tInfoMultiSeed	It looks like there are {count} seeds that fit the information you've given: {seedValues}. You can look at these by putting them into Step 3 below to see how they compare to your island, or you can add more data above and try searching again.	Parece que hay {count} semillas que encajan con la información que has puesto: {seedValues}. Si quieres comprobarlas, puedes introducir cada una en el paso 3 para ver cómo se comparan con el tiempo en tu isla. Si no, añade más datos en este paso e intenta buscar otra vez.
+tInfoSeed	Your island's weather seed is <b>{seed}</b>. Write it down somewhere for safekeeping, and move onto Step 3!	La semilla ambiental en tu isla es <b>{seed}</b>. Apúntala en algún lado para no perderla, ¡y sigue al 3º paso!
+tStarConflict	You have a gap saying that at {time} on {date}, there both is and isn't a star. Please fix it!	Tienes un hueco diciendo que a las {time} del {date} hubo y no hubo un meteorito. ¡Arregla eso!
+tBadRainbowN	You said {date} has a rainbow, but that can't happen in the northern hemisphere - they begin on the 25th February and end on the 25th November.	Dijiste que el {date} hubo un arcoíris, pero esto no puede pasar en el hemisferio norte - aparecen desde el 25 de febrero hasta el 25 de noviembre.
+tBadRainbowS	You said {date} has a rainbow, but that can't happen in the southern hemisphere - they begin on the 25th August and end on the 25th May.	Dijiste que el {date} hubo un arcoíris, pero esto no puede pasar en el hemisferio sur - aparecen desde el 25 de agosto hasta el 25 de mayo.
+tBadAuroraN	You said {date} has the aurora borealis, but that can't happen in the northern hemisphere - it begins on the 11th December and ends on the 24th February.	Dijiste que el {date} hubo una aurora, pero esto no puede pasar en el hemisferio norte - aparecen desde el 11 de diciembre hasta el 24 de febrero.
+tBadAuroraS	You said {date} has the aurora australis, but that can't happen in the southern hemisphere - it begins on the 11th June and ends on the 24th August.	Dijiste que el {date} hubo una aurora, pero esto no puede pasar en el hemisferio sur - aparecen desde el 11 de junio hasta el 24 de agosto.
 tStep3	Step 3: Forecast Settings	Paso 3: Opciones del pronóstico
 tForecastBlurb	The information here controls what shows up on your forecasts, and will be saved in this page's URL so you can just bookmark it.%%The island name is purely cosmetic and won't affect your reports. Fill it in if you want. Or just set it to something random. I don't care.	La información aquí influye en lo que aparece en las pestañas de previsión, y será guardada en el enlace para que puedas añadirlo a tus marcadores.%%El nombre de la isla es estético y no afecta a tus previsiones. Ponlo si quieres. O pon lo que quieras. No me importa, sigue tu corazón.
 tIslandName	Island	Isla
@@ -104,22 +106,23 @@ tNorthern	Northern	Norte
 tSouthern	Southern	Sur
 tSave	Save	Guardar
 		
-tsTitle	Editing star at %s	Meteorito a las %s
+tsTitle	Editing star at {time}	Meteorito a las {time}
 tsHeader	During a heavy shower you get 5 or 8 stars in a minute, and during a light shower, you get 5 stars in a minute. If you know the exact seconds for each star, enter them below.	Durante una lluvia fuerte, habrá 5 u 8 meteoritos en un minuto, y durante una lluvia leve pasarán 5 meteoritos en un minuto. Si sabes los segundos en que cada meteorito apareció, ponlo aquí.
-tsStar	Star %d	Meteorito %d
+tsStar	Star {n}	Meteorito {n}
 tsFooter	This is very powerful, but be careful - it's difficult to get these right! You may want to take a video of your Switch (e.g. with your phone) with the in-game clock and the sky visible while shooting stars are falling. Watch it afterwards and note the times when the in-game clock changes and when stars appear, then compare them to find the seconds for each star.%%The search algorithm allows your measurements to be up to <b>2 seconds late</b>.	Esta opción tiene mucho potencial, pero ten cuidado - ¡es difícil hacerlo bien! Puedes grabar un vídeo de tu Switch (con tu móvil, por ejemplo) con el cielo y el reloj del juego cuando hay meteoritos. Si después reproduces el video y apuntas el tiempo en que el reloj cambia y el tiempo en que aparecen los meteoritos, podrás compararlos y determinar cuándo aparecen.%%El algoritmo de búsqueda permite que tus mediciones tengan <b>hasta 2 segundos de retraso</b>.
 tsCancel	Cancel	Cancelar
 tsSave	Save	Guardar
 		
-yLight	✨ %d light {shower|showers}	✨ %d {lluvia leve de meteoritos|lluvias leves de meteoritos}
-yHeavy	🌠 %d heavy {shower|showers}	🌠 %d {lluvia fuerte de meteoritos|lluvias fuertes de meteoritos}
-yRainbow	🌈 %d {rainbow|rainbows}	🌈 %d arcoíris
-yRainbowDouble	🌈 %d {rainbow|rainbows} (%z double)	🌈 %d arcoíris (%z doble)
-yAurora	🌌 %d aurora borealis {day|days}	🌌 %d {día|días} con aurora
+yLight	✨ 1 light shower | ✨ {n} light showers	✨ 1 lluvia leve de meteoritos | ✨ {n} lluvias leves de meteoritos
+yHeavy	🌠 1 heavy shower | 🌠 {n} heavy showers	🌠 1 lluvia fuerte de meteoritos | 🌠 {n} lluvias fuertes de meteoritos
+yRainbow	🌈 1 rainbow | 🌈 {n} rainbows	🌈 {n} arcoíris
+yRainbowDouble	({n} double)	({n} double)
+yAuroraN	🌌 1 aurora borealis day | 🌌 {n} aurora borealis days	🌌 1 día con aurora | 🌌 {n} días con aurora
+yAuroraS	🌌 1 aurora australis day | 🌌 {n} aurora australis days	🌌 1 día con aurora | 🌌 {n} días con aurora
 		
-dTitlePreview	Preview of pattern %s	Ejemplo del patrón %s
-dTitleDay	Weather for %d (%s)	El tiempo para %d (%s)
-dSpDay	🎉 This day has special weather because of %s	🎉 Este día hace un tiempo especial porque se celebra %s
+dTitlePreview	Preview of pattern {pattern}	Ejemplo del patrón {pattern}
+dTitleDay	Weather for {date} ({pattern})	El tiempo para {date} ({pattern})
+dSpDay	🎉 This day has special weather because of {day}	🎉 Este día hace un tiempo especial porque se celebra {day}
 dWindTooltip	Wind strength	Velocidad del viento
 dHeavyFog	🌫 Heavy fog	🌫 Niebla sobre la isla
 dWaterFog	🌫 Water fog	🌫 Niebla sobre el agua
