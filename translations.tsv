@@ -47,7 +47,7 @@ tNorthernHemi	Northern hemisphere	Hemisferio norte
 tSouthernHemi	Southern hemisphere	Hemisferio sur
 tnorthern	northern	norte
 tsouthern	southern	sur
-tSpecialDay	⚠️ Careful: In the %h hemisphere, this day is <b>%s</b>!%w	⚠️ Aviso: En el hemisferio %h, este día es <b>%s</b>!%w
+tSpecialDay	⚠️ Careful: In the {hemi} hemisphere, this day is <b>{day}</b>!{warn}	⚠️ Aviso: En el hemisferio %h, este día es <b>%s</b>!%w
 tSpDayWarnEv	 This forces the EventDay00 weather pattern if you have the event unlocked.	 Esto fuerza el patrón EventDay00 si tienes este evento activo.
 tSpDayWarnRS	 This forces the EventDay00 weather pattern if you have Resident Services upgraded.	 Esto fuerza el patrón EventDay00 si has reformado la oficina de gestión vecinal.
 tSpDayWarn	 This forces the EventDay00 weather pattern.	 Esto fuerza el patrón EventDay00.

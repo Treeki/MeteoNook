@@ -28,9 +28,9 @@ import messages from './translations'
 
 console.log(messages)
 const i18n = new VueI18n({
-    locale: 'en',
-    fallbackLocale: 'en',
-    messages
+	locale: 'en',
+	fallbackLocale: 'en',
+	messages
 })
 
 import App from './components/App.vue'

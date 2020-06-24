@@ -1,8 +1,8 @@
 export enum DayType { NoData = 0, None, Shower, Rainbow, Aurora }
 export enum ShowerType { NotSure = 0, Light, Heavy }
 
-import {Hemisphere, Weather, getMonthLength} from '../pkg'
-export {Hemisphere, Weather, getMonthLength}
+import {Hemisphere, Weather, SpecialDay, getMonthLength} from '../pkg'
+export {Hemisphere, Weather, SpecialDay, getMonthLength}
 
 export interface WeatherTypeInfo {
 	time: number, type: Weather

@@ -23,7 +23,7 @@ for row in lines:
 						output_bits.append('<ul>')
 						ul_flag = True
 					output_bits.append('<li>')
-					output_bits.append(bit)
+					output_bits.append(bit[1:])
 					output_bits.append('</li>')
 				else:
 					if ul_flag:

@@ -1,24 +1,24 @@
 <template>
 	<div>
-		<p v-show='specialDayWarning'>{{ specialDayWarning }}</p>
-		<h5>Patterns</h5>
+		<p v-show='specialDayWarning' v-html='specialDayWarning'></p>
+		<h5>{{ $t('tTPatterns') }}</h5>
 		<b-form-radio-group stacked id='dayType' v-model='day.dayType'>
-			<b-form-radio value='0'>No data</b-form-radio>
-			<b-form-radio value='2'>Meteor shower</b-form-radio>
-			<b-form-radio value='3'>Rainbow</b-form-radio>
-			<b-form-radio value='4'>Aurora</b-form-radio>
-			<b-form-radio value='1'>None</b-form-radio>
+			<b-form-radio value='0'>{{ $t('tNoData') }}</b-form-radio>
+			<b-form-radio value='2'>{{ $t('tShower') }}</b-form-radio>
+			<b-form-radio value='3'>{{ $t('tRainbow') }}</b-form-radio>
+			<b-form-radio value='4'>{{ $t('tAurora') }}</b-form-radio>
+			<b-form-radio value='1'>{{ $t('tNone') }}</b-form-radio>
 		</b-form-radio-group>
 
 		<div v-show='isShowerMode()'>
-			<h5 class='mt-3'>Shower info</h5>
+			<h5 class='mt-3'>{{ $t('tTShower') }}</h5>
 			<b-form-radio-group stacked id='showerType' v-model='day.showerType'>
-				<b-form-radio value='1'>Light</b-form-radio>
-				<b-form-radio value='2'>Heavy</b-form-radio>
-				<b-form-radio value='0'>Not sure</b-form-radio>
+				<b-form-radio value='2'>{{ $t('tHeavy') }}</b-form-radio>
+				<b-form-radio value='1'>{{ $t('tLight') }}</b-form-radio>
+				<b-form-radio value='0'>{{ $t('tNotSure') }}</b-form-radio>
 			</b-form-radio-group>
 
-			<h5 class='mt-3'>Times</h5>
+			<h5 class='mt-3'>{{ $t('tTTimes') }}</h5>
 			<b-input-group v-for='(star, index) in day.stars' :key='"st" + index' size='sm' class='mb-1'>
 				<b-form-select v-model='star.hour'>
 					<b-form-select-option :value='hour' v-for='hour in [19,20,21,22,23,0,1,2,3]' :key='hour'>{{ hour }}</b-form-select-option>
@@ -31,13 +31,13 @@
 					<b-button variant='outline-danger' @click='removeStar(index)'>✖️</b-button>
 				</b-input-group-append>
 			</b-input-group>
-			<b-button block size='sm' variant='outline-primary' @click='addStar'>Add Time</b-button>
+			<b-button block size='sm' variant='outline-primary' @click='addStar'>{{ $t('tAddTime') }}</b-button>
 		</div>
 
-		<b-modal id='secondsEditor' title='Edit Seconds' ok-title='Save' scrollable @ok='saveSeconds'>
-			<b-form-group :id='"star" + i' :key='i' :label='"Star " + i' label-for='time' label-cols-sm='4' v-for='i in 8'>
+		<b-modal id='secondsEditor' :title="$t('tsTitle')" :ok-title="$t('tsSave')" :cancel-title="$t('tsCancel')" scrollable @ok='saveSeconds'>
+			<b-form-group :id='"star" + i' :key='i' :label="$t('tsStar', i)" label-for='time' label-cols-sm='4' v-for='i in 8'>
 				<b-form-select v-model='starModalSeconds[i - 1]' id='time'>
-					<b-form-select-option :value='99'>Don't know</b-form-select-option>
+					<b-form-select-option :value='99'>{{ $t('dunno') }}</b-form-select-option>
 					<b-form-select-option :value='sec - 1' :key='sec' v-for='sec in 60'>{{ sec - 1 }}</b-form-select-option>
 				</b-form-select>
 			</b-form-group>
@@ -49,19 +49,39 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import {DayInfo, DayType} from '../model'
-import {isSpecialDay} from '../../pkg'
+import {isSpecialDay, SpecialDay, Hemisphere} from '../../pkg'
+import { TranslateResult } from 'vue-i18n'
 
 const DayEditorProps = Vue.extend({
 	props: {
-		day: Object
+		day: Object,
+		hemisphere: Number
 	}
 })
 
 @Component
 export default class DayEditor extends DayEditorProps {
-	get specialDayWarning(): string {
-		const number = isSpecialDay(0, this.day.y, this.day.m, this.day.d)
-		return `Special day kind ${number}`
+	get specialDayWarning(): TranslateResult {
+		const spDay = isSpecialDay(0, this.day.y, this.day.m, this.day.d)
+		if (spDay != SpecialDay.None) {
+			const hemi = this.$t((this.hemisphere == Hemisphere.Northern) ? 'tnorthern' : 'tsouthern')
+			const day = this.$t('lstSpecialDaysA' + (spDay - 1))
+			let warn
+			switch (spDay) {
+				case SpecialDay.FishCon:
+				case SpecialDay.InsectCon:
+					warn = this.$t('tSpDayWarnRS')
+					break
+				case SpecialDay.Easter:
+					warn = this.$t('tSpDayWarnEv')
+					break
+				default:
+					warn = this.$t('tSpDayWarn')
+			}
+
+			return this.$t('tSpecialDay', {hemi, day, warn})
+		}
+		return ''
 	}
 
 
@@ -95,7 +115,7 @@ export default class DayEditor extends DayEditorProps {
 		for (const s of this.day.stars[index].seconds) {
 			if (s != 99) seconds.push(':' + ('0' + s).slice(-2))
 		}
-		return (seconds.length == 0) ? 'secs' : seconds.join(', ')
+		return (seconds.length == 0) ? this.$t('tEditSeconds') : seconds.join(', ')
 	}
 
 	editStarSeconds(index: number) {
