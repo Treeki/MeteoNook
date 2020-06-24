@@ -1,11 +1,19 @@
 export enum DayType { NoData = 0, None, Shower, Rainbow, Aurora }
 export enum ShowerType { NotSure = 0, Light, Heavy }
 
-import {Hemisphere, Weather, SpecialDay, getMonthLength, Pattern, getPattern, getWeather, getWindPower, isSpecialDay, SnowLevel, CloudLevel, FogLevel, getSnowLevel, getCloudLevel, getFogLevel, checkWaterFog, RainbowInfo, getRainbowInfo, isAuroraPattern, fromLinearHour, toLinearHour, canHaveShootingStars, queryStars, getStarSecond, isLightShowerPattern, isHeavyShowerPattern} from '../pkg'
+import {Hemisphere, Weather, SpecialDay, getMonthLength, Pattern, getPattern, getWeather, getWindPower, isSpecialDay, SnowLevel, CloudLevel, FogLevel, getSnowLevel, getCloudLevel, getFogLevel, checkWaterFog, RainbowInfo, getRainbowInfo, isAuroraPattern, fromLinearHour, toLinearHour, canHaveShootingStars, queryStars, getStarSecond, isLightShowerPattern, isHeavyShowerPattern, isPatternPossibleAtDate} from '../pkg'
 export {Hemisphere, Weather, SpecialDay, getMonthLength}
 
+export enum AmbiguousWeather {
+	ClearOrSunny = 95,
+	SunnyOrCloudy = 96,
+	CloudyOrRainClouds = 97,
+	NoRain = 98,
+	RainOrHeavyRain = 99,
+}
+
 export interface WeatherTypeInfo {
-	time: number, type: Weather
+	time: number, type: Weather|AmbiguousWeather
 }
 export interface StarInfo {
 	hour: number, minute: number, seconds: number[]
@@ -43,9 +51,18 @@ export function createDayInfo(date: Date): DayInfo {
 export function isDayNonEmpty(day: DayInfo): boolean {
 	return (day.dayType != DayType.NoData || day.types.length > 0)
 }
+export function dayUsesTypes(day: DayInfo): boolean {
+	const dt = day.dayType
+	if (dt == DayType.NoData) return true
+	if (dt == DayType.None) return true
+	if (dt == DayType.Shower && day.showerType != ShowerType.Heavy) return true
+	return false
+}
 
 
 const patternNames: {[pat: number]: string} = {}
+export const firstPattern: Pattern = Pattern.Fine00
+export const maxPattern: Pattern = Pattern.EventDay00
 for (const k of Object.keys(Pattern)) {
 	// this is horrible, but necessary
 	// because while TypeScript enums allow reverse lookups...
@@ -56,6 +73,85 @@ for (const k of Object.keys(Pattern)) {
 
 export function getPatternName(pat: Pattern): string {
 	return patternNames[pat]
+}
+
+
+function checkTypeMatch(realType: Weather, expected: Weather|AmbiguousWeather): boolean {
+	switch (expected) {
+		case AmbiguousWeather.ClearOrSunny:
+			return realType == Weather.Clear || realType == Weather.Sunny
+		case AmbiguousWeather.SunnyOrCloudy:
+			return realType == Weather.Sunny || realType == Weather.Cloudy
+		case AmbiguousWeather.CloudyOrRainClouds:
+			return realType == Weather.Cloudy || realType == Weather.RainClouds
+		case AmbiguousWeather.RainOrHeavyRain:
+			return realType == Weather.Rain || realType == Weather.HeavyRain
+		case AmbiguousWeather.NoRain:
+			return !(realType == Weather.Rain || realType == Weather.HeavyRain)
+		default:
+			return realType == expected
+	}
+}
+function checkPatternAgainstTypes(pat: Pattern, types: WeatherTypeInfo[]): boolean {
+	for (const typeInfo of types) {
+		if (checkTypeMatch(getWeather(typeInfo.time, pat), typeInfo.type) == false)
+			return false
+	}
+	return true
+}
+
+
+export const rainbowPatternsByTime: {[hour: number]: Pattern} = {
+	10: Pattern.CloudFine00,
+	12: Pattern.CloudFine02,
+	13: Pattern.CloudFine01,
+	14: Pattern.FineRain00,
+	15: Pattern.FineRain01,
+	16: Pattern.FineRain03
+}
+
+export function getPossiblePatternsForDay(hemisphere: Hemisphere, day: DayInfo): Pattern[] {
+	const results: Pattern[] = []
+
+	for (let pat: Pattern = 0; pat <= maxPattern; pat++) {
+		const isHeavy = isHeavyShowerPattern(pat)
+		if (day.dayType == DayType.Shower) {
+			// showers restrict patterns according to the specified shower type
+			const isLight = isLightShowerPattern(pat)
+			if (isLight && day.showerType == ShowerType.Heavy) continue
+			if (isHeavy && day.showerType == ShowerType.Light) continue
+			if (!isLight && !isHeavy) continue
+		} else if (day.dayType == DayType.Rainbow) {
+			// rainbows have one pattern determined by the rainbow time
+			if (pat != rainbowPatternsByTime[day.rainbowTime]) continue
+		} else if (day.dayType == DayType.Aurora) {
+			// aurorae have three patterns, no easy way to distinguish
+			// so we leave it to the user
+			if (pat == Pattern.Fine01) {
+				if (!day.auroraFine01) continue
+			} else if (pat == Pattern.Fine03) {
+				if (!day.auroraFine03) continue
+			} else if (pat == Pattern.Fine05) {
+				if (!day.auroraFine05) continue
+			} else {
+				continue
+			}
+		} else if (day.dayType == DayType.None) {
+			// exclude heavy showers if 'None of the above' is selected
+			// since they're pretty hard to miss
+			if (isHeavy) continue
+		}
+
+		if (!isPatternPossibleAtDate(hemisphere, day.m, day.d, pat))
+			continue
+
+		if (dayUsesTypes(day) && !checkPatternAgainstTypes(pat, day.types))
+			continue
+
+		results.push(pat)
+	}
+
+	return results
 }
 
 

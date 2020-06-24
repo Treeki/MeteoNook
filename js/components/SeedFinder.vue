@@ -11,7 +11,7 @@
 		<div v-html="timeify($t('sTips'))"></div>
 
 		<h4 class='mt-4'>{{ $t('tStep1') }}</h4>
-		<b-form-radio-group class='mb-3' stacked id='seedFinderHemisphere' v-model='hemisphere'>
+		<b-form-radio-group class='mb-3' stacked id='seedFinderHemisphere' v-model.number='hemisphere'>
 			<b-form-radio value='0'>{{ $t('tNorthernHemi') }}</b-form-radio>
 			<b-form-radio value='1'>{{ $t('tSouthernHemi') }}</b-form-radio>
 		</b-form-radio-group>
