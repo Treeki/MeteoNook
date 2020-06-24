@@ -36,9 +36,32 @@
 				<monthly-view :forecast='forecast' :month='forecast.currentMonth' @show-day='showDayModal'></monthly-view>
 			</b-tab>
 		</b-tabs>
+
+		<footer class='my-5 pt-2 border-top text-muted'>
+			<p class='mb-2'>
+				<i18n tag='span' path='footerCopy'>
+					<template v-slot:me>Ash Wolf (<a href='https://twitter.com/_Ninji'>@_Ninji</a>)</template>
+					<template v-slot:year>2020</template>
+				</i18n>
+				<b-link href='#' v-b-modal.credits-modal>{{ $t('credTitle') }}</b-link>
+			</p>
+			<p class='mb-2'>
+				{{ $t('footerDonate') }}
+				<a href='https://paypal.me/trashcurl'>PayPal.me</a>
+				|
+				<a href='https://ko-fi.com/ninji_'>Ko-fi</a>
+				|
+				<a href='https://monzo.me/ninji'>Monzo</a> (UK)
+			</p>
+			<p>
+				{{ $t('footerSource') }}
+				<a href='https://github.com/Treeki/MeteoNook'>github.com/Treeki/MeteoNook</a>
+			</p>
+		</footer>
 	</b-container>
 
 	<day-modal id='dayModal' :forecast='forecast' :day='dayModalData'></day-modal>
+	<credits-modal id='credits-modal'></credits-modal>
 </div>
 </template>
 
@@ -50,11 +73,12 @@ import SeedFinder from './SeedFinder.vue'
 import YearlyView from './YearlyView.vue'
 import MonthlyView from './MonthlyView.vue'
 import DayModal from './DayModal.vue'
+import CreditsModal from './CreditsModal.vue'
 import { Forecast, DayForecast, Hemisphere } from '../model'
 import { BTab } from 'bootstrap-vue'
 import { LocaleMessage } from 'vue-i18n'
 
-@Component({components: {WelcomePage, SeedFinder, YearlyView, MonthlyView, DayModal}})
+@Component({components: {WelcomePage, SeedFinder, YearlyView, MonthlyView, DayModal, CreditsModal}})
 export default class App extends Vue {
 	forecast = new Forecast()
 	dayModalData = new DayForecast(Hemisphere.Northern, 0, 1970, 1, 1)

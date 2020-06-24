@@ -36,7 +36,7 @@ export default {
         "hQDonate": "Can I give you money?",
         "hADonate": "Since a few people asked me on Discord and Twitter, I've added some links to the footer. Please don't feel obligated to do so, though!",
         "hQSource": "Will this be open source?",
-        "hASource": "No plans at the moment. I'm reluctant to share any more open code/tools because of the amount of projects that are building off my work (and even making money in some cases) without even respecting my request to be credited.",
+        "hASource": "This new version of MeteoNook is available on GitHub under the GNU Affero GPL 3.0. The repository link is at the bottom of this page.",
         "sIntro": "Before you can forecast your island's weather, you'll need to determine what weather seed it has. This tool will find it for you once you've provided enough data about your island's weather. The more information you provide, the easier it will be!",
         "sTTypes": "Weather Types",
         "sTypes1": "Each hour in Animal Crossing has a type of weather - clear \u2600\ufe0f, sunny \ud83c\udf24, cloudy \ud83c\udf25\ufe0f\ufe0f, rain clouds \u2601, rain/snow \ud83c\udf27 and heavy rain/snow \u26c8\ufe0f. If you know what type you have in a particular hour, then add it in this section.",
@@ -180,13 +180,15 @@ export default {
         "lstPatternSnow4": "\ud83c\udf28 Snow",
         "lstPatternSnow5": "\ud83c\udf28 Heavy Snow",
         "credTitle": "Credits",
+        "credSource": "MeteoNook is available under the {license}. The source code is available on GitHub: {repo}",
         "credThank1": "Special thanks to the following people for their help:",
         "credThank1a": "Testing and suggestions:",
         "credThank1b": "Translations:",
         "credThank2": "MeteoNook includes parts of the following software:",
         "credThank3": "Shoutouts to:",
-        "footerCopy": "MeteoNook is &copy; Ash Wolf (<a href='https://twitter.com/_Ninji'>@_Ninji</a>), 2020. Not affiliated with or endorsed by Nintendo.",
-        "footerDonate": "Want to support me?"
+        "footerCopy": "MeteoNook is \u00a9 {me}, {year}. Not affiliated with or endorsed by Nintendo.",
+        "footerDonate": "Want to support me?",
+        "footerSource": "Source code on GitHub:"
     },
     "es": {
         "lang": "Espa\u00f1ol",
@@ -226,7 +228,7 @@ export default {
         "hQDonate": "\u00bfPuedo darte dinero?",
         "hADonate": "Ya que alguna gente me pregunt\u00f3 en Discord y en Twitter, he puesto unos enlaces al final de la p\u00e1gina. \u00a1Pero ten en cuenta que no hay obligaci\u00f3n de nada!",
         "hQSource": "\u00bfVas publicar el c\u00f3digo fuente?",
-        "hASource": "Por ahora, no est\u00e1 en mis planes. No estoy muy dispuesto a compartir m\u00e1s c\u00f3digo abierto porque hay muchos proyectos que est\u00e1n usando mi trabajo (y hasta ganando dinero) sin agradecimiento o enlace, que es lo \u00fanico que pido para su uso.",
+        "hASource": "Esta nueva versi\u00f3n de MeteoNook est\u00e1 publicada en GitHub, con la licencia GNU Affero GPL 3.0. El enlace est\u00e1 al final de esta pagina.",
         "sIntro": "Para obtener previsiones en tu isla, tendr\u00e1s que determinar la semilla ambiental. Esta herramienta te ayudar\u00e1 a encontrarla con los datos que introduces sobre el tiempo en tu isla. Cuanta m\u00e1s informaci\u00f3n, \u00a1m\u00e1s f\u00e1cil ser\u00e1!",
         "sTTypes": "Tipos de tiempo",
         "sTypes1": "Cada hora en Animal Crossing tiene asociado un tipo de tiempo - claro \u2600\ufe0f, soleado \ud83c\udf24, nublado \ud83c\udf25\ufe0f\ufe0f, nube de lluvia \u2601, lluvia/nieve \ud83c\udf27 y lluvia/nieve fuerte \u26c8\ufe0f. Si sabes qu\u00e9 tipo tienes a una cierta hora, a\u00f1\u00e1delo en esta secci\u00f3n.",
@@ -370,13 +372,15 @@ export default {
         "lstPatternSnow4": "\ud83c\udf28 Nieve",
         "lstPatternSnow5": "\ud83c\udf28 Nieve fuerte",
         "credTitle": "Agradecimientos",
+        "credSource": "MeteoNook est\u00e1 distribuido bajo la {license}. El c\u00f3digo fuente est\u00e1 disponible en GitHub: {repo}",
         "credThank1": "Muchas gracias a los siguientes usuarios por su ayuda:",
         "credThank1a": "Pruebas y sugerencias:",
         "credThank1b": "Traducciones:",
         "credThank2": "MeteoNook incluye componentes de este software:",
         "credThank3": "Adem\u00e1s, gracias a:",
-        "footerCopy": "MeteoNook es &copy; de Ash Wolf (<a href='https://twitter.com/_Ninji'>@_Ninji</a>), 2020. Esta web no esta asociada con ni avalada por Nintendo.",
-        "footerDonate": "\u00bfQuieres apoyarme?"
+        "footerCopy": "MeteoNook es \u00a9 de {me}, {year}. Esta web no esta asociada con ni avalada por Nintendo.",
+        "footerDonate": "\u00bfQuieres apoyarme?",
+        "footerSource": "C\u00f3digo fuente en GitHub:"
     },
     "en-GB": {
         "lang": "English (UK)"

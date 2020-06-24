@@ -39,7 +39,7 @@ hAAdd	Maybe. No promises.	Tal vez. No prometo nada.
 hQDonate	Can I give you money?	¿Puedo darte dinero?
 hADonate	Since a few people asked me on Discord and Twitter, I've added some links to the footer. Please don't feel obligated to do so, though!	Ya que alguna gente me preguntó en Discord y en Twitter, he puesto unos enlaces al final de la página. ¡Pero ten en cuenta que no hay obligación de nada!
 hQSource	Will this be open source?	¿Vas publicar el código fuente?
-hASource	No plans at the moment. I'm reluctant to share any more open code/tools because of the amount of projects that are building off my work (and even making money in some cases) without even respecting my request to be credited.	Por ahora, no está en mis planes. No estoy muy dispuesto a compartir más código abierto porque hay muchos proyectos que están usando mi trabajo (y hasta ganando dinero) sin agradecimiento o enlace, que es lo único que pido para su uso.
+hASource	This new version of MeteoNook is available on GitHub under the GNU Affero GPL 3.0. The repository link is at the bottom of this page.	Esta nueva versión de MeteoNook está publicada en GitHub, con la licencia GNU Affero GPL 3.0. El enlace está al final de esta pagina.
 		
 sIntro	Before you can forecast your island's weather, you'll need to determine what weather seed it has. This tool will find it for you once you've provided enough data about your island's weather. The more information you provide, the easier it will be!	Para obtener previsiones en tu isla, tendrás que determinar la semilla ambiental. Esta herramienta te ayudará a encontrarla con los datos que introduces sobre el tiempo en tu isla. Cuanta más información, ¡más fácil será!
 sTTypes	Weather Types	Tipos de tiempo
@@ -150,11 +150,13 @@ lstPatternNoSnow	☀ Clear/Fine%%🌤 Sunny%%🌥 Cloudy%%☁ Rain Clouds%%🌧 
 lstPatternSnow	☀ Clear/Fine%%🌤 Sunny%%🌥 Cloudy%%☁ Rain Clouds%%🌨 Snow%%🌨 Heavy Snow	☀ Claro%%🌤 Soleado%%🌥 Nublado%%☁ Nubes de lluvia%%🌨 Nieve%%🌨 Nieve fuerte
 		
 credTitle	Credits	Agradecimientos
+credSource	MeteoNook is available under the {license}. The source code is available on GitHub: {repo}	MeteoNook está distribuido bajo la {license}. El código fuente está disponible en GitHub: {repo}
 credThank1	Special thanks to the following people for their help:	Muchas gracias a los siguientes usuarios por su ayuda:
 credThank1a	Testing and suggestions:	Pruebas y sugerencias:
 credThank1b	Translations:	Traducciones:
 credThank2	MeteoNook includes parts of the following software:	MeteoNook incluye componentes de este software:
 credThank3	Shoutouts to:	Además, gracias a:
 		
-footerCopy	MeteoNook is &copy; Ash Wolf (<a href='https://twitter.com/_Ninji'>@_Ninji</a>), 2020. Not affiliated with or endorsed by Nintendo.	MeteoNook es &copy; de Ash Wolf (<a href='https://twitter.com/_Ninji'>@_Ninji</a>), 2020. Esta web no esta asociada con ni avalada por Nintendo.
+footerCopy	MeteoNook is © {me}, {year}. Not affiliated with or endorsed by Nintendo.	MeteoNook es © de {me}, {year}. Esta web no esta asociada con ni avalada por Nintendo.
 footerDonate	Want to support me?	¿Quieres apoyarme?
+footerSource	Source code on GitHub:	Código fuente en GitHub:
