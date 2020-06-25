@@ -71,7 +71,7 @@
 			<div class='form-group row'>
 				<div class='col-sm-3'></div>
 				<div class='col-sm-9'>
-					<b-form-checkbox v-model='rainbowDouble'>{{ $t('tDoubleRainbow') }}</b-form-checkbox>
+					<b-form-checkbox v-model='day.rainbowDouble'>{{ $t('tDoubleRainbow') }}</b-form-checkbox>
 				</div>
 			</div>
 		</div>
@@ -79,11 +79,9 @@
 		<div v-show='isAuroraMode'>
 			<h5 class='mt-3'>{{ $t('tTAurora') }}</h5>
 			<p class='mb-1'>{{ $t('tAuroraFit') }}</p>
-			<b-form-checkbox-group stacked>
-				<b-form-checkbox v-model='day.auroraFine01'>{{ labelAuroraFine01 }}</b-form-checkbox>
-				<b-form-checkbox v-model='day.auroraFine03'>{{ labelAuroraFine03 }}</b-form-checkbox>
-				<b-form-checkbox v-model='day.auroraFine05'>{{ labelAuroraFine05 }}</b-form-checkbox>
-			</b-form-checkbox-group>
+			<b-form-checkbox v-model='day.auroraFine01'>{{ labelAuroraFine01 }}</b-form-checkbox>
+			<b-form-checkbox v-model='day.auroraFine03'>{{ labelAuroraFine03 }}</b-form-checkbox>
+			<b-form-checkbox v-model='day.auroraFine05'>{{ labelAuroraFine05 }}</b-form-checkbox>
 		</div>
 
 		<p class='mt-2'>
@@ -166,14 +164,34 @@ export default class DayEditor extends DayEditorProps {
 			options.push({value: hour, text: hour})
 		return options
 	}
+
+	_computeAuroraGaps(pairs: Date[][]): string {
+		const bits = []
+		for (const pair of pairs) {
+			bits.push(this.$d(pair[0], 'timeH') + '-' + this.$d(pair[1], 'timeH'))
+		}
+		return bits.join(', ')
+	}
 	get labelAuroraFine01() {
-		return '22:00-23:00, 00:00-02:00, 03:00-04:00'
+		return this._computeAuroraGaps([
+			[new Date(0,0,0,22), new Date(0,0,0,23)],
+			[new Date(0,0,0,0), new Date(0,0,0,2)],
+			[new Date(0,0,0,3), new Date(0,0,0,4)],
+		])
 	}
 	get labelAuroraFine03() {
-		return '19:00-20:00, 21:00-23:00, 00:00-01:00, 02:00-04:00'
+		return this._computeAuroraGaps([
+			[new Date(0,0,0,19), new Date(0,0,0,20)],
+			[new Date(0,0,0,21), new Date(0,0,0,23)],
+			[new Date(0,0,0,0), new Date(0,0,0,1)],
+			[new Date(0,0,0,2), new Date(0,0,0,4)],
+		])
 	}
 	get labelAuroraFine05() {
-		return '22:00-23:00, 03:00-04:00'
+		return this._computeAuroraGaps([
+			[new Date(0,0,0,22), new Date(0,0,0,23)],
+			[new Date(0,0,0,3), new Date(0,0,0,4)],
+		])
 	}
 
 	get specialDayWarning(): TranslateResult {
@@ -288,7 +306,7 @@ export default class DayEditor extends DayEditorProps {
 		}
 		this.day.gaps.push({startHour: hour, startMinute: minute, endHour: hour, endMinute: minute})
 	}
-	deleteGap(index: number) {
+	removeGap(index: number) {
 		this.day.gaps.splice(index, 1)
 	}
 	makeGapsFromTimes() {

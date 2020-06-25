@@ -64,7 +64,22 @@ export default class SeedFinder extends Vue {
 	}
 
 	timeify(str: string): string {
-		return str
+		// accessing time12 here forces this component to be
+		// updated whenever time12 changes...
+		const awfulHack = (this.$root as any).time12
+
+		return str.replace(/[012]\d:\d\d:\d\d/g, time => {
+			const [hS, mS, sS] = time.split(':')
+			const h = parseInt(hS, 10), m = parseInt(mS, 10), s = parseInt(sS, 10)
+			return this.$d(new Date(0, 0, 0, h, m, s), 'timeHMS')
+		}).replace(/[012]\d:\d\d/g, time => {
+			const [hS, mS] = time.split(':')
+			const h = parseInt(hS, 10), m = parseInt(mS, 10)
+			return this.$d(new Date(0, 0, 0, h, m), 'timeHM')
+		}).replace(/[012]\dH/g, time => {
+			const h = parseInt(time.slice(0, 2), 10)
+			return this.$d(new Date(0, 0, 0, h), 'timeH')
+		})
 	}
 
 	dateClass(ymd: string, date: Date): string {

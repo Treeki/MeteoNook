@@ -5,8 +5,8 @@
 			<b-navbar-brand tag='span'>MeteoNook Alpha</b-navbar-brand>
 			<b-dropdown id='dropdown-settings' :text="$t('mSettings')" ref='dropdown' right>
 				<b-dropdown-header>{{ $t('mTimeFormat') }}</b-dropdown-header>
-				<b-dropdown-item-button>{{ $t('mTime12') }}</b-dropdown-item-button>
-				<b-dropdown-item-button>{{ $t('mTime24') }}</b-dropdown-item-button>
+				<b-dropdown-item-button :active='time12' @click='setTime12'>{{ $t('mTime12') }}</b-dropdown-item-button>
+				<b-dropdown-item-button :active='!time12' @click='setTime24'>{{ $t('mTime24') }}</b-dropdown-item-button>
 				<b-dropdown-divider></b-dropdown-divider>
 				<b-dropdown-header>{{ $t('mLanguage') }}</b-dropdown-header>
 				<b-dropdown-item-button
@@ -76,7 +76,7 @@ import DayModal from './DayModal.vue'
 import CreditsModal from './CreditsModal.vue'
 import { Forecast, DayForecast, Hemisphere } from '../model'
 import { BTab } from 'bootstrap-vue'
-import { LocaleMessage } from 'vue-i18n'
+import { LocaleMessage, DateTimeFormat } from 'vue-i18n'
 
 @Component({components: {WelcomePage, SeedFinder, YearlyView, MonthlyView, DayModal, CreditsModal}})
 export default class App extends Vue {
@@ -107,6 +107,13 @@ export default class App extends Vue {
 	}
 	setLanguage(key: string) {
 		this.$root.$i18n.locale = key
+	}
+
+	get time12(): boolean { return (this.$root as any).time12 }
+	setTime12() { this.setTimeFormat(true) }
+	setTime24() { this.setTimeFormat(false) }
+	setTimeFormat(time12: boolean) {
+		(this.$root as any).setTime12(time12)
 	}
 }
 </script>
