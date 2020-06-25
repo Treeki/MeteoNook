@@ -38,9 +38,11 @@ Object.assign(dtf12, dtfBase)
 dtf24.timeHMS = {hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false}
 dtf24.timeHM = {hour: '2-digit', minute: '2-digit', hour12: false}
 dtf24.timeH = {hour: '2-digit', minute: '2-digit', hour12: false}
+dtf24.timeHOnly = {hour: '2-digit', hour12: false}
 dtf12.timeHMS = {hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true}
 dtf12.timeHM = {hour: '2-digit', minute: '2-digit', hour12: true}
 dtf12.timeH = {hour: '2-digit', hour12: true}
+dtf12.timeHOnly = {hour: '2-digit', hour12: true}
 
 // prepare start array
 const dateTimeFormats: DateTimeFormats = {}

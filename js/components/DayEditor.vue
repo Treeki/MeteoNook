@@ -118,9 +118,9 @@ export default class DayEditor extends DayEditorProps {
 	get hourOptions() {
 		const options = []
 		for (let i = 5; i < 24; i++)
-			options.push({value: i, text: i.toString()})
+			options.push({value: i, text: this.$d(new Date(0, 0, 0, i), 'timeHOnly')})
 		for (let i = 0; i < 5; i++)
-			options.push({value: i, text: i.toString()})
+			options.push({value: i, text: this.$d(new Date(0, 0, 0, i), 'timeHOnly')})
 		return options
 	}
 	get weatherTypeOptions() {
@@ -141,27 +141,27 @@ export default class DayEditor extends DayEditorProps {
 	get starHourOptions() {
 		const options = []
 		for (let i = 19; i < 24; i++)
-			options.push({value: i, text: i.toString()})
+			options.push({value: i, text: this.$d(new Date(0, 0, 0, i), 'timeHOnly')})
 		for (let i = 0; i < 4; i++)
-			options.push({value: i, text: i.toString()})
+			options.push({value: i, text: this.$d(new Date(0, 0, 0, i), 'timeHOnly')})
 		return options
 	}
 	get minuteOptions() {
 		const options = []
 		for (let i = 0; i < 60; i++)
-			options.push({value: i, text: i.toString()})
+			options.push({value: i, text: ('0' + i).slice(-2)})
 		return options
 	}
 	get starSecondOptions() {
 		const options = [{value: 99, text: this.$t('dunno')}]
 		for (let i = 0; i < 60; i++)
-			options.push({value: i, text: i.toString()})
+			options.push({value: i, text: ('0' + i).slice(-2)})
 		return options
 	}
 	get rainbowTimeOptions() {
 		const options = []
 		for (const hour of Object.keys(rainbowPatternsByTime))
-			options.push({value: hour, text: hour})
+			options.push({value: hour, text: this.$d(new Date(0, 0, 0, parseInt(hour, 10)), 'timeH')})
 		return options
 	}
 
