@@ -1,7 +1,7 @@
 export enum DayType { NoData = 0, None, Shower, Rainbow, Aurora }
 export enum ShowerType { NotSure = 0, Light, Heavy }
 
-import {Hemisphere, Weather, SpecialDay, getMonthLength, Pattern, getPattern, getWeather, getWindPower, isSpecialDay, SnowLevel, CloudLevel, FogLevel, getSnowLevel, getCloudLevel, getFogLevel, checkWaterFog, RainbowInfo, getRainbowInfo, isAuroraPattern, fromLinearHour, toLinearHour, canHaveShootingStars, queryStars, getStarSecond, isLightShowerPattern, isHeavyShowerPattern, isPatternPossibleAtDate} from '../pkg'
+import {Hemisphere, Weather, SpecialDay, getMonthLength, Pattern, getPattern, getWeather, getWindPower, isSpecialDay, SnowLevel, CloudLevel, FogLevel, getSnowLevel, getCloudLevel, getFogLevel, checkWaterFog, RainbowInfo, getRainbowInfo, isAuroraPattern, fromLinearHour, toLinearHour, canHaveShootingStars, queryStars, getStarSecond, isLightShowerPattern, isHeavyShowerPattern, isPatternPossibleAtDate, GuessData} from '../pkg'
 export {Hemisphere, Weather, SpecialDay, getMonthLength}
 
 export enum AmbiguousWeather {
@@ -152,6 +152,40 @@ export function getPossiblePatternsForDay(hemisphere: Hemisphere, day: DayInfo):
 	}
 
 	return results
+}
+
+
+export function populateGuessData(hemisphere: Hemisphere, data: GuessData, day: DayInfo) {
+	const patterns = getPossiblePatternsForDay(hemisphere, day)
+	for (const pattern of patterns) {
+		data.addPattern(day.y, day.m, day.d, pattern)
+	}
+
+	if (day.dayType == DayType.Rainbow)
+		data.addRainbow(day.y, day.m, day.d, day.rainbowDouble)
+
+	if (day.dayType == DayType.Shower) {
+		for (const star of day.stars) {
+			data.addMinute(day.y, day.m, day.d, star.hour, star.minute, true)
+			for (const second of star.seconds) {
+				if (second != 99)
+					data.addSecond(day.y, day.m, day.d, star.hour, star.minute, second)
+			}
+		}
+		for (const gap of day.gaps) {
+			const endLH = toLinearHour(gap.endHour)
+			const endMinute = gap.endMinute
+			for (let lh = toLinearHour(gap.startHour), min = gap.startMinute; lh < endLH || (lh == endLH && min <= endMinute); ) {
+				const hour = fromLinearHour(lh)
+				data.addMinute(day.y, day.m, day.d, hour, min, false)
+				min++
+				if (min == 60) {
+					min = 0
+					lh++
+				}
+			}
+		}
+	}
 }
 
 

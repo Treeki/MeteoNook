@@ -59,15 +59,19 @@ fn compute_seed_ymdh(base: u32, year_mult: u32, month_mult: u32, day_mult: u32, 
 	seed.wrapping_add(h)
 }
 
-struct Random {
+#[wasm_bindgen]
+pub struct Random {
 	a: Wrapping<u32>, b: Wrapping<u32>, c: Wrapping<u32>, d: Wrapping<u32>
 }
 
+#[wasm_bindgen]
 impl Random {
+	#[wasm_bindgen(js_name = withState)]
 	pub fn with_state(a: u32, b: u32, c: u32, d: u32) -> Random {
 		Random { a: Wrapping(a), b: Wrapping(b), c: Wrapping(c), d: Wrapping(d) }
 	}
 
+	#[wasm_bindgen(js_name = withSeed)]
 	pub fn with_seed(seed: u32) -> Random {
 		let mut r = Random { a: Wrapping(0), b: Wrapping(0), c: Wrapping(0), d: Wrapping(0) };
 		r.init(seed);
@@ -92,6 +96,7 @@ impl Random {
 		self.d.0
 	}
 
+	#[wasm_bindgen(js_name = rollMax)]
 	pub fn roll_max(&mut self, limit: u32) -> u32 {
 		let value = (self.roll() as u64) * (limit as u64);
 		(value >> 32).try_into().unwrap()
@@ -529,6 +534,7 @@ impl DayGuess {
 		// pattern check
 		let pattern_bit = 1u64 << (pattern as u8);
 		if (self.pattern_mask & pattern_bit) == 0 {
+			if seed == 1856402561 { log!("seedfail pattern"); }
 			return false;
 		}
 
@@ -543,6 +549,7 @@ impl DayGuess {
 				_ => 0 // should never happen
 			};
 			if self.rainbow_count != rainbow_count {
+				if seed == 1856402561 { log!("seedfail rainbow"); }
 				return false;
 			}
 		}
@@ -573,13 +580,20 @@ impl DayGuess {
 						None => {
 							// no stars
 							if (true_mask & minute_bit) != 0 {
+								if seed == 1856402561 { log!("seedfail stars false positive at {}:{}", from_linear_hour(linear_hour), minute); }
 								return false
 							}
 						}
 						Some((star_count, star_field)) => {
 							// some stars
 							if (false_mask & minute_bit) != 0 {
-								return true
+								if seed == 1856402561 { log!("seedfail stars false negative"); }
+								return false
+							}
+
+							// do per-second checks
+							if hg.second_mask[minute as usize] != 0 {
+								// ...
 							}
 						}
 					}
@@ -620,13 +634,15 @@ impl GuessData {
 		}
 
 		let dg = &mut self.days[self.count];
+		dg.month = month;
+		dg.day = day;
 		dg.seed_add = seed_add;
 		dg.rainbow_seed_add = compute_seed_ymd(0, 0x1000000, 0x40000, 0x1000, year, month, day);
 		dg.special_day_flag = is_special_day(self.hemisphere, year, month, day) != SpecialDay::None;
 		for linear_hour in 0..9 {
 			let hour = from_linear_hour(linear_hour);
 			let (n_year, n_month, n_day) = normalise_late_ymd(year, month, day, hour);
-			dg.hours[linear_hour as usize].hour_seed_add = compute_seed_ymdh(0, 0x20000, 0x2000, 1, 0x10000, n_year, n_month, n_day, hour);
+			dg.hours[linear_hour as usize].hour_seed_add = compute_seed_ymdh(0, 0x20000, 0x2000, 0x100, 0x10000, n_year, n_month, n_day, hour);
 		}
 		self.count += 1;
 		Some(dg)
@@ -637,6 +653,7 @@ impl GuessData {
 		match self.find_day(year, month, day) {
 			None => false,
 			Some(dg) => {
+				log!("+pat {}-{}-{} = {:?}", year, month, day, pat);
 				dg.pattern_mask |= 1u64 << (pat as u32);
 				true
 			}
@@ -652,6 +669,7 @@ impl GuessData {
 				let hour_idx = linear_hour as usize;
 				dg.hour_mask |= 1u16 << linear_hour;
 				let bit = 1u64 << minute;
+				log!("+min {}-{}-{} {}:{} {}", year, month, day, hour, minute, yes);
 				if yes {
 					dg.hours[hour_idx].true_minute_mask |= bit;
 					(dg.hours[hour_idx].false_minute_mask & bit) == 0
@@ -672,6 +690,7 @@ impl GuessData {
 		match self.find_day(year, month, day) {
 			None => false,
 			Some(dg) => {
+				log!("+sec {}-{}-{} {}:{}:{}", year, month, day, hour, minute, second);
 				let linear_hour = to_linear_hour(hour);
 				let hour_idx = linear_hour as usize;
 				let minute_idx = minute as usize;
@@ -758,6 +777,15 @@ impl Guesser {
 		}
 
 		true
+	}
+
+	#[wasm_bindgen(js_name = getResultCount)]
+	pub fn get_result_count(&self) -> usize {
+		return self.result_count;
+	}
+	#[wasm_bindgen(js_name = getResult)]
+	pub fn get_result(&self, index: usize) -> u32 {
+		return self.results[index];
 	}
 }
 

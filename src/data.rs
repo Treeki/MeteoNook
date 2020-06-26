@@ -2,44 +2,44 @@ use wasm_bindgen::prelude::*;
 use std::mem;
 
 #[wasm_bindgen]
-#[derive(PartialEq, Clone, Copy)]
+#[derive(PartialEq, Clone, Copy, Debug)]
 pub enum Hemisphere {
 	Northern = 0, Southern = 1
 }
 #[wasm_bindgen]
-#[derive(PartialEq, Clone, Copy)]
+#[derive(PartialEq, Clone, Copy, Debug)]
 #[repr(u8)]
 pub enum Weather {
 	Clear = 0, Sunny = 1, Cloudy = 2, RainClouds = 3, Rain = 4, HeavyRain = 5
 }
 #[wasm_bindgen]
-#[derive(PartialEq, Clone, Copy)]
+#[derive(PartialEq, Clone, Copy, Debug)]
 #[repr(u8)]
 pub enum WindType {
 	Calm = 0, Land0 = 1, Land1 = 2, Land2 = 3, Sea0 = 4, Sea1 = 5, Sea2 = 6
 }
 #[wasm_bindgen]
-#[derive(PartialEq, Clone, Copy)]
+#[derive(PartialEq, Clone, Copy, Debug)]
 pub enum SpecialDay {
 	None, Easter, FishCon, InsectCon, Countdown
 }
 #[wasm_bindgen]
-#[derive(PartialEq, Clone, Copy)]
+#[derive(PartialEq, Clone, Copy, Debug)]
 pub enum SnowLevel {
 	None, Low, Full
 }
 #[wasm_bindgen]
-#[derive(PartialEq, Clone, Copy)]
+#[derive(PartialEq, Clone, Copy, Debug)]
 pub enum CloudLevel {
 	None, Cumulonimbus, Cirrus, Billow, Thin
 }
 #[wasm_bindgen]
-#[derive(PartialEq, Clone, Copy)]
+#[derive(PartialEq, Clone, Copy, Debug)]
 pub enum SpWeatherLevel {
 	None, Rainbow, Aurora
 }
 #[wasm_bindgen]
-#[derive(PartialEq, Clone, Copy)]
+#[derive(PartialEq, Clone, Copy, Debug)]
 pub enum FogLevel {
 	None, HeavyAndWater, WaterOnly
 }
@@ -229,7 +229,7 @@ pub static WINDS: [[WindType;24];34] = [
 
 
 #[wasm_bindgen]
-#[derive(PartialEq, Clone, Copy)]
+#[derive(PartialEq, Clone, Copy, Debug)]
 #[repr(u8)]
 pub enum Pattern {
 	Fine00 = 0,
@@ -269,7 +269,7 @@ pub enum Pattern {
 }
 
 #[wasm_bindgen]
-#[derive(PartialEq, Clone, Copy)]
+#[derive(PartialEq, Clone, Copy, Debug)]
 #[repr(u8)]
 pub enum PatternKind {
 	Fine = 0, Cloud = 1, Rain = 2,
