@@ -2,7 +2,7 @@
   "name": "MeteoNook",
   "version": "0.0.1",
   "main": "index.js",
-  "license": "MIT",
+  "license": "AGPL-3.0-only",
   "devDependencies": {
     "@babel/core": "^7.10.3",
     "@vue/component-compiler-utils": "^3.1.2",

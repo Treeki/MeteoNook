@@ -2,6 +2,7 @@ use web_sys::console;
 use wasm_bindgen::prelude::*;
 use std::convert::TryInto;
 use std::num::Wrapping;
+use std::cmp;
 
 macro_rules! log {
 	( $( $t:tt )* ) => {
@@ -489,32 +490,278 @@ pub fn get_star_second(index: usize) -> u8 {
 	unsafe { LAST_STAR_SECONDS[index] }
 }
 
-/*
-
-bool southernFlag = false;
-
-const uint64_t SECONDS_MASK = 0x0fffffffffffffff;
-const uint64_t SECONDS_SHIFT = 60;
 
 
+
+#[derive(Clone, Copy)]
 struct HourGuess {
-	uint32_t hourSeedAdd;
-	uint64_t trueMinuteMask;
-	uint64_t falseMinuteMask;
-	uint64_t secondMask[60];
-};
-struct DayGuess {
-	uint32_t seedAdd;
-	uint32_t rainbowSeedAdd;
-	uint64_t patternMask;
-	uint16_t dayIndex;
-	uint8_t typeMask[24];
-	uint8_t rainbowFlag;
-	uint8_t specialDayFlag;
+	hour_seed_add: u32,
+	true_minute_mask: u64,
+	false_minute_mask: u64,
+	second_mask: [u64;60]
+}
+impl Default for HourGuess {
+	fn default() -> Self {
+		HourGuess {
+			hour_seed_add: 0,
+			true_minute_mask: 0,
+			false_minute_mask: 0,
+			second_mask: [0u64;60]
+		}
+	}
+}
 
-	uint32_t hourMask;
-	HourGuess hours[9];
-};
+#[derive(Default, Clone, Copy)]
+struct DayGuess {
+	seed_add: u32,
+	rainbow_seed_add: u32,
+	pattern_mask: u64,
+	month: u8,
+	day: u8,
+	rainbow_count: u8,
+	special_day_flag: bool,
+	hour_mask: u16,
+	hours: [HourGuess;9]
+}
+
+impl DayGuess {
+	pub fn check(&self, seed: u32, pattern: Pattern) -> bool {
+		// pattern check
+		let pattern_bit = 1u64 << (pattern as u8);
+		if (self.pattern_mask & pattern_bit) == 0 {
+			return false;
+		}
+
+		// rainbow check
+		if self.rainbow_count > 0 {
+			let mut rng = Random::with_seed(seed.wrapping_add(self.rainbow_seed_add));
+			rng.roll();
+			rng.roll();
+			let rainbow_count = match rng.roll() & 1 {
+				0 => 1,
+				1 => 2,
+				_ => 0 // should never happen
+			};
+			if self.rainbow_count != rainbow_count {
+				return false;
+			}
+		}
+
+		// meteor shower check
+		if self.hour_mask != 0 {
+			for linear_hour in 0..9 {
+				let hour_bit = 1u16 << linear_hour;
+				if (self.hour_mask & hour_bit) == 0 {
+					// no data for this hour
+					continue;
+				}
+
+				let hg = &self.hours[linear_hour as usize];
+				let hour_seed = seed.wrapping_add(hg.hour_seed_add);
+				let true_mask = hg.true_minute_mask;
+				let false_mask = hg.false_minute_mask;
+				let both_mask = true_mask | false_mask;
+
+				for minute in 0..60 {
+					let minute_bit = 1u64 << minute;
+					if (both_mask & minute_bit) == 0 {
+						// no data for this minute
+						continue
+					}
+
+					match query_stars_internal(hour_seed, minute, pattern) {
+						None => {
+							// no stars
+							if (true_mask & minute_bit) != 0 {
+								return false
+							}
+						}
+						Some((star_count, star_field)) => {
+							// some stars
+							if (false_mask & minute_bit) != 0 {
+								return true
+							}
+						}
+					}
+				}
+			}
+		}
+
+		true
+	}
+}
+
+#[wasm_bindgen]
+pub struct GuessData {
+	hemisphere: Hemisphere,
+	days: [DayGuess;200],
+	count: usize
+}
+
+#[wasm_bindgen]
+impl GuessData {
+	pub fn new(hemisphere: Hemisphere) -> GuessData {
+		GuessData {
+			hemisphere,
+			days: [Default::default();200],
+			count: 0
+		}
+	}
+
+	fn find_day(&mut self, year: u16, month: u8, day: u8) -> Option<&mut DayGuess> {
+		let seed_add = compute_seed_ymd(0, 0x2000000, 0x200000, 0x10000, year, month, day);
+		for i in 0..self.count {
+			if self.days[i].seed_add == seed_add {
+				return Some(&mut self.days[i]);
+			}
+		}
+		if self.count >= 200 {
+			return None;
+		}
+
+		let dg = &mut self.days[self.count];
+		dg.seed_add = seed_add;
+		dg.rainbow_seed_add = compute_seed_ymd(0, 0x1000000, 0x40000, 0x1000, year, month, day);
+		dg.special_day_flag = is_special_day(self.hemisphere, year, month, day) != SpecialDay::None;
+		for linear_hour in 0..9 {
+			let hour = from_linear_hour(linear_hour);
+			let (n_year, n_month, n_day) = normalise_late_ymd(year, month, day, hour);
+			dg.hours[linear_hour as usize].hour_seed_add = compute_seed_ymdh(0, 0x20000, 0x2000, 1, 0x10000, n_year, n_month, n_day, hour);
+		}
+		self.count += 1;
+		Some(dg)
+	}
+
+	#[wasm_bindgen(js_name = addPattern)]
+	pub fn add_pattern(&mut self, year: u16, month: u8, day: u8, pat: Pattern) -> bool {
+		match self.find_day(year, month, day) {
+			None => false,
+			Some(dg) => {
+				dg.pattern_mask |= 1u64 << (pat as u32);
+				true
+			}
+		}
+	}
+
+	#[wasm_bindgen(js_name = addMinute)]
+	pub fn add_minute(&mut self, year: u16, month: u8, day: u8, hour: u8, minute: u8, yes: bool) -> bool {
+		match self.find_day(year, month, day) {
+			None => false,
+			Some(dg) => {
+				let linear_hour = to_linear_hour(hour);
+				let hour_idx = linear_hour as usize;
+				dg.hour_mask |= 1u16 << linear_hour;
+				let bit = 1u64 << minute;
+				if yes {
+					dg.hours[hour_idx].true_minute_mask |= bit;
+					(dg.hours[hour_idx].false_minute_mask & bit) == 0
+				} else {
+					dg.hours[hour_idx].false_minute_mask |= bit;
+					(dg.hours[hour_idx].true_minute_mask & bit) == 0
+				}
+			}
+		}
+	}
+
+	#[wasm_bindgen(js_name = addSecond)]
+	pub fn add_second(&mut self, year: u16, month: u8, day: u8, hour: u8, minute: u8, second: u8) -> bool {
+		if !self.add_minute(year, month, day, hour, minute, true) {
+			return false
+		}
+
+		match self.find_day(year, month, day) {
+			None => false,
+			Some(dg) => {
+				let linear_hour = to_linear_hour(hour);
+				let hour_idx = linear_hour as usize;
+				let minute_idx = minute as usize;
+				let bit = 1u64 << second;
+				dg.hours[hour_idx].second_mask[minute_idx] |= bit;
+				true
+			}
+		}
+	}
+
+	#[wasm_bindgen(js_name = addRainbow)]
+	pub fn add_rainbow(&mut self, year: u16, month: u8, day: u8, is_double: bool) -> bool {
+		match self.find_day(year, month, day) {
+			None => false,
+			Some(dg) => {
+				dg.rainbow_count = if is_double { 2 } else { 1 };
+				true
+			}
+		}
+	}
+
+	pub fn check(&self, seed: u32) -> bool {
+		for i in 0..self.count {
+			let dg = &self.days[i];
+			let pattern = if dg.special_day_flag {
+				Pattern::EventDay00
+			} else {
+				let mut rng = Random::with_seed(seed.wrapping_add(dg.seed_add));
+				rng.roll();
+				rng.roll();
+				let rate_set = match self.hemisphere {
+					Hemisphere::Northern => RATE_LOOKUP_N[(dg.month - 1) as usize][(dg.day - 1) as usize],
+					Hemisphere::Southern => RATE_LOOKUP_S[(dg.month - 1) as usize][(dg.day - 1) as usize]
+				};
+				Pattern::from_u8(RATE_MAPS[rate_set as usize][rng.roll_max(100) as usize])
+			};
+
+			if !dg.check(seed, pattern) {
+				return false
+			}
+		}
+
+		// if none of the guesses failed, then this seed's OK
+		true
+	}
+}
+
+
+
+#[wasm_bindgen]
+pub struct Guesser {
+	minimum: u32,
+	maximum: u32,
+	step: u32,
+	results: [u32;30],
+	result_count: usize
+}
+
+#[wasm_bindgen]
+impl Guesser {
+	pub fn new(minimum: u32, maximum: u32) -> Guesser {
+		Guesser {
+			minimum, maximum,
+			step: minimum,
+			results: [0u32;30],
+			result_count: 0
+		}
+	}
+
+	pub fn work(&mut self, data: &GuessData, step_size: u32) -> bool {
+		let step_start = self.step;
+		let step_end = cmp::min(self.maximum, self.step.saturating_add(step_size - 1));
+		self.step = step_end + 1;
+
+		for seed in step_start..=step_end {
+			if data.check(seed) {
+				if self.result_count < 30 {
+					self.results[self.result_count] = seed;
+					self.result_count += 1;
+				} else {
+					return false
+				}
+			}
+		}
+
+		true
+	}
+}
+
+/*
 
 DayGuess dayGuesses[200];
 int dayGuessCount = 0;
@@ -529,97 +776,6 @@ inline int countOnBits(uint64_t x) {
     x = (x & m2) + ((x >> 2) & m2);
     x = (x + (x >> 4)) & m4;
     return (x * h01) >> 56;
-}
-
-EXPORT void guessClear() {
-	dayGuessCount = 0;
-}
-
-int findDayGuess(int year, int month, int day) {
-	uint32_t seedAdd = 0x80000000;
-	seedAdd += 0x10000 * ((year * 0x200) + (month * 0x20) + day);
-	for (int i = 0; i < dayGuessCount; i++) {
-		if (dayGuesses[i].seedAdd == seedAdd)
-			return i;
-	}
-
-	uint32_t rainbowSeedAdd = 0x80000000;
-	rainbowSeedAdd += 0x1000 * (year * 0x1000 + month * 0x40 + day);
-
-	dayGuesses[dayGuessCount].dayIndex = ((month - 1) * 31) + day - 1;
-	dayGuesses[dayGuessCount].seedAdd = seedAdd;
-	dayGuesses[dayGuessCount].rainbowSeedAdd = rainbowSeedAdd;
-	dayGuesses[dayGuessCount].patternMask = 0;
-	for (int i = 0; i < 24; i++)
-		dayGuesses[dayGuessCount].typeMask[i] = 0;
-	dayGuesses[dayGuessCount].rainbowFlag = 0;
-	dayGuesses[dayGuessCount].specialDayFlag = isSpecialDay(southernFlag, year, month, day);
-	dayGuesses[dayGuessCount].hourMask = 0;
-	for (int linearHour = 0; linearHour < 9; linearHour++) {
-		uint32_t hourSeedAdd = 0x80000000;
-		hourSeedAdd += 0x10000 * fromLinearHour(linearHour);
-		if (linearHour == 5)
-			getNextDay(year, month, day);
-		hourSeedAdd += 0x100 * ((year * 0x200) + (month * 0x20) + day);
-		dayGuesses[dayGuessCount].hours[linearHour].hourSeedAdd = hourSeedAdd;
-		dayGuesses[dayGuessCount].hours[linearHour].trueMinuteMask = 0;
-		dayGuesses[dayGuessCount].hours[linearHour].falseMinuteMask = 0;
-		for (int sec = 0; sec < 60; sec++) {
-			dayGuesses[dayGuessCount].hours[linearHour].secondMask[sec] = 0;
-		}
-	}
-	return dayGuessCount++;
-}
-
-EXPORT void guessAddType(int year, int month, int day, int hour, int type) {
-	uint8_t mask = 1 << type;
-	if (type == 98) {
-		// no rain/snow
-		mask = 1 << F;
-		mask |= (1 << C);
-		mask |= (1 << O);
-		mask |= (1 << RC);
-	} else if (type == 99) {
-		mask = 1 << R;
-		mask |= (1 << HR);
-	}
-	dayGuesses[findDayGuess(year, month, day)].typeMask[hour] |= mask;
-}
-
-EXPORT void guessAddPattern(int year, int month, int day, int pattern) {
-	dayGuesses[findDayGuess(year, month, day)].patternMask |= (uint64_t(1) << pattern);
-}
-
-EXPORT bool guessAddMinute(int year, int month, int day, int hour, int minute, bool yes) {
-	int linearHour = toLinearHour(hour);
-	int g = findDayGuess(year, month, day);
-	dayGuesses[g].hourMask |= (1 << linearHour);
-	uint64_t mask = uint64_t(1) << minute;
-	if (yes) {
-		dayGuesses[g].hours[linearHour].trueMinuteMask |= mask;
-		return ((dayGuesses[g].hours[linearHour].falseMinuteMask & mask) == 0);
-	} else {
-		dayGuesses[g].hours[linearHour].falseMinuteMask |= mask;
-		return ((dayGuesses[g].hours[linearHour].trueMinuteMask & mask) == 0);
-	}
-}
-
-EXPORT bool guessAddSecond(int year, int month, int day, int hour, int minute, int second) {
-	int g = findDayGuess(year, month, day);
-	if (guessAddMinute(year, month, day, hour, minute, true)) {
-		int linearHour = toLinearHour(hour);
-		uint64_t mask = uint64_t(1) << second;
-		dayGuesses[g].hours[linearHour].secondMask[minute] |= mask;
-		dayGuesses[g].hours[linearHour].secondMask[minute] &= SECONDS_MASK;
-		uint64_t count = countOnBits(dayGuesses[g].hours[linearHour].secondMask[minute]);
-		dayGuesses[g].hours[linearHour].secondMask[minute] |= (count << SECONDS_SHIFT);
-		return true;
-	}
-	return false;
-}
-
-EXPORT void guessAddRainbowDouble(int year, int month, int day, bool isDouble) {
-	dayGuesses[findDayGuess(year, month, day)].rainbowFlag = isDouble ? 2 : 1;
 }
 
 
