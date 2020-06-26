@@ -17,18 +17,13 @@
 <script lang='ts'>
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { Guesser, GuessData, Hemisphere, GuesserResult } from '../../pkg'
-import { populateGuessData, DayInfo } from '../model'
+import { populateGuessData, DayInfo, PopulateErrorKind } from '../model'
 import { TranslateResult } from 'vue-i18n'
-
-/*function callback(view: GuessWorkerView) {
-	if (view.guesser !== null && view.guessData !== null) {
-		const success = view.guesser.work(view.guessData, 0x10000)
-	}
-}*/
+import { SeedFinderDays } from './SeedFinder.vue'
 
 @Component
 export default class GuessWorkerView extends Vue {
-	@Prop(Object) readonly days!: {[key: string]: DayInfo}
+	@Prop(Object) readonly days!: SeedFinderDays
 	@Prop(Number) readonly hemisphere!: Hemisphere
 
 	running: boolean = false
@@ -38,6 +33,7 @@ export default class GuessWorkerView extends Vue {
 	lastResult: GuesserResult|null = null
 	guesser: Guesser|null = null
 	guessData: GuessData|null = null
+	errorText: TranslateResult|null = null
 
 	beforeDestroy() {
 		this.stopSearch()
@@ -49,7 +45,20 @@ export default class GuessWorkerView extends Vue {
 
 		this.guessData = GuessData.new(this.hemisphere)
 		for (const day of Object.values(this.days)) {
-			populateGuessData(this.hemisphere, this.guessData, day)
+			const error = populateGuessData(this.hemisphere, this.guessData, day)
+			if (error !== undefined) {
+				this.stopSearch() // free the GuessData
+				const date = new Date(day.y, day.m - 1, day.d, error.hour||0, error.minute||0)
+				switch (error.kind) {
+					case PopulateErrorKind.NoPatterns:
+						this.errorText = this.$t('tErrNoPatterns', {date: this.$d(date, 'long')})
+						break
+					case PopulateErrorKind.StarConflict:
+						this.errorText = this.$t('tErrStarConflict', {date: this.$d(date, 'long'), time: this.$d(date, 'timeHM')})
+						break
+				}
+				return
+			}
 		}
 
 		this.guesser = Guesser.new(0, 0x7fffffff)
@@ -61,6 +70,7 @@ export default class GuessWorkerView extends Vue {
 
 	stopSearch() {
 		this.running = false
+		this.errorText = null
 		if (this.timeout !== null) {
 			clearTimeout(this.timeout)
 			this.timeout = null
@@ -97,7 +107,9 @@ export default class GuessWorkerView extends Vue {
 	}
 
 	get infoText(): TranslateResult {
-		if (this.lastResult === GuesserResult.Failed) {
+		if (this.errorText !== null) {
+			return this.errorText
+		} else if (this.lastResult === GuesserResult.Failed) {
 			return this.$t('tInfoMoreData')
 		} else if (this.lastResult === GuesserResult.Incomplete) {
 			const count = this.results.length

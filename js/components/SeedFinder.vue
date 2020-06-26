@@ -44,16 +44,50 @@
 </template>
 
 <script lang='ts'>
-import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component, Watch } from 'vue-property-decorator'
 import DayEditor from './DayEditor.vue'
 import GuessWorkerView from './GuessWorkerView.vue'
 import {createDayInfo, DayInfo, DayType, ShowerType, Hemisphere, isDayNonEmpty} from '../model'
+import {readStorageObject, readStorage, writeStorageObject, writeStorage} from '../utils'
+
+export type SeedFinderDays = {[key: string]: DayInfo}
+
+const sfDaysKey = 'meteonook_sf_days'
+const sfHemisphereKey = 'meteonook_sf_hemisphere'
+function loadSFDays(): SeedFinderDays {
+	let obj = readStorageObject<SeedFinderDays>(sfDaysKey)
+	if (obj !== null)
+		return obj
+
+	obj = readStorageObject<SeedFinderDays>('meteonook_data', (data: any) => data.version === 2)
+	if (obj !== null)
+		return obj
+
+	return {}
+}
+
+function loadSFHemisphere(): Hemisphere {
+	let hemi = readStorage(sfHemisphereKey, blob => (blob == 'n') ? Hemisphere.Northern : Hemisphere.Southern)
+	if (hemi !== null)
+		return hemi
+	else
+		return Hemisphere.Northern
+}
+
+function saveSFDays(days: SeedFinderDays) {
+	writeStorageObject(sfDaysKey, days)
+}
+function saveSFHemisphere(hemisphere: Hemisphere) {
+	writeStorage(sfHemisphereKey, (hemisphere == Hemisphere.Northern) ? 'n' : 's')
+}
+
+
 
 @Component({components: {DayEditor, GuessWorkerView}})
 export default class SeedFinder extends Vue {
 	selectedDay = new Date()
-	days: {[key: string]: DayInfo} = {}
-	hemisphere = Hemisphere.Northern
+	days: SeedFinderDays = loadSFDays()
+	hemisphere = loadSFHemisphere()
 
 	getDay(date: Date) {
 		const key = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
@@ -92,6 +126,11 @@ export default class SeedFinder extends Vue {
 			return 'table-info'
 		return ''
 	}
+
+	@Watch('hemisphere')
+	onHemisphereChanged() { saveSFHemisphere(this.hemisphere) }
+	@Watch('days', {deep: true})
+	onDaysChanged() { saveSFDays(this.days) }
 }
 </script>
 

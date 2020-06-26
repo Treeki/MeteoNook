@@ -155,8 +155,21 @@ export function getPossiblePatternsForDay(hemisphere: Hemisphere, day: DayInfo):
 }
 
 
-export function populateGuessData(hemisphere: Hemisphere, data: GuessData, day: DayInfo) {
+export enum PopulateErrorKind {
+	NoPatterns,
+	StarConflict
+}
+export interface PopulateError {
+	kind: PopulateErrorKind,
+	hour?: number,
+	minute?: number
+}
+
+export function populateGuessData(hemisphere: Hemisphere, data: GuessData, day: DayInfo): PopulateError | undefined {
 	const patterns = getPossiblePatternsForDay(hemisphere, day)
+	if (patterns.length == 0)
+		return {kind: PopulateErrorKind.NoPatterns}
+
 	for (const pattern of patterns) {
 		data.addPattern(day.y, day.m, day.d, pattern)
 	}
@@ -175,17 +188,21 @@ export function populateGuessData(hemisphere: Hemisphere, data: GuessData, day: 
 		for (const gap of day.gaps) {
 			const endLH = toLinearHour(gap.endHour)
 			const endMinute = gap.endMinute
-			for (let lh = toLinearHour(gap.startHour), min = gap.startMinute; lh < endLH || (lh == endLH && min <= endMinute); ) {
+			for (let lh = toLinearHour(gap.startHour), minute = gap.startMinute; lh < endLH || (lh == endLH && minute <= endMinute); ) {
 				const hour = fromLinearHour(lh)
-				data.addMinute(day.y, day.m, day.d, hour, min, false)
-				min++
-				if (min == 60) {
-					min = 0
+				if (!data.addMinute(day.y, day.m, day.d, hour, minute, false)) {
+					return {kind: PopulateErrorKind.StarConflict, hour, minute}
+				}
+				minute++
+				if (minute == 60) {
+					minute = 0
 					lh++
 				}
 			}
 		}
 	}
+
+	return undefined
 }
 
 

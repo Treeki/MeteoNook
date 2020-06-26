@@ -32,6 +32,7 @@ import messages from './translations'
 // not too happy with this
 const dtfBase: DateTimeFormat = {
 	short: {year: 'numeric', month: '2-digit', day: '2-digit'},
+	long: {year: 'numeric', month: 'long', 'day': 'numeric'},
 	yearMonth: {year: 'numeric', month: 'long'},
 }
 const dtf24: DateTimeFormat = {}, dtf12: DateTimeFormat = {}
