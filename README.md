@@ -3,7 +3,6 @@
 ## Missing features for V1 parity
 
 - Loading/error screen
-- Search integration with JS
 - Highlight styling on Monthly forecast
 - Data in Day modal
 - Previews of patterns from Seed page

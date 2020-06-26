@@ -17,8 +17,7 @@
 </template>
 
 <script lang='ts'>
-import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Vue, Component } from 'vue-property-decorator'
 
 @Component
 export default class WelcomePage extends Vue {

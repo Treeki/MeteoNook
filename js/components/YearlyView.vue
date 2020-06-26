@@ -43,19 +43,14 @@
 </template>
 
 <script lang='ts'>
-import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Vue, Component, Prop } from 'vue-property-decorator'
 import {Forecast, MonthForecast} from '../model'
 import {isSpecialDay} from '../../pkg'
 
-const YearlyViewProps = Vue.extend({
-	props: {
-		forecast: Forecast
-	}
-})
-
 @Component
-export default class YearlyView extends YearlyViewProps {
+export default class YearlyView extends Vue {
+	@Prop(Forecast) readonly forecast!: Forecast
+
 	get prevDisabled() {
 		return this.forecast.year <= 2000
 	}

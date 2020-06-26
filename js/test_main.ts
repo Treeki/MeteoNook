@@ -1,5 +1,5 @@
 import { Forecast, Hemisphere, MonthForecast, DayForecast, DayInfo, createDayInfo, populateGuessData, DayType, ShowerType, AmbiguousWeather, StarInfo } from './model'
-import { Guesser, GuessData, Random, SpecialDay, Weather, Pattern } from '../pkg'
+import { Guesser, GuessData, GuesserResult, Random, SpecialDay, Weather, Pattern } from '../pkg'
 import translations from './translations'
 
 const ambiguousWeatherTypes = {
@@ -145,6 +145,7 @@ function performTests(weatherSeed: number, testSeed: number, hemisphere: Hemisph
 
 	return outcome
 }
+
 
 const args = process.argv.slice(2)
 if (args.length > 0) {

@@ -794,6 +794,11 @@ pub struct Guesser {
 }
 
 #[wasm_bindgen]
+pub enum GuesserResult {
+	Incomplete, Complete, Failed
+}
+
+#[wasm_bindgen]
 impl Guesser {
 	pub fn new(minimum: u32, maximum: u32) -> Guesser {
 		Guesser {
@@ -804,7 +809,7 @@ impl Guesser {
 		}
 	}
 
-	pub fn work(&mut self, data: &GuessData, step_size: u32) -> bool {
+	pub fn work(&mut self, data: &GuessData, step_size: u32) -> GuesserResult {
 		let step_start = self.step;
 		let step_end = cmp::min(self.maximum, self.step.saturating_add(step_size - 1));
 		self.step = step_end + 1;
@@ -815,12 +820,16 @@ impl Guesser {
 					self.results[self.result_count] = seed;
 					self.result_count += 1;
 				} else {
-					return false
+					return GuesserResult::Failed
 				}
 			}
 		}
 
-		true
+		if step_end >= self.maximum {
+			GuesserResult::Complete
+		} else {
+			GuesserResult::Incomplete
+		}
 	}
 
 	#[wasm_bindgen(js_name = getPercentage)]

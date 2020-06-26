@@ -37,16 +37,19 @@
 			<day-editor class='flex-grow-1' :day='getDay(selectedDay)' :hemisphere='hemisphere'>
 			</day-editor>
 		</div>
+
+		<h4 class='mt-4'>{{ $t('tStep3') }}</h4>
+		<guess-worker-view :days='days' :hemisphere='hemisphere'></guess-worker-view>
 	</div>
 </template>
 
 <script lang='ts'>
-import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Vue, Component } from 'vue-property-decorator'
 import DayEditor from './DayEditor.vue'
+import GuessWorkerView from './GuessWorkerView.vue'
 import {createDayInfo, DayInfo, DayType, ShowerType, Hemisphere, isDayNonEmpty} from '../model'
 
-@Component({components: {DayEditor}})
+@Component({components: {DayEditor, GuessWorkerView}})
 export default class SeedFinder extends Vue {
 	selectedDay = new Date()
 	days: {[key: string]: DayInfo} = {}
@@ -91,3 +94,7 @@ export default class SeedFinder extends Vue {
 	}
 }
 </script>
+
+<style>
+.progress-bar { transition: none; }
+</style>

@@ -95,11 +95,11 @@ tCancel	Cancel Search	Cancelar búsqueda
 tWorking	Searching...	Buscando...
 tInfoDefault	Once you've filled in the information above, click Start Search to begin the process.	Cuando hayas rellenado los datos, haz clic en 'Comenzar búsqueda' para... comenzar la búsqueda.
 tInfoRunning	Searching, hold on...	Buscando, espera...
-tInfoRunningC	Searching, hold on... Found {seeds} so far:	Buscando, espera... {seeds} encontrada:
+tInfoRunningC	Searching, hold on... Found {count} so far: {seeds}	Buscando, espera... {count} encontrada: {seeds}
 tInfoPossibleSeeds	1 possible seed | {n} possible seeds	1 semilla posible | {n} semillas posibles
 tInfoMoreData	You haven't entered enough weather information to narrow down your island's seed.	Estos datos no son suficientes para determinar la semilla ambiental en tu isla.
 tInfoNoSeeds	There are no seeds that match the information you entered. Please double-check it!	No hay semillas que encajen con los datos que has puesto. ¡Compruébalos, por favor!
-tInfoMultiSeed	It looks like there are {count} seeds that fit the information you've given: {seedValues}. You can look at these by putting them into Step 3 below to see how they compare to your island, or you can add more data above and try searching again.	Parece que hay {count} semillas que encajan con la información que has puesto: {seedValues}. Si quieres comprobarlas, puedes introducir cada una en el paso 3 para ver cómo se comparan con el tiempo en tu isla. Si no, añade más datos en este paso e intenta buscar otra vez.
+tInfoMultiSeed	It looks like there are {count} seeds that fit the information you've given: {seeds}. You can look at these by putting them into Step 3 below to see how they compare to your island, or you can add more data above and try searching again.	Parece que hay {count} semillas que encajan con la información que has puesto: {seeds}. Si quieres comprobarlas, puedes introducir cada una en el paso 3 para ver cómo se comparan con el tiempo en tu isla. Si no, añade más datos en este paso e intenta buscar otra vez.
 tInfoSeed	Your island's weather seed is <b>{seed}</b>. Write it down somewhere for safekeeping, and move onto Step 3!	La semilla ambiental en tu isla es <b>{seed}</b>. Apúntala en algún lado para no perderla, ¡y sigue al 3º paso!
 tStarConflict	You have a gap saying that at {time} on {date}, there both is and isn't a star. Please fix it!	Tienes un hueco diciendo que a las {time} del {date} hubo y no hubo un meteorito. ¡Arregla eso!
 tBadRainbowN	You said {date} has a rainbow, but that can't happen in the northern hemisphere - they begin on the 25th February and end on the 25th November.	Dijiste que el {date} hubo un arcoíris, pero esto no puede pasar en el hemisferio norte - aparecen desde el 25 de febrero hasta el 25 de noviembre.
@@ -125,7 +125,7 @@ tsSave	Save	Guardar
 yLight	1 light shower | {n} light showers	1 lluvia leve de meteoritos | {n} lluvias leves de meteoritos
 yHeavy	1 heavy shower | {n} heavy showers	1 lluvia fuerte de meteoritos | {n} lluvias fuertes de meteoritos
 yRainbow	1 rainbow | {n} rainbows	{n} arcoíris
-yRainbowDouble	({n} double)	({n} double)
+yRainbowDouble	({n} double)	({n} doble)
 yAuroraN	1 aurora borealis day | {n} aurora borealis days	1 día con aurora | {n} días con aurora
 yAuroraS	1 aurora australis day | {n} aurora australis days	1 día con aurora | {n} días con aurora
 		

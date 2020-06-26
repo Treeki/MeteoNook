@@ -90,8 +90,8 @@
 			{{ possiblePatternNames.join(', ') }}
 		</p>
 
-		<b-modal id='secondsEditor' :title="$t('tsTitle')" :ok-title="$t('tsSave')" :cancel-title="$t('tsCancel')" scrollable @ok='saveSeconds'>
-			<b-form-group :id='"star" + i' :key='i' :label="$t('tsStar', i)" label-for='time' label-cols-sm='4' v-for='i in 8'>
+		<b-modal id='secondsEditor' :title='starSecondsTitle' :ok-title="$t('tsSave')" :cancel-title="$t('tsCancel')" scrollable @ok='saveSeconds'>
+			<b-form-group :id='"star" + i' :key='i' :label="$t('tsStar', {n: i})" label-for='time' label-cols-sm='4' v-for='i in 8'>
 				<b-form-select v-model.number='starModalSeconds[i - 1]' id='time' :options='starSecondOptions'>
 				</b-form-select>
 			</b-form-group>
@@ -100,21 +100,16 @@
 </template>
 
 <script lang='ts'>
-import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Vue, Component, Prop } from 'vue-property-decorator'
 import {DayInfo, DayType, AmbiguousWeather, ShowerType, StarInfo, dayUsesTypes, getPossiblePatternsForDay, getPatternName, rainbowPatternsByTime} from '../model'
 import {isSpecialDay, SpecialDay, Hemisphere, SpWeatherLevel, getSpWeatherLevel, Weather, Pattern} from '../../pkg'
 import { TranslateResult } from 'vue-i18n'
 
-const DayEditorProps = Vue.extend({
-	props: {
-		day: Object,
-		hemisphere: Number
-	}
-})
-
 @Component
-export default class DayEditor extends DayEditorProps {
+export default class DayEditor extends Vue {
+	@Prop(Object) readonly day!: DayInfo
+	@Prop(Number) readonly hemisphere!: Hemisphere
+
 	get hourOptions() {
 		const options = []
 		for (let i = 5; i < 24; i++)
@@ -273,6 +268,15 @@ export default class DayEditor extends DayEditorProps {
 			if (s != 99) seconds.push(':' + ('0' + s).slice(-2))
 		}
 		return (seconds.length == 0) ? this.$t('tEditSeconds') : seconds.join(', ')
+	}
+	get starSecondsTitle(): TranslateResult {
+		const star = this.day.stars[this.starModalIndex]
+		if (star === undefined) {
+			return ''
+		} else {
+			const date = new Date(0, 0, 0, star.hour, star.minute)
+			return this.$t('tsTitle', {time: this.$d(date, 'timeHM')})
+		}
 	}
 
 	editStarSeconds(index: number) {

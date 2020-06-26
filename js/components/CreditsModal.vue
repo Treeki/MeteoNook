@@ -33,20 +33,11 @@
 </template>
 
 <script lang='ts'>
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import {DayInfo, DayType, Forecast, DayForecast} from '../model'
-
-const DayModalProps = Vue.extend({
-	props: {
-		id: String,
-		forecast: Forecast,
-		day: DayForecast
-	}
-})
+import { Vue, Component, Prop } from 'vue-property-decorator'
 
 @Component
-export default class DayModal extends DayModalProps {
+export default class CreditsModal extends Vue {
+	@Prop(String) readonly id!: string
 }
 </script>
 

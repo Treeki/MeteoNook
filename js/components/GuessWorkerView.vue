@@ -1,0 +1,121 @@
+<template>
+	<div>
+		<div class='d-flex'>
+			<b-button variant='primary' :disabled='running' @click='startSearch'>
+				<b-spinner small v-show='running'></b-spinner>
+				{{ $t(running ? 'tWorking' : 'tStart') }}
+			</b-button>
+			<b-button variant='primary' class='ml-2' :disabled='!running' @click='stopSearch'>
+				{{ $t('tCancel') }}
+			</b-button>
+		</div>
+		<p class='my-2'>{{ infoText }}</p>
+		<b-progress :value='progress' max='100' show-progress></b-progress>
+	</div>
+</template>
+
+<script lang='ts'>
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Guesser, GuessData, Hemisphere, GuesserResult } from '../../pkg'
+import { populateGuessData, DayInfo } from '../model'
+import { TranslateResult } from 'vue-i18n'
+
+/*function callback(view: GuessWorkerView) {
+	if (view.guesser !== null && view.guessData !== null) {
+		const success = view.guesser.work(view.guessData, 0x10000)
+	}
+}*/
+
+@Component
+export default class GuessWorkerView extends Vue {
+	@Prop(Object) readonly days!: {[key: string]: DayInfo}
+	@Prop(Number) readonly hemisphere!: Hemisphere
+
+	running: boolean = false
+	progress: number = 0
+	results: number[] = []
+	timeout: number|null = null
+	lastResult: GuesserResult|null = null
+	guesser: Guesser|null = null
+	guessData: GuessData|null = null
+
+	beforeDestroy() {
+		this.stopSearch()
+	}
+
+
+	startSearch() {
+		this.stopSearch()
+
+		this.guessData = GuessData.new(this.hemisphere)
+		for (const day of Object.values(this.days)) {
+			populateGuessData(this.hemisphere, this.guessData, day)
+		}
+
+		this.guesser = Guesser.new(0, 0x7fffffff)
+		this.running = true
+		this.progress = 0
+		this.results = []
+		this.timeout = window.setTimeout(() => this.work(), 0)
+	}
+
+	stopSearch() {
+		this.running = false
+		if (this.timeout !== null) {
+			clearTimeout(this.timeout)
+			this.timeout = null
+		}
+		if (this.guesser !== null) {
+			this.guesser.free()
+			this.guesser = null
+		}
+		if (this.guessData !== null) {
+			this.guessData.free()
+			this.guessData = null
+		}
+	}
+
+	work() {
+		if (this.guesser !== null && this.guessData !== null) {
+			const result = this.guesser.work(this.guessData, 0x10000)
+			this.progress = this.guesser.getPercentage()
+
+			const resultCount = this.guesser.getResultCount()
+			if (resultCount != this.results.length) {
+				for (let i = this.results.length; i < resultCount; i++) {
+					this.results.push(this.guesser.getResult(i))
+				}
+			}
+
+			this.lastResult = result
+			if (result == GuesserResult.Incomplete) {
+				this.timeout = window.setTimeout(() => this.work(), 0)
+			} else {
+				this.stopSearch()
+			}
+		}
+	}
+
+	get infoText(): TranslateResult {
+		if (this.lastResult === GuesserResult.Failed) {
+			return this.$t('tInfoMoreData')
+		} else if (this.lastResult === GuesserResult.Incomplete) {
+			const count = this.results.length
+			if (count > 0)
+				return this.$t('tInfoRunningC', {count, seeds: this.results.join(', ')})
+			else
+				return this.$t('tInfoRunning')
+		} else if (this.lastResult == GuesserResult.Complete) {
+			const count = this.results.length
+			if (count > 1)
+				return this.$t('tInfoMultiSeed', {count, seeds: this.results.join(', ')})
+			else
+				return this.$t('tInfoSeed', {seed: this.results[0]})
+		} else {
+			return ''
+		}
+	}
+}
+</script>
+
+
