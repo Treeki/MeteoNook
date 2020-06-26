@@ -30,5 +30,12 @@
     "vue-i18n": "^8.18.2",
     "webpack": "^4.43.0",
     "webpack-dev-server": "^3.11.0"
+  },
+  "scripts": {
+    "build": "npx webpack --config webpack.config.js",
+    "dev": "npx webpack-dev-server -d",
+    "devOpen": "npx webpack-dev-server -d --host \"0.0.0.0\"",
+    "test": "npx webpack --config webpack.config.test.js && node distTest/index.js",
+    "testFast": "npx webpack --config webpack.config.test.js --mode production && node distTest/index.js"
   }
 }

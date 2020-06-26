@@ -556,9 +556,14 @@ impl DayGuess {
 
 		// meteor shower check
 		if self.hour_mask != 0 {
+			// for the sake of rollover, we need to process hours with data
+			// and also the hour right before
+			let hour_filter = self.hour_mask | (self.hour_mask >> 1);
+			let mut previous_second_mask = 0u64;
+
 			for linear_hour in 0..9 {
 				let hour_bit = 1u16 << linear_hour;
-				if (self.hour_mask & hour_bit) == 0 {
+				if (hour_filter & hour_bit) == 0 {
 					// no data for this hour
 					continue;
 				}
@@ -567,11 +572,18 @@ impl DayGuess {
 				let hour_seed = seed.wrapping_add(hg.hour_seed_add);
 				let true_mask = hg.true_minute_mask;
 				let false_mask = hg.false_minute_mask;
-				let both_mask = true_mask | false_mask;
+
+				// save time by only calculating specific minutes:
+				//   minutes with data
+				//   minutes before minutes with data (for roll-over)
+				//   last minute of the hour (also for roll-over)
+				// technically, the last won't always be needed
+				// but it doesn't hurt and makes things a little simpler for now
+				let minute_filter = (true_mask | false_mask) | ((true_mask | false_mask) >> 1) | (1u64 << 59);
 
 				for minute in 0..60 {
 					let minute_bit = 1u64 << minute;
-					if (both_mask & minute_bit) == 0 {
+					if (minute_filter & minute_bit) == 0 {
 						// no data for this minute
 						continue
 					}
@@ -579,12 +591,13 @@ impl DayGuess {
 					match query_stars_internal(hour_seed, minute, pattern) {
 						None => {
 							// no stars
-							if (true_mask & minute_bit) != 0 {
+							if (true_mask & minute_bit) != 0 && previous_second_mask == 0 {
 								if seed == 1856402561 { log!("seedfail stars false positive at {}:{}", from_linear_hour(linear_hour), minute); }
 								return false
 							}
+							previous_second_mask = 0;
 						}
-						Some((star_count, star_field)) => {
+						Some((_star_count, star_field)) => {
 							// some stars
 							if (false_mask & minute_bit) != 0 {
 								if seed == 1856402561 { log!("seedfail stars false negative"); }
@@ -593,8 +606,39 @@ impl DayGuess {
 
 							// do per-second checks
 							if hg.second_mask[minute as usize] != 0 {
-								// ...
+								// create u64 bitfield containing last 4 seconds of previous minute
+								// (at the lowest position) followed by 60 seconds of current minute
+								let mut actual_mask = (star_field << 4) | previous_second_mask;
+
+								// these are the seconds that the user claimed they saw a star in
+								let input_mask = hg.second_mask[minute as usize];
+
+								let mut second_bit = 1u64;
+								for _second in 0..60 {
+									if (input_mask & second_bit) != 0 {
+										// check 5 seconds worth for a match
+										let mut check_bit = second_bit;
+										let mut found = false;
+										for _i in 0..5 {
+											if (actual_mask & check_bit) != 0 {
+												// found a match, remove it from consideration
+												actual_mask ^= check_bit;
+												found = true;
+												break;
+											}
+											check_bit <<= 1;
+										}
+										if !found {
+											// no match within 5 seconds distance, can't be true
+											return false;
+										}
+									}
+									second_bit <<= 1;
+								}
 							}
+
+							// rollover the last 4 seconds
+							previous_second_mask = star_field >> 56;
 						}
 					}
 				}
@@ -653,7 +697,7 @@ impl GuessData {
 		match self.find_day(year, month, day) {
 			None => false,
 			Some(dg) => {
-				log!("+pat {}-{}-{} = {:?}", year, month, day, pat);
+				//log!("+pat {}-{}-{} = {:?}", year, month, day, pat);
 				dg.pattern_mask |= 1u64 << (pat as u32);
 				true
 			}
@@ -669,7 +713,7 @@ impl GuessData {
 				let hour_idx = linear_hour as usize;
 				dg.hour_mask |= 1u16 << linear_hour;
 				let bit = 1u64 << minute;
-				log!("+min {}-{}-{} {}:{} {}", year, month, day, hour, minute, yes);
+				// log!("+min {}-{}-{} {}:{} {}", year, month, day, hour, minute, yes);
 				if yes {
 					dg.hours[hour_idx].true_minute_mask |= bit;
 					(dg.hours[hour_idx].false_minute_mask & bit) == 0
@@ -690,7 +734,7 @@ impl GuessData {
 		match self.find_day(year, month, day) {
 			None => false,
 			Some(dg) => {
-				log!("+sec {}-{}-{} {}:{}:{}", year, month, day, hour, minute, second);
+				// log!("+sec {}-{}-{} {}:{}:{}", year, month, day, hour, minute, second);
 				let linear_hour = to_linear_hour(hour);
 				let hour_idx = linear_hour as usize;
 				let minute_idx = minute as usize;
@@ -779,6 +823,13 @@ impl Guesser {
 		true
 	}
 
+	#[wasm_bindgen(js_name = getPercentage)]
+	pub fn get_percentage(&self) -> f32 {
+		let range = (self.maximum - self.minimum) as f32;
+		let step = (self.step - self.minimum) as f32;
+		(step / range) * 100.
+	}
+
 	#[wasm_bindgen(js_name = getResultCount)]
 	pub fn get_result_count(&self) -> usize {
 		return self.result_count;
@@ -788,194 +839,3 @@ impl Guesser {
 		return self.results[index];
 	}
 }
-
-/*
-
-DayGuess dayGuesses[200];
-int dayGuessCount = 0;
-
-const uint64_t m1  = 0x5555555555555555;
-const uint64_t m2  = 0x3333333333333333;
-const uint64_t m4  = 0x0f0f0f0f0f0f0f0f;
-const uint64_t h01 = 0x0101010101010101; 
-
-inline int countOnBits(uint64_t x) {
-    x -= (x >> 1) & m1;
-    x = (x & m2) + ((x >> 2) & m2);
-    x = (x + (x >> 4)) & m4;
-    return (x * h01) >> 56;
-}
-
-
-
-
-#define MAX_RESULTS 30
-uint32_t results[MAX_RESULTS];
-int resultCount = 0;
-uint32_t searchPosition = 0;
-
-EXPORT void searchInit(bool southern) {
-	resultCount = 0;
-	searchPosition = 0;
-	southernFlag = southern;
-}
-
-EXPORT float searchGetPercentage() {
-	return float(searchPosition) / float(0x7fffffff);
-}
-EXPORT bool searchCompleted() {
-	return (searchPosition >= 0x7fffffff) || (resultCount >= MAX_RESULTS);
-}
-EXPORT bool searchFailed() {
-	return (resultCount >= MAX_RESULTS) && (searchPosition < 0x7fffffff);
-}
-
-EXPORT int searchGetMaxResultCount() {
-	return MAX_RESULTS;
-}
-EXPORT int searchGetResultCount() {
-	return resultCount;
-}
-EXPORT uint32_t searchGetResult(int index) {
-	return results[index];
-}
-
-bool checkGuess(uint32_t seed) {
-	for (int g = 0; g < dayGuessCount; g++) {
-		Random rng;
-		uint8_t pattern;
-		if (dayGuesses[g].specialDayFlag > 0) {
-			pattern = EventDay00;
-		} else {
-			rng.init(seed + dayGuesses[g].seedAdd);
-			rng.get();
-			rng.get();
-			uint16_t dayIndex = dayGuesses[g].dayIndex;
-			uint8_t rateSet = southernFlag ? rateLookupS[dayIndex] : rateLookupN[dayIndex];
-			pattern = rateMaps[rateSet][rng.get(100)];
-		}
-
-		// pattern check
-		if (dayGuesses[g].patternMask != 0) {
-			uint64_t check = uint64_t(1) << pattern;
-			if ((dayGuesses[g].patternMask & check) == 0)
-				return false;
-		}
-
-		// pattern contents check
-		for (int i = 0; i < 24; i++) {
-			uint8_t typeMask = dayGuesses[g].typeMask[i];
-			uint8_t check = 1 << patterns[pattern][i];
-			if (typeMask != 0 && (typeMask & check) == 0)
-				return false;
-		}
-
-		// rainbow check
-		if (dayGuesses[g].rainbowFlag != 0) {
-			rng.init(seed + dayGuesses[g].rainbowSeedAdd);
-			rng.get();
-			rng.get();
-			int rainbowCount = ((rng.get() & 1) == 0) ? 1 : 2;
-			if (dayGuesses[g].rainbowFlag != rainbowCount)
-				return false;
-		}
-
-		// minute check
-		if (dayGuesses[g].hourMask != 0) {
-			for (int linearHour = 0; linearHour < 9; linearHour++) {
-				if ((dayGuesses[g].hourMask & (1 << linearHour)) == 0)
-					continue;
-
-				uint32_t hourSeed = seed + dayGuesses[g].hours[linearHour].hourSeedAdd;
-				uint64_t trueMask = dayGuesses[g].hours[linearHour].trueMinuteMask;
-				uint64_t falseMask = dayGuesses[g].hours[linearHour].falseMinuteMask;
-				uint64_t mask = trueMask | falseMask;
-				for (int minute = 0; minute < 60; minute++) {
-					uint64_t check = uint64_t(1) << minute;
-					if ((mask & check) != 0) {
-						// do we expect to see meteor showers now?
-						uint64_t expected = queryStarsInternal(pattern, hourSeed, linearHour, minute);
-						if ((expected == 0) && ((trueMask & check) != 0))
-							return false;
-						if ((expected != 0) && ((falseMask & check) != 0))
-							return false;
-
-						uint64_t secondMask = dayGuesses[g].hours[linearHour].secondMask[minute];
-						if (secondMask != 0) {
-							/*int expectedCount = expected >> SECONDS_SHIFT;
-							int guessesCount = secondMask >> SECONDS_SHIFT;
-							if (expectedCount != guessesCount) return false;*/
-							//int penalties = 0;
-							for (int second = 0; second < 60; second++) {
-								uint64_t check = uint64_t(1) << second;
-								if ((secondMask & check) == 0) continue;
-
-								if (second > 1) {
-									check = uint64_t(1) << (second - 2);
-									if ((expected & check) != 0) {
-										expected ^= check;
-										continue;
-									}
-								}
-								if (second > 0) {
-									check = uint64_t(1) << (second - 1);
-									if ((expected & check) != 0) {
-										expected ^= check;
-										continue;
-									}
-								}
-								check = uint64_t(1) << second;
-								if ((expected & check) != 0) {
-									expected ^= check;
-								} else {
-									return false;
-								}
-
-								/*check = uint64_t(1) << second;
-								if ((secondMask & check) == 0) continue;
-								if ((expected & check) == 0) {
-									if (second > 0) check |= uint64_t(1) << (second - 1);
-									if (second < 59) check |= uint64_t(1) << (second + 1);
-									if ((expected & check) == 0) {
-										if (second > 1) check |= uint64_t(1) << (second - 2);
-										if (second < 58) check |= uint64_t(1) << (second + 2);
-										if ((expected & check) == 0) {
-											if (second > 2) check |= uint64_t(1) << (second - 3);
-											if ((expected & check) == 0) {
-												return false;
-											} else {
-												penalties += 3;
-											}
-										} else {
-											penalties += 2;
-										}
-									} else {
-										penalties += 1;
-									}
-								}
-								if (penalties > 4) return false;*/
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	return true;
-}
-
-EXPORT void searchStep() {
-	uint32_t stepEnd = searchPosition + 0x200000;
-	if (stepEnd >= 0x7fffffff)
-		stepEnd = 0x7fffffff;
-	while (searchPosition < stepEnd && resultCount < MAX_RESULTS) {
-		if (checkGuess(searchPosition)) {
-			results[resultCount++] = searchPosition;
-		}
-		searchPosition++;
-	}
-}
-
-
-*/
