@@ -47,14 +47,21 @@ dtf12.timeHM = {hour: '2-digit', minute: '2-digit', hour12: true}
 dtf12.timeH = {hour: '2-digit', hour12: true}
 dtf12.timeHOnly = {hour: '2-digit', hour12: true}
 
+const startTime12 = readStorage('meteonook_timeFormat', (e) => e == '12') || false
+
 // prepare start array
 const dateTimeFormats: DateTimeFormats = {}
 for (const k of Object.keys(messages)) {
-	dateTimeFormats[k] = dtf24
+	dateTimeFormats[k] = startTime12 ? dtf12 : dtf24
 }
 
+let startLocale = readStorage('meteonook_language', e => e)
+if (startLocale === 'en')
+	startLocale = (navigator.language === 'en-US') ? 'en-US' : 'en-GB'
+else if (startLocale === null)
+	startLocale = (navigator.language in messages) ? navigator.language : 'en-GB'
 const i18n = new VueI18n({
-	locale: 'en-GB',
+	locale: startLocale,
 	fallbackLocale: 'en',
 	messages,
 	dateTimeFormats,
@@ -62,8 +69,9 @@ const i18n = new VueI18n({
 })
 
 import App from './components/App.vue'
+import { readStorage } from './utils'
 new Vue({
-	data: {time12: false},
+	data: {time12: startTime12},
 	methods: {
 		setTime12(time12: boolean) {
 			this.time12 = time12

@@ -77,6 +77,7 @@ import CreditsModal from './CreditsModal.vue'
 import { Forecast, DayForecast, Hemisphere } from '../model'
 import { BTab } from 'bootstrap-vue'
 import { LocaleMessage, DateTimeFormat } from 'vue-i18n'
+import { writeStorage } from '../utils'
 
 @Component({components: {WelcomePage, SeedFinder, YearlyView, MonthlyView, DayModal, CreditsModal}})
 export default class App extends Vue {
@@ -107,6 +108,7 @@ export default class App extends Vue {
 	}
 	setLanguage(key: string) {
 		this.$root.$i18n.locale = key
+		writeStorage('meteonook_language', key)
 	}
 
 	get time12(): boolean { return (this.$root as any).time12 }
@@ -114,6 +116,7 @@ export default class App extends Vue {
 	setTime24() { this.setTimeFormat(false) }
 	setTimeFormat(time12: boolean) {
 		(this.$root as any).setTime12(time12)
+		writeStorage('meteonook_timeFormat', time12 ? '12' : '24')
 	}
 }
 </script>
