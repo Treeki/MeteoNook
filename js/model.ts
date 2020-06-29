@@ -364,6 +364,10 @@ export class DayForecast {
 		return canHaveShootingStars(hour, this.pattern)
 	}
 
+	get weekday(): number {
+		return this.date.getDay()
+	}
+
 	constructor(
 		readonly hemisphere: Hemisphere,
 		readonly seed: number,

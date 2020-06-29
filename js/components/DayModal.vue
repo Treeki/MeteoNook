@@ -1,9 +1,13 @@
+<style>
+	.hour>span { margin-left: 0.25em; }
+</style>
+
 <template>
 	<b-modal :id='id' :title='modalTitle' scrollable hide-footer>
 		<p v-show='specialDayWarning'>🎉 {{ specialDayWarning }}</p>
 
 		<template v-for='hour in hours'>
-			<p :key='hour'>
+			<p class='hour' :key='hour'>
 				<b>{{ $d(hourDates[hour], 'timeHM') }}</b>:
 				<span :title="$t('dWindTooltip')">🍃{{ day.windPower[hour] }}</span>
 				{{ $t(weatherNameStringPrefix + day.weather[hour]) }}
