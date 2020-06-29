@@ -4,12 +4,10 @@
 
 - Loading/error screen
 - Previews of patterns from Seed page
-- Read forecast seed from URL
 
 ## More stuff
 
+- Confirmation on deleting an island
 - Data export
-- Overview/dashboard
 - Dark mode
 - Emoji replacement toggle
-- Seed history in localstorage

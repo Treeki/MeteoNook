@@ -162,6 +162,39 @@ fn normalise_late_ymd(year: u16, month: u8, day: u8, hour: u8) -> (u16, u8, u8) 
 	}
 }
 
+#[wasm_bindgen(js_name = getConstellation)]
+pub fn get_constellation(month: u8, day: u8) -> Constellation {
+	use Constellation::*;
+	match (month, day) {
+		( 1,  1..=19) => Capricorn,
+		( 1, 20..=31) => Aquarius,
+		( 2,  1..=18) => Aquarius,
+		( 2, 19..=29) => Pisces,
+		( 3,  1..=20) => Pisces,
+		( 3, 21..=31) => Aries,
+		( 4,  1..=19) => Aries,
+		( 4, 20..=30) => Taurus,
+		( 5,  1..=20) => Taurus,
+		( 5, 21..=31) => Gemini,
+		( 6,  1..=21) => Gemini,
+		( 6, 22..=30) => Cancer,
+		( 7,  1..=22) => Cancer,
+		( 7, 23..=31) => Leo,
+		( 8,  1..=22) => Leo,
+		( 8, 23..=31) => Virgo,
+		( 9,  1..=22) => Virgo,
+		( 9, 23..=30) => Libra,
+		(10,  1..=23) => Libra,
+		(10, 24..=31) => Scorpio,
+		(11,  1..=22) => Scorpio,
+		(11, 23..=30) => Sagittarius,
+		(12,  1..=21) => Sagittarius,
+		(12, 22..=31) => Capricorn,
+
+		_ => panic!("bad constellation date")
+	}
+}
+
 #[wasm_bindgen(js_name = getSnowLevel)]
 pub fn get_snow_level(hemi: Hemisphere, month: u8, day: u8) -> SnowLevel {
 	use Hemisphere::*;

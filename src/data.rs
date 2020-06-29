@@ -43,6 +43,11 @@ pub enum SpWeatherLevel {
 pub enum FogLevel {
 	None, HeavyAndWater, WaterOnly
 }
+#[wasm_bindgen]
+#[derive(PartialEq, Clone, Copy, Debug)]
+pub enum Constellation {
+	Capricorn, Aquarius, Pisces, Aries, Taurus, Gemini, Cancer, Leo, Virgo, Libra, Scorpio, Sagittarius
+}
 
 pub static EASTER_DAYS: [u8;61] = [23,15,31,20,11,27,16,8,23,12,4,24,8,31,20,5,27,16,1,21,12,4,17,9,31,20,5,28,16,1,21,13,28,17,9,25,13,5,25,10,1,21,6,29,17,9,25,14,5,18,10,2,21,6,29,18,2,22,14,30,18];
 pub static EASTER_MONTHS: [u8;61] = [4,4,3,4,4,3,4,4,3,4,4,4,4,3,4,4,3,4,4,4,4,4,4,4,3,4,4,3,4,4,4,4,3,4,4,3,4,4,4,4,4,4,4,3,4,4,3,4,4,4,4,4,4,4,3,4,4,4,4,3,4];

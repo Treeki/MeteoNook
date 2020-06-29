@@ -10,6 +10,7 @@ mLanguage	Language	Idioma
 		
 hTab	Welcome	Inicio
 sTab	Seed	Semilla
+oTab	Overview	Ahora
 yTab	Yearly	Anual
 mTab	Monthly	Mensual
 		
@@ -103,14 +104,6 @@ tInfoMultiSeed	It looks like there are {count} seeds that fit the information yo
 tInfoSeed	Your island's weather seed is <b>{seed}</b>. Write it down somewhere for safekeeping, and move onto Step 3!	La semilla ambiental en tu isla es <b>{seed}</b>. Apúntala en algún lado para no perderla, ¡y sigue al 3º paso!
 tErrNoPatterns	The information you have for {date} doesn't match any of the possible weather patterns for that date. Please double-check that data.	La información que tienes para el {date} no encaja con ningunos de los patrones posibles en ese día. ¡Comprueba tus datos!
 tErrStarConflict	You have a gap saying that at {time} on {date}, there both is and isn't a star. Please fix it!	Tienes un hueco diciendo que a las {time} del {date} hubo y no hubo un meteorito. ¡Arregla eso!
-tStep3	Step 3: Forecast Settings	Paso 3: Opciones del pronóstico
-tForecastBlurb	The information here controls what shows up on your forecasts, and will be saved in this page's URL so you can just bookmark it.%%The island name is purely cosmetic and won't affect your reports. Fill it in if you want. Or just set it to something random. I don't care.	La información aquí influye en lo que aparece en las pestañas de previsión, y será guardada en el enlace para que puedas añadirlo a tus marcadores.%%El nombre de la isla es estético y no afecta a tus previsiones. Ponlo si quieres. O pon lo que quieras. No me importa, sigue tu corazón.
-tIslandName	Island	Isla
-tSeed	Seed	Semilla ambiental
-tHemisphere	Hemisphere	Hemisferio
-tNorthern	Northern	Norte
-tSouthern	Southern	Sur
-tSave	Save	Guardar
 		
 tsTitle	Editing star at {time}	Meteorito a las {time}
 tsHeader	During a heavy shower you get 5 or 8 stars in a minute, and during a light shower, you get 5 stars in a minute. If you know the exact seconds for each star, enter them below.	Durante una lluvia fuerte, habrá 5 u 8 meteoritos en un minuto, y durante una lluvia leve pasarán 5 meteoritos en un minuto. Si sabes los segundos en que cada meteorito apareció, ponlo aquí.
@@ -125,6 +118,80 @@ yRainbow	1 rainbow | {n} rainbows	{n} arcoíris
 yRainbowDouble	({n} double)	({n} doble)
 yAuroraN	1 aurora borealis day | {n} aurora borealis days	1 día con aurora | {n} días con aurora
 yAuroraS	1 aurora australis day | {n} aurora australis days	1 día con aurora | {n} días con aurora
+		
+oExample	This is an example forecast that shows what MeteoNook can do. Once you find out your island's seed, fill in the details below to get your personalised overview.	Esto es un pronostico ejemplar para demostrar lo que MeteoNook puede hacer. Cuando hayas encontrado tu semilla ambiental, introduce los detalles en el formulario para recibir tu pronostico personal.
+oChange	Change	Cambiar
+oEditSettings	Edit settings	Editar ajustes
+oShareLink	Share a link	Compartir con enlace
+oRemoveIsland	Remove island	Borrar esta isla
+oSavedIslands	Saved islands	Islas guardadas
+oAddIsland	Add another island	Añadir otra isla
+oTitle	Weather on {island}	El tiempo para {island}
+		
+oToday	Today	Hoy
+oTomorrow	Tomorrow	Mañana
+oSeeMore	See more	Ver más
+oPattern	Pattern: {pattern}	Patrón: {pattern}
+oSunny	Clear {list}	Claro {list}
+oCloudy	Cloudy {list}	Nublado {list}
+oRain	Rain {list}	Lluvia {list}
+oSnow	Snow {list}	Nevando {list}
+oMorning	morning	mañana
+oAfternoon	afternoon	tarde
+oEvening	evening	noche
+oNight	night	noche
+oZoneList1	in the {0}	por la {0}
+oZoneList2	in the {0} and {1}	por la {0} y {1}
+oZoneList3	in the {0}, {1} and {2}	por la {0}, {1} y {2}
+oZoneRest	for the rest of the day	el resto del día
+oZoneAllDay	all day	todo el día
+		
+oHeavyShowerAlert	Heavy meteor shower: expect shooting stars between {start} and {end}	Lluvia fuerte: verás meteoritos entre las {start} y las {end}
+oShowerAlert	Expect some shooting stars around {list}	Verás algunos meteoritos alrededor de {list}
+oTimeList1	{0}	las {0}
+oTimeList2	{0} and {1}	{0} y las {1}
+		
+oUpcoming	Coming up	Próximamente
+oRainbowAt	Rainbow at {time}	Arcoíris a las {time}
+oHeavyShower	Heavy meteor shower	Lluvia fuerte de meteoritos
+oSnowStart	Snowy season begins	Comienza la temporada de nieve
+oSnowEnd	Snowy season ends	Acaba la temporada de nieve
+oFogStart	Fog season begins	Comienza la temporada de niebla
+oFogEnd	Fog season ends	Acaba la temporada de niebla
+		
+oConstellation	Constellation	Constelación
+oZodiacNow	Now:	Ahora:
+oZodiacNext	Next:	Próximo:
+oZodiacFrom	(from {date})	(desde el {date})
+		
+tForecastConfig	Forecast configuration	Configuración del pronóstico
+tIslandName	Island name	Nombre de la isla
+tIslandNameDesc	This doesn't affect the forecast, but if you want to keep track of multiple islands in MeteoNook, this will allow you to tell them apart.	Esto no influye el pronóstico, pero si quieres echarle un ojo a varias islas en MeteoNook, esta opción te permitirá distinguirlas.
+tSeed	Weather seed	Semilla ambiental
+tHemisphere	Hemisphere	Hemisferio
+tNorthern	Northern	Norte
+tSouthern	Southern	Sur
+tClockMode	Are you time sly?	¿Como tienes tu reloj?
+tRealTime	No, my Switch's clock is real time	Mi consola Switch tiene el tiempo actual
+tTimeTravel	Yes, I time travel	Viajo en el tiempo
+tClockModeDesc	This option will set what MeteoNook considers as "today". This does not affect the predictions, it just makes the app a little more convenient to use.	Esta opción controla como MeteoNook decide la fecha para mostrar como "hoy". No afecta las previsiones, pero la app sera un poquito mas útil si lo configuras bien.
+tClockOffset	Clock offset	Desplazamiento del reloj
+tClockOffsetDesc	You can enter an offset in minutes, or select the date and time that your Switch is currently set to.	Puedes introducir una cantidad de minutos como el desplazamiento, o elegir la fecha y hora que aparecen en tu consola Switch ahora mismo.
+tMinutesSuffix	minutes	minutos
+tPreview	Try (don't save)	Probar (sin guardar)
+tSave	Save Settings	Guardar estas opciones
+tCancel	Cancel	Cancelar
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 dTitlePreview	Preview of pattern {pattern}	Ejemplo del patrón {pattern}
 dTitleDay	Weather for {date} ({pattern})	El tiempo para {date} ({pattern})
@@ -147,6 +214,7 @@ lstSpecialDaysA	Bunny Day%%the Fishing Tourney%%the Bug-Off%%the New Year's Eve 
 lstPatternChoices	☀ Clear/Fine%%🌤 Sunny%%🌥 Cloudy%%☁ Rain Clouds%%🌧 Rain/Snow%%⛈ Heavy Rain/Snow%%Unsure (clear or sunny)%%Unsure (sunny or cloudy)%%Unsure (cloudy or rain clouds)%%Unsure (no rain/snow)%%Unsure (rain/snow)	☀ Claro%%🌤 Soleado%%🌥 Nublado%%☁ Nubes de lluvia%%🌧 Lluvia/nieve%%⛈ Lluvia/nieve fuerte%%No estoy seguro (claro o soleado)%%No estoy seguro (soleado o nublado)%%No estoy seguro (nublado o nubes de lluvia)%%No estoy seguro (sin lluvia o nieve)%%No estoy seguro (lluvia o nieve)
 lstPatternNoSnow	☀ Clear/Fine%%🌤 Sunny%%🌥 Cloudy%%☁ Rain Clouds%%🌧 Rain%%⛈ Heavy Rain	☀ Claro%%🌤 Soleado%%🌥 Nublado%%☁ Nubes de lluvia%%🌧 Lluvia%%⛈ Lluvia fuerte
 lstPatternSnow	☀ Clear/Fine%%🌤 Sunny%%🌥 Cloudy%%☁ Rain Clouds%%🌨 Snow%%🌨 Heavy Snow	☀ Claro%%🌤 Soleado%%🌥 Nublado%%☁ Nubes de lluvia%%🌨 Nieve%%🌨 Nieve fuerte
+lstConstellation	Capricorn%%Aquarius%%Pisces%%Aries%%Taurus%%Gemini%%Cancer%%Leo%%Virgo%%Libra%%Scorpio%%Sagittarius	capricornio%%acuario%%piscis%%aries%%tauro%%géminis%%cáncer%%leo%%virgo%%libra%%escorpio%%sagitario
 		
 credTitle	Credits	Agradecimientos
 credSource	MeteoNook is available under the {license}. The source code is available on GitHub: {repo}	MeteoNook está distribuido bajo la {license}. El código fuente está disponible en GitHub: {repo}

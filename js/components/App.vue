@@ -23,11 +23,26 @@
 
 	<b-container fluid='md'>
 		<b-tabs class='mt-2 mx-0' content-class='mt-3'>
-			<b-tab :title="$t('hTab')" active>
+			<b-tab :title="$t('hTab')" :active='!forecast.specifiedInUrl'>
 				<welcome-page></welcome-page>
 			</b-tab>
 			<b-tab :title="$t('sTab')">
 				<seed-finder></seed-finder>
+			</b-tab>
+			<b-tab :title="$t('oTab')" :active='forecast.specifiedInUrl'>
+				<forecast-overview
+					:forecast='forecast'
+					:stored-islands='storedIslands'
+					:active-island='currentIsland'
+					@add-island='addIslandAndMakeCurrent'
+					@update-island='updateCurrentIsland'
+					@set-preview-island='setPreviewIsland'
+					@select-island='selectIsland'
+					@remove-island='removeIsland'
+					@cancel-preview='cancelPreviewIsland'
+					@show-day='showDayModal'
+					>
+				</forecast-overview>
 			</b-tab>
 			<b-tab :title="$t('yTab')">
 				<yearly-view :forecast='forecast' @switch-to-monthly='switchToMonthly'></yearly-view>
@@ -74,19 +89,99 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import WelcomePage from './WelcomePage.vue'
 import SeedFinder from './SeedFinder.vue'
+import ForecastOverview from './ForecastOverview.vue'
 import YearlyView from './YearlyView.vue'
 import MonthlyView from './MonthlyView.vue'
 import DayModal from './DayModal.vue'
 import CreditsModal from './CreditsModal.vue'
-import { Forecast, DayForecast, Hemisphere } from '../model'
+import { Forecast, DayForecast, Hemisphere, IslandInfo } from '../model'
 import { BTab } from 'bootstrap-vue'
 import { LocaleMessage, DateTimeFormat } from 'vue-i18n'
-import { writeStorage } from '../utils'
+import { writeStorage, readStorageObject, writeStorageObject } from '../utils'
+import { Watch } from 'vue-property-decorator'
 
-@Component({components: {WelcomePage, SeedFinder, YearlyView, MonthlyView, DayModal, CreditsModal}})
+interface IslandInfoHolder {
+	version: number,
+	islands: IslandInfo[],
+	currentIndex: number|null
+}
+
+function loadIslands(): IslandInfoHolder {
+	let info = readStorageObject<IslandInfoHolder>('meteonook_islands', (iih) => iih.version == 2)
+	if (info === null) {
+		info = {version: 2, islands: [], currentIndex: null}
+	}
+
+	const islands = info.islands
+	let immediateSave = false
+
+	// check the URL for an imported island
+	if (document !== undefined && document.location.search.startsWith('?v1&')) {
+		const bits = document.location.search.split('&')
+		if (bits.length === 4) {
+			const island = new IslandInfo()
+			island.name = decodeURIComponent(bits[1])
+			island.seed = parseInt(decodeURIComponent(bits[2]), 10)
+			island.hemisphere = (decodeURIComponent(bits[3]).toUpperCase() == 'S') ? Hemisphere.Southern : Hemisphere.Northern
+
+			// is there one like it in the array?
+			const found = islands.findIndex(e => (e.name == island.name && e.seed == island.seed && e.hemisphere == island.hemisphere))
+			if (found > -1) {
+				// this already exists
+				if (info.currentIndex !== found) {
+					info.currentIndex = found
+					immediateSave = true
+				}
+			} else {
+				// new island, add it
+				islands.push(island)
+				info.currentIndex = islands.length - 1
+				immediateSave = true
+			}
+		}
+	}
+
+	if (info.currentIndex === null && islands.length > 0)
+		info.currentIndex = 1
+
+	if (immediateSave)
+		writeStorageObject('meteonook_islands', info)
+
+	return info
+}
+
+function saveIslands(islands: IslandInfo[], currentIndex: number|null) {
+	const info: IslandInfoHolder = {
+		version: 2, islands, currentIndex
+	}
+	writeStorageObject('meteonook_islands', info)
+}
+
+
+@Component({components: {WelcomePage, SeedFinder, YearlyView, MonthlyView, ForecastOverview, DayModal, CreditsModal}})
 export default class App extends Vue {
-	forecast = new Forecast()
+	currentIslandIndex!: number|null
+	previewIsland!: IslandInfo
+	storedIslands!: IslandInfo[]
+	forecast!: Forecast
+	previewOverride: boolean = false
 	dayModalData = new DayForecast(Hemisphere.Northern, 0, 1970, 1, 1)
+
+	data() {
+		// these need to be specified using data hook because
+		// of inter-dependent object fuckery
+		const data = loadIslands()
+		console.log('INITIAL DATA', data)
+		const previewIsland = new IslandInfo()
+		const startIsland = (data.currentIndex !== null) ? data.islands[data.currentIndex] : previewIsland
+
+		return {
+			currentIslandIndex: data.currentIndex,
+			storedIslands: data.islands,
+			previewIsland,
+			forecast: new Forecast(startIsland)
+		}
+	}
 
 	$refs!: {
 		monthlyTab: BTab
@@ -115,6 +210,54 @@ export default class App extends Vue {
 		writeStorage('meteonook_language', key)
 	}
 
+	get currentIsland(): IslandInfo {
+		if (this.currentIslandIndex === null)
+			return this.previewIsland
+		else
+			return this.storedIslands[this.currentIslandIndex]
+	}
+	get previewOrCurrentIsland(): IslandInfo {
+		if (this.previewOverride)
+			return this.previewIsland
+		else
+			return this.currentIsland
+	}
+	selectIsland(index: number|null, forceSave?: boolean) {
+		if (index !== this.currentIslandIndex || forceSave) {
+			this.currentIslandIndex = index
+			saveIslands(this.storedIslands, this.currentIslandIndex)
+		}
+		this.forecast.island = this.previewOrCurrentIsland
+		this.forecast.regenerateForecasts()
+	}
+	setPreviewIsland(island: IslandInfo) {
+		this.previewIsland = island
+		this.previewOverride = true
+		this.selectIsland(this.currentIslandIndex)
+	}
+	cancelPreviewIsland() {
+		this.previewOverride = false
+		this.selectIsland(this.currentIslandIndex)
+	}
+	updateCurrentIsland(island: IslandInfo) {
+		if (this.currentIslandIndex !== null) {
+			Vue.set(this.storedIslands, this.currentIslandIndex, island)
+			this.previewOverride = false
+			this.selectIsland(this.currentIslandIndex, true)
+		}
+	}
+	addIslandAndMakeCurrent(island: IslandInfo) {
+		this.storedIslands.push(island)
+		this.previewOverride = false
+		this.selectIsland(this.storedIslands.length - 1, true)
+	}
+	removeIsland() {
+		if (this.currentIslandIndex !== null) {
+			this.storedIslands.splice(this.currentIslandIndex, 1)
+			this.selectIsland(this.storedIslands.length == 0 ? null : (this.storedIslands.length - 1), true)
+		}
+	}
+
 	get time12(): boolean { return (this.$root as any).time12 }
 	setTime12() { this.setTimeFormat(true) }
 	setTime24() { this.setTimeFormat(false) }
@@ -126,5 +269,12 @@ export default class App extends Vue {
 	get gitCommitUrl(): string { return METEONOOK_GIT_COMMIT_URL }
 	get gitCommitShort(): string { return METEONOOK_GIT_COMMIT_SHORT }
 	get gitCommitStamp(): string { return METEONOOK_GIT_COMMIT_STAMP }
+
+	@Watch('forecast.islandName', {immediate: true})
+	@Watch('$i18n.locale')
+	syncIslandNameToTitle() {
+		if (this.forecast.islandName !== 'Anyisle')
+			document.title = this.$t('title', {island: this.forecast.islandName}) as string
+	}
 }
 </script>

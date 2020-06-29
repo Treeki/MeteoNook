@@ -1,14 +1,20 @@
 import Vue from 'vue'
-import { ButtonPlugin, CalendarPlugin, DropdownPlugin, FormCheckboxPlugin, FormRadioPlugin, LayoutPlugin, NavbarPlugin, TabsPlugin, FormGroupPlugin, ModalPlugin, FormSelectPlugin, InputGroupPlugin, LinkPlugin, SpinnerPlugin, ProgressPlugin } from 'bootstrap-vue'
+import { ButtonPlugin, CalendarPlugin, DropdownPlugin, FormCheckboxPlugin, FormRadioPlugin, LayoutPlugin, NavbarPlugin, TabsPlugin, FormGroupPlugin, ModalPlugin, FormSelectPlugin, InputGroupPlugin, LinkPlugin, SpinnerPlugin, ProgressPlugin, AlertPlugin, FormInputPlugin, FormPlugin, FormDatepickerPlugin, FormTimepickerPlugin, CardPlugin } from 'bootstrap-vue'
 import VueI18n, { DateTimeFormats, DateTimeFormat } from 'vue-i18n'
 
+Vue.use(AlertPlugin)
 Vue.use(ButtonPlugin)
 Vue.use(CalendarPlugin)
+Vue.use(CardPlugin)
 Vue.use(DropdownPlugin)
+Vue.use(FormPlugin)
 Vue.use(FormCheckboxPlugin)
+Vue.use(FormDatepickerPlugin)
+Vue.use(FormInputPlugin)
 Vue.use(FormGroupPlugin)
 Vue.use(FormRadioPlugin)
 Vue.use(FormSelectPlugin)
+Vue.use(FormTimepickerPlugin)
 Vue.use(InputGroupPlugin)
 //Vue.use(IconsPlugin)
 Vue.use(LayoutPlugin)
@@ -20,8 +26,7 @@ Vue.use(SpinnerPlugin)
 Vue.use(TabsPlugin)
 Vue.use(VueI18n)
 
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import '../custom.scss'
 
 const root = document.createElement('div')
 root.id = 'app'
@@ -32,8 +37,9 @@ import messages from './translations'
 // not too happy with this
 const dtfBase: DateTimeFormat = {
 	short: {year: 'numeric', month: '2-digit', day: '2-digit'},
-	long: {year: 'numeric', month: 'long', 'day': 'numeric'},
+	long: {year: 'numeric', month: 'long', day: 'numeric'},
 	yearMonth: {year: 'numeric', month: 'long'},
+	weekDayMonth: {weekday: 'short', day: 'numeric', month: 'numeric'}
 }
 const dtf24: DateTimeFormat = {}, dtf12: DateTimeFormat = {}
 Object.assign(dtf24, dtfBase)

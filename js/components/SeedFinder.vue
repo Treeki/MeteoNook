@@ -23,7 +23,6 @@
 			</b-button>
 		</p>
 
-		<h4 class='mt-4'>{{ $t('tStep2') }}</h4>
 		<div class='d-sm-flex'>
 			<b-calendar
 				class='align-self-start mr-3'
@@ -38,7 +37,7 @@
 			</day-editor>
 		</div>
 
-		<h4 class='mt-4'>{{ $t('tStep3') }}</h4>
+		<h4 class='mt-4'>{{ $t('tStep2') }}</h4>
 		<guess-worker-view :days='days' :hemisphere='hemisphere'></guess-worker-view>
 	</div>
 </template>

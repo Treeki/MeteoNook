@@ -34,11 +34,20 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.css$/,
+				test: /\.css$/i,
 				use: [
 					//{loader: 'micro-style-loader'},
 					{loader: MiniCssExtractPlugin.loader, options: {esModule: true}},
-					{loader: 'css-loader', options: {modules: false, esModule: true}}
+					{loader: 'css-loader', options: {modules: false, esModule: true}},
+				]
+			},
+			{
+				test: /\.s[ac]ss$/i,
+				use: [
+					//{loader: 'micro-style-loader'},
+					{loader: MiniCssExtractPlugin.loader, options: {esModule: true}},
+					{loader: 'css-loader', options: {modules: false, esModule: true}},
+					'sass-loader',
 				]
 			},
 			{
