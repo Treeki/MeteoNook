@@ -71,7 +71,7 @@
 			<div class='form-group row'>
 				<div class='col-sm-3'></div>
 				<div class='col-sm-9'>
-					<b-form-checkbox v-model='day.rainbowDouble'>{{ $t('tDoubleRainbow') }}</b-form-checkbox>
+					<b-form-checkbox v-model='day.rainbowDouble'>{{ $t('tDoubleRainbow') }} 🌈🌈</b-form-checkbox>
 				</div>
 			</div>
 		</div>
@@ -207,7 +207,7 @@ export default class DayEditor extends Vue {
 					warn = this.$t('tSpDayWarn')
 			}
 
-			return this.$t('tSpecialDay', {hemi, day, warn})
+			return '⚠️ ' + this.$t('tSpecialDay', {hemi, day, warn})
 		}
 		return ''
 	}

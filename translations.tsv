@@ -55,7 +55,7 @@ tNorthernHemi	Northern hemisphere	Hemisferio norte
 tSouthernHemi	Southern hemisphere	Hemisferio sur
 tnorthern	northern	norte
 tsouthern	southern	sur
-tSpecialDay	⚠️ Careful: In the {hemi} hemisphere, this day is <b>{day}</b>!{warn}	⚠️ Aviso: En el hemisferio {hemi}, este día es <b>{day}</b>!{warn}
+tSpecialDay	Careful: In the {hemi} hemisphere, this day is <b>{day}</b>!{warn}	Aviso: En el hemisferio {hemi}, este día es <b>{day}</b>!{warn}
 tSpDayWarnEv	 This forces the EventDay00 weather pattern if you have the event unlocked.	 Esto fuerza el patrón EventDay00 si tienes este evento activo.
 tSpDayWarnRS	 This forces the EventDay00 weather pattern if you have Resident Services upgraded.	 Esto fuerza el patrón EventDay00 si has reformado la oficina de gestión vecinal.
 tSpDayWarn	 This forces the EventDay00 weather pattern.	 Esto fuerza el patrón EventDay00.
@@ -86,7 +86,7 @@ tPatterns	Possible patterns:	Patrones posibles:
 tPatternsNone	<span class='text-danger'>none</span>. Double-check your info!	<span class='text-danger'>ninguno</span>. ¡Comprueba tus datos!
 tTRainbow	Rainbow Info	Información de arcoíris
 tTime	Time	Tiempo
-tDoubleRainbow	Double rainbow 🌈🌈	Arcoíris doble 🌈🌈
+tDoubleRainbow	Double rainbow	Arcoíris doble
 tTAurora	Aurora Info	Información de la aurora
 tAuroraFit	Which of these patterns fit?	¿Cuál de estos patrones encaja?
 tStep2	Step 2: Find your Seed	Paso 2: Encuentra tu semilla
@@ -128,16 +128,16 @@ yAuroraS	1 aurora australis day | {n} aurora australis days	1 día con aurora | 
 		
 dTitlePreview	Preview of pattern {pattern}	Ejemplo del patrón {pattern}
 dTitleDay	Weather for {date} ({pattern})	El tiempo para {date} ({pattern})
-dSpDay	🎉 This day has special weather because of {day}	🎉 Este día hace un tiempo especial porque se celebra {day}
+dSpDay	This day has special weather because of {day}	Este día hace un tiempo especial porque se celebra {day}
 dWindTooltip	Wind strength	Velocidad del viento
-dHeavyFog	🌫 Heavy fog	🌫 Niebla sobre la isla
-dWaterFog	🌫 Water fog	🌫 Niebla sobre el agua
-dRainbowSingle	🌈 Rainbow!	🌈 ¡Arcoíris!
-dRainbowDouble	🌈🌈 Double rainbow!	🌈🌈 ¡Arcoíris doble!
-dRainbowEither	🌈 Rainbow or double rainbow	🌈 Arcoíris o arcoíris doble
-dAuroraN	🌌 Aurora borealis!	🌌 ¡Aurora boreal!
-dAuroraS	🌌 Aurora australis!	🌌 ¡Aurora austral!
-dStars	🌠 Stars possible!	🌠 ¡Meteoritos posibles!
+dHeavyFog	Heavy fog	Niebla sobre la isla
+dWaterFog	Water fog	Niebla sobre el agua
+dRainbowSingle	Rainbow!	¡Arcoíris!
+dRainbowDouble	Double rainbow!	¡Arcoíris doble!
+dRainbowEither	Rainbow or double rainbow	Arcoíris o arcoíris doble
+dAuroraN	Aurora borealis!	¡Aurora boreal!
+dAuroraS	Aurora australis!	¡Aurora austral!
+dStars	Stars possible!	¡Meteoritos posibles!
 		
 dunno	Don't know	No sé
 lstWeekdays	Sun%%Mon%%Tue%%Wed%%Thu%%Fri%%Sat	Dom%%Lun%%Mar%%Mié%%Jue%%Vie%%Sáb

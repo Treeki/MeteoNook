@@ -319,6 +319,7 @@ export class DayForecast {
 	readonly snowLevel: SnowLevel
 	readonly cloudLevel: CloudLevel
 	readonly fogLevel: FogLevel
+	readonly heavyFog: boolean
 	readonly waterFog: boolean
 	readonly rainbowCount: number
 	readonly rainbowHour: number
@@ -329,6 +330,16 @@ export class DayForecast {
 
 	get patternName(): string {
 		return getPatternName(this.pattern)
+	}
+
+	hasAuroraAtHour(hour: number): boolean {
+		if (this.aurora && this.weather[hour] == Weather.Clear) {
+			return (hour <= 3) || (hour >= 18)
+		}
+		return false
+	}
+	hasStarsAtHour(hour: number): boolean {
+		return canHaveShootingStars(hour, this.pattern)
 	}
 
 	constructor(
@@ -346,6 +357,8 @@ export class DayForecast {
 		this.snowLevel = getSnowLevel(hemisphere, month, day)
 		this.cloudLevel = getCloudLevel(hemisphere, month, day)
 		this.fogLevel = getFogLevel(hemisphere, month, day)
+		// TODO: extra fog checks, this isn't enough
+		this.heavyFog = (this.fogLevel == FogLevel.HeavyAndWater)
 		this.waterFog = (this.fogLevel != FogLevel.None) && checkWaterFog(seed, year, month, day)
 		this.aurora = isAuroraPattern(hemisphere, month, day, this.pattern)
 		this.lightShower = isLightShowerPattern(this.pattern)

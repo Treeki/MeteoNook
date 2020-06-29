@@ -4,7 +4,6 @@
 
 - Loading/error screen
 - Highlight styling on Monthly forecast
-- Data in Day modal
 - Previews of patterns from Seed page
 - Read forecast seed from URL
 - Fog detection
