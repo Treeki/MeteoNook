@@ -54,8 +54,8 @@
 				<a href='https://monzo.me/ninji'>Monzo</a> (UK)
 			</p>
 			<p>
-				{{ $t('footerSource') }}
-				<a href='https://github.com/Treeki/MeteoNook'>github.com/Treeki/MeteoNook</a>
+				{{ $t('footerVersion') }}
+				<a :href='gitCommitUrl'>{{ gitCommitShort }}</a> ({{ gitCommitStamp }})
 			</p>
 		</footer>
 	</b-container>
@@ -66,6 +66,10 @@
 </template>
 
 <script lang='ts'>
+declare var METEONOOK_GIT_COMMIT_SHORT: string
+declare var METEONOOK_GIT_COMMIT_URL: string
+declare var METEONOOK_GIT_COMMIT_STAMP: string
+
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import WelcomePage from './WelcomePage.vue'
@@ -118,5 +122,9 @@ export default class App extends Vue {
 		(this.$root as any).setTime12(time12)
 		writeStorage('meteonook_timeFormat', time12 ? '12' : '24')
 	}
+
+	get gitCommitUrl(): string { return METEONOOK_GIT_COMMIT_URL }
+	get gitCommitShort(): string { return METEONOOK_GIT_COMMIT_SHORT }
+	get gitCommitStamp(): string { return METEONOOK_GIT_COMMIT_STAMP }
 }
 </script>

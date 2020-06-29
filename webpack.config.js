@@ -1,3 +1,4 @@
+const child_process = require('child_process')
 const path = require('path')
 const CopyPlugin = require('copy-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
@@ -6,6 +7,12 @@ const WasmPackPlugin = require('@wasm-tool/wasm-pack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
+const { DefinePlugin } = require('webpack')
+
+const gitCommitShort = child_process.execSync('git rev-parse --short HEAD').toString().trim()
+const gitCommitHash = child_process.execSync('git rev-parse HEAD').toString().trim()
+const gitURL = 'https://github.com/Treeki/MeteoNook/commit/' + gitCommitHash
+const gitCommitStamp = child_process.execSync('git log -1 --format=%cd').toString().trim()
 
 const dist = path.resolve(__dirname, 'dist')
 
@@ -62,6 +69,13 @@ module.exports = {
 
 		new VueLoaderPlugin(),
 		new MiniCssExtractPlugin(),
+
+		new DefinePlugin({
+			METEONOOK_GIT_COMMIT_SHORT: JSON.stringify(gitCommitShort),
+			METEONOOK_GIT_COMMIT: JSON.stringify(gitCommitHash),
+			METEONOOK_GIT_COMMIT_URL: JSON.stringify(gitURL),
+			METEONOOK_GIT_COMMIT_STAMP: JSON.stringify(gitCommitStamp),
+		})
 	],
 	optimization: {
 		minimize: true,

@@ -190,7 +190,7 @@ export default {
         "credThank3": "Shoutouts to:",
         "footerCopy": "MeteoNook is \u00a9 {me}, {year}. Not affiliated with or endorsed by Nintendo.",
         "footerDonate": "Want to support me?",
-        "footerSource": "Source code on GitHub:"
+        "footerVersion": "Version:"
     },
     "es": {
         "lang": "Espa\u00f1ol",
@@ -384,7 +384,7 @@ export default {
         "credThank3": "Adem\u00e1s, gracias a:",
         "footerCopy": "MeteoNook es \u00a9 de {me}, {year}. Esta web no esta asociada con ni avalada por Nintendo.",
         "footerDonate": "\u00bfQuieres apoyarme?",
-        "footerSource": "C\u00f3digo fuente en GitHub:"
+        "footerVersion": "Versi\u00f3n:"
     },
     "en-GB": {
         "lang": "English (UK)"
