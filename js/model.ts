@@ -236,23 +236,23 @@ export class Forecast {
 		if (this.month <= 0) {
 			this.month = 12
 			this.year -= 1
+			this.regenerateForecasts()
 		}
-		this.regenerateForecasts()
 	}
 	setNextMonth() {
 		this.month += 1
 		if (this.month >= 13) {
 			this.month = 1
 			this.year += 1
+			this.regenerateForecasts()
 		}
-		this.regenerateForecasts()
 	}
 
 	regenerateForecasts() {
 		this.monthForecasts.splice(0, this.monthForecasts.length)
 		for (let month = 1; month <= 12; month++) {
 			const fc = new MonthForecast(this.hemisphere, this.seed, this.year, month)
-			this.monthForecasts.push(fc)
+			this.monthForecasts.push(Object.freeze(fc))
 		}
 	}
 
