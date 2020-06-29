@@ -305,3 +305,7 @@ impl Pattern {
 	}
 }
 
+#[wasm_bindgen(js_name = getPatternKind)]
+pub fn get_pattern_kind(pat: Pattern) -> PatternKind {
+	pat.kind()
+}

@@ -1,7 +1,7 @@
 export enum DayType { NoData = 0, None, Shower, Rainbow, Aurora }
 export enum ShowerType { NotSure = 0, Light, Heavy }
 
-import {Hemisphere, Weather, SpecialDay, getMonthLength, Pattern, getPattern, getWeather, getWindPower, isSpecialDay, SnowLevel, CloudLevel, FogLevel, getSnowLevel, getCloudLevel, getFogLevel, checkWaterFog, RainbowInfo, getRainbowInfo, isAuroraPattern, fromLinearHour, toLinearHour, canHaveShootingStars, queryStars, getStarSecond, isLightShowerPattern, isHeavyShowerPattern, isPatternPossibleAtDate, GuessData} from '../pkg'
+import {Hemisphere, Weather, SpecialDay, getMonthLength, Pattern, getPattern, getWeather, getWindPower, isSpecialDay, SnowLevel, CloudLevel, FogLevel, getSnowLevel, getCloudLevel, getFogLevel, checkWaterFog, RainbowInfo, getRainbowInfo, isAuroraPattern, fromLinearHour, toLinearHour, canHaveShootingStars, queryStars, getStarSecond, isLightShowerPattern, isHeavyShowerPattern, isPatternPossibleAtDate, GuessData, getPatternKind, PatternKind} from '../pkg'
 export {Hemisphere, Weather, SpecialDay, getMonthLength}
 
 export enum AmbiguousWeather {
@@ -310,6 +310,28 @@ export class MonthForecast {
 	}
 }
 
+const preNormalFogPatterns = [
+	PatternKind.Fine,
+	PatternKind.FineCloud, // I think?
+	PatternKind.CloudFine,
+	PatternKind.FineRain,
+	PatternKind.EventDay
+]
+const preWaterFogPatterns = [
+	PatternKind.Fine,
+	PatternKind.FineCloud, // I think?
+	PatternKind.CloudFine,
+	PatternKind.FineRain
+]
+const fogPatterns = [
+	PatternKind.Cloud,
+	PatternKind.Rain,
+	PatternKind.FineCloud,
+	PatternKind.CloudFine,
+	PatternKind.CloudRain,
+	PatternKind.RainCloud // I think?
+]
+
 export class DayForecast {
 	readonly date: Date
 	readonly pattern: Pattern
@@ -351,15 +373,23 @@ export class DayForecast {
 	) {
 		this.date = new Date(year, month - 1, day)
 
+		let prevDay = day - 1, prevMonth = month, prevYear = year
+		if (prevDay == 0) {
+			prevMonth -= 1
+			if (prevMonth == 0) {
+				prevMonth = 12
+				prevYear -= 1
+			}
+			prevDay = getMonthLength(prevYear, prevMonth)
+		}
+		const prevPattern = getPattern(hemisphere, seed, prevYear, prevMonth, prevDay)
+
 		// collect data from the library
 		this.pattern = getPattern(hemisphere, seed, year, month, day)
 		this.specialDay = isSpecialDay(hemisphere, year, month, day)
 		this.snowLevel = getSnowLevel(hemisphere, month, day)
 		this.cloudLevel = getCloudLevel(hemisphere, month, day)
 		this.fogLevel = getFogLevel(hemisphere, month, day)
-		// TODO: extra fog checks, this isn't enough
-		this.heavyFog = (this.fogLevel == FogLevel.HeavyAndWater)
-		this.waterFog = (this.fogLevel != FogLevel.None) && checkWaterFog(seed, year, month, day)
 		this.aurora = isAuroraPattern(hemisphere, month, day, this.pattern)
 		this.lightShower = isLightShowerPattern(this.pattern)
 		this.heavyShower = isHeavyShowerPattern(this.pattern)
@@ -374,6 +404,22 @@ export class DayForecast {
 		for (let hour = 0; hour < 24; hour++) {
 			this.weather.push(getWeather(hour, this.pattern))
 			this.windPower.push(getWindPower(seed, year, month, day, hour, this.pattern))
+		}
+
+		const prevKind = getPatternKind(prevPattern)
+		const thisKind = getPatternKind(this.pattern)
+		this.heavyFog = false
+		this.waterFog = false
+		if (preNormalFogPatterns.includes(prevKind) && fogPatterns.includes(thisKind)) {
+			this.heavyFog =
+				(this.windPower[5] < 3) && (this.windPower[6] < 3) &&
+				(this.windPower[7] < 3) && (this.windPower[8] < 3) &&
+				this.fogLevel == FogLevel.HeavyAndWater
+		}
+		if (preWaterFogPatterns.includes(prevKind) && fogPatterns.includes(thisKind)) {
+			this.waterFog =
+				(this.fogLevel != FogLevel.None) &&
+				checkWaterFog(seed, year, month, day)
 		}
 
 		this.shootingStars = []

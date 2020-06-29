@@ -6,7 +6,6 @@
 - Highlight styling on Monthly forecast
 - Previews of patterns from Seed page
 - Read forecast seed from URL
-- Fog detection
 
 ## More stuff
 
