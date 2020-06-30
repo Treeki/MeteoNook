@@ -100,10 +100,13 @@
 		</p>
 
 		<b-modal id='secondsEditor' :title='starSecondsTitle' :ok-title="$t('tsSave')" :cancel-title="$t('tsCancel')" scrollable @ok='saveSeconds'>
+			<p>{{ $t('tsHeader') }}</p>
 			<b-form-group :id='"star" + i' :key='i' :label="$t('tsStar', {n: i})" label-for='time' label-cols-sm='4' v-for='i in 8'>
 				<b-form-select v-model.number='starModalSeconds[i - 1]' id='time' :options='starSecondOptions'>
 				</b-form-select>
 			</b-form-group>
+			<p>{{ $t('tsFooter1') }}</p>
+			<p v-html="$t('tsFooter2')"></p>
 		</b-modal>
 	</div>
 </template>
