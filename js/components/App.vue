@@ -118,31 +118,30 @@ function loadIslands(): IslandInfoHolder {
 	}
 
 	const islands = info.islands
+	for (let i = 0; i < islands.length; i++) {
+		// turn these into proper IslandInfo objects
+		islands[i] = new IslandInfo(islands[i])
+	}
 	let immediateSave = false
 
 	// check the URL for an imported island
-	if (document !== undefined && document.location.search.startsWith('?v1&')) {
-		const bits = document.location.search.split('&')
-		if (bits.length === 4) {
-			const island = new IslandInfo()
-			island.name = decodeURIComponent(bits[1])
-			island.seed = parseInt(decodeURIComponent(bits[2]), 10)
-			island.hemisphere = (decodeURIComponent(bits[3]).toUpperCase() == 'S') ? Hemisphere.Southern : Hemisphere.Northern
+	if (document !== undefined && IslandInfo.canLoadFromQueryString(document.location.search)) {
+		const island = new IslandInfo(document.location.search)
 
-			// is there one like it in the array?
-			const found = islands.findIndex(e => (e.name == island.name && e.seed == island.seed && e.hemisphere == island.hemisphere))
-			if (found > -1) {
-				// this already exists
-				if (info.currentIndex !== found) {
-					info.currentIndex = found
-					immediateSave = true
-				}
-			} else {
-				// new island, add it
-				islands.push(island)
-				info.currentIndex = islands.length - 1
+		// is there one like it in the array?
+		// we don't count the offset as that's likely to change
+		const found = islands.findIndex(e => (e.name == island.name && e.seed == island.seed && e.hemisphere == island.hemisphere))
+		if (found > -1) {
+			// this already exists
+			if (info.currentIndex !== found) {
+				info.currentIndex = found
 				immediateSave = true
 			}
+		} else {
+			// new island, add it
+			islands.push(island)
+			info.currentIndex = islands.length - 1
+			immediateSave = true
 		}
 	}
 

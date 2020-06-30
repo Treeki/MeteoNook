@@ -3,10 +3,11 @@
 ## Missing features for V1 parity
 
 - Loading/error screen
-- Cloud pattern images on Seed tab
 
 ## More stuff
 
+- Show light showers on OverviewDayCard
+- Refresh overview when 5am comes around
 - Confirmation on deleting an island
 - Data export
 - Dark mode

@@ -30,7 +30,7 @@
 			<b-dropdown size='sm' id='dropdown-forecast' :text="$t('oChange')" ref='dropdown' right class='float-right'>
 				<b-dropdown-header>{{ forecast.islandName }}</b-dropdown-header>
 				<b-dropdown-item-button @click='editIsland'>{{ $t('oEditSettings') }}</b-dropdown-item-button>
-				<b-dropdown-item-button>{{ $t('oShareLink') }}</b-dropdown-item-button>
+				<b-dropdown-item-button @click='doShareLink'>{{ $t('oShareLink') }}</b-dropdown-item-button>
 				<b-dropdown-item-button @click='removeIsland'>{{ $t('oRemoveIsland') }}</b-dropdown-item-button>
 				<b-dropdown-divider></b-dropdown-divider>
 				<b-dropdown-header>{{ $t('oSavedIslands') }}</b-dropdown-header>
@@ -44,6 +44,11 @@
 				<b-dropdown-divider></b-dropdown-divider>
 				<b-dropdown-item-button @click='addIsland'>{{ $t('oAddIsland') }}</b-dropdown-item-button>
 			</b-dropdown>
+
+			<b-modal :title="$t('lsTitle')" id='linkShare' ok-only :ok-title="$t('lsDone')" centered>
+				<p>{{ $t('lsBlurb') }}</p>
+				<b-form-input type='text' readonly :value='shareURL'></b-form-input>
+			</b-modal>
 		</h5>
 		<b-alert :show='guidanceModeStr.length > 0'>
 			{{ $t(guidanceModeStr) }}
@@ -246,6 +251,16 @@ export default class ForecastOverview extends Vue {
 
 
 	showDay(day: DayForecast) { this.$emit('show-day', day) }
+
+
+	doShareLink() {
+		this.$bvModal.show('linkShare')
+	}
+	get shareURL(): string {
+		const url = new URL(document.location.href)
+		url.search = this.activeIsland.queryString
+		return url.href
+	}
 }
 
 </script>

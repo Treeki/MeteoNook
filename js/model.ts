@@ -212,18 +212,45 @@ export class IslandInfo {
 	seed: number
 	offsetMinutes: number
 
-	constructor(other?: IslandInfo) {
+	constructor(other?: IslandInfo|string) {
 		if (other === undefined) {
 			this.hemisphere = Hemisphere.Northern
 			this.name = 'Anyisle'
 			this.seed = 1856402561
 			this.offsetMinutes = 0
+		} else if (typeof other == 'string') {
+			// parse query string
+			const bits = other.split('&')
+			this.name = decodeURIComponent(bits[1])
+			this.seed = parseInt(decodeURIComponent(bits[2]), 10)
+			this.hemisphere = (decodeURIComponent(bits[3]).toUpperCase() == 'S') ? Hemisphere.Southern : Hemisphere.Northern
+			this.offsetMinutes = (bits[4] === undefined) ? 0 : parseInt(decodeURIComponent(bits[4]), 10)
 		} else {
+			// copy of existing IslandInfo
 			this.hemisphere = other.hemisphere
 			this.name = other.name
 			this.seed = other.seed
 			this.offsetMinutes = other.offsetMinutes
 		}
+	}
+
+	get queryString(): string {
+		const bits = ['?v1']
+		bits.push(encodeURIComponent(this.name))
+		bits.push(encodeURIComponent(this.seed.toString()))
+		bits.push(encodeURIComponent((this.hemisphere == Hemisphere.Southern) ? 'S' : 'N'))
+		if (this.offsetMinutes !== 0) {
+			bits[0] = '?v2'
+			bits.push(encodeURIComponent(this.offsetMinutes.toString()))
+		}
+		return bits.join('&')
+	}
+
+	static canLoadFromQueryString(str: string): boolean {
+		const bits = str.split('&')
+		if (bits.length === 4 && bits[0] === '?v1') return true
+		if (bits.length === 5 && bits[0] === '?v2') return true
+		return false
 	}
 }
 
