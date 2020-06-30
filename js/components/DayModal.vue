@@ -9,7 +9,12 @@
 		<template v-for='hour in hours'>
 			<p class='hour' :key='hour'>
 				<b>{{ $d(hourDates[hour], 'timeHM') }}</b>:
-				<span :title="$t('dWindTooltip')">🍃{{ day.windPower[hour] }}</span>
+				<span :title="$t('dWindTooltip')" v-if='!day.patternPreviewMode'>
+					🍃{{ day.windPower[hour] }}
+				</span>
+				<span :title="$t('dWindTooltip')" v-if='day.patternPreviewMode'>
+					🍃{{ day.windPowerMin[hour] }}-{{ day.windPowerMax[hour] }}
+				</span>
 				{{ $t(weatherNameStringPrefix + day.weather[hour]) }}
 				<span v-if='hour == 7 && day.heavyFog'>
 					🌫 {{ $t('dHeavyFog') }}
@@ -17,16 +22,19 @@
 				<span v-if='hour == 7 && day.waterFog'>
 					🌫 {{ $t('dWaterFog') }}
 				</span>
-				<span v-if='!preview && hour == day.rainbowHour && day.rainbowCount == 1'>
+				<span v-if='!day.patternPreviewMode && hour == day.rainbowHour && day.rainbowCount == 1'>
 					🌈 {{ $t('dRainbowSingle') }}
 				</span>
-				<span v-if='!preview && hour == day.rainbowHour && day.rainbowCount == 2'>
+				<span v-if='!day.patternPreviewMode && hour == day.rainbowHour && day.rainbowCount == 2'>
 					🌈🌈 {{ $t('dRainbowDouble') }}
+				</span>
+				<span v-if='day.patternPreviewMode && hour == day.rainbowHour && day.rainbowCount == 1'>
+					🌈 {{ $t('dRainbowEither') }}
 				</span>
 				<span v-if='day.hasAuroraAtHour(hour)'>
 					🌌 {{ $t('dAurora' + forecast.hemiSuffix) }}
 				</span>
-				<span v-if='preview && day.hasStarsAtHour(hour)'>
+				<span v-if='day.patternPreviewMode && day.hasStarsAtHour(hour)'>
 					🌠 {{ $t('dStars') }}
 				</span>
 			</p>
@@ -48,7 +56,6 @@ export default class DayModal extends Vue {
 	@Prop(String) readonly id!: string
 	@Prop(Forecast) readonly forecast!: Forecast
 	@Prop(DayForecast) readonly day!: DayForecast
-	@Prop(Boolean) readonly preview!: boolean
 
 	get hours(): number[] {
 		return [5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,0,1,2,3,4]
@@ -77,9 +84,13 @@ export default class DayModal extends Vue {
 	}
 
 	get modalTitle(): TranslateResult {
-		const date = this.$d(this.day.date, 'long')
 		const pattern = getPatternName(this.day.pattern)
-		return this.$t('dTitleDay', {date, pattern})
+		if (this.day.patternPreviewMode) {
+			return this.$t('dTitlePreview', {pattern})
+		} else {
+			const date = this.$d(this.day.date, 'long')
+			return this.$t('dTitleDay', {date, pattern})
+		}
 	}
 
 	get specialDayWarning(): TranslateResult {

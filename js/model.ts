@@ -1,7 +1,7 @@
 export enum DayType { NoData = 0, None, Shower, Rainbow, Aurora }
 export enum ShowerType { NotSure = 0, Light, Heavy }
 
-import {Hemisphere, Weather, SpecialDay, getMonthLength, Pattern, getPattern, getWeather, getWindPower, isSpecialDay, SnowLevel, CloudLevel, FogLevel, getSnowLevel, getCloudLevel, getFogLevel, checkWaterFog, RainbowInfo, getRainbowInfo, isAuroraPattern, fromLinearHour, toLinearHour, canHaveShootingStars, queryStars, getStarSecond, isLightShowerPattern, isHeavyShowerPattern, isPatternPossibleAtDate, GuessData, getPatternKind, PatternKind, SpWeatherLevel, getSpWeatherLevel, Constellation, getConstellation} from '../pkg'
+import {Hemisphere, Weather, SpecialDay, getMonthLength, Pattern, getPattern, getWeather, getWindPower, isSpecialDay, SnowLevel, CloudLevel, FogLevel, getSnowLevel, getCloudLevel, getFogLevel, checkWaterFog, RainbowInfo, getRainbowInfo, isAuroraPattern, fromLinearHour, toLinearHour, canHaveShootingStars, queryStars, getStarSecond, isLightShowerPattern, isHeavyShowerPattern, isPatternPossibleAtDate, GuessData, getPatternKind, PatternKind, SpWeatherLevel, getSpWeatherLevel, Constellation, getConstellation, getWindPowerMin, getWindPowerMax} from '../pkg'
 export {Hemisphere, Weather, SpecialDay, getMonthLength}
 
 export enum AmbiguousWeather {
@@ -365,10 +365,13 @@ const fogPatterns = [
 ]
 
 export class DayForecast {
+	readonly patternPreviewMode: boolean
 	readonly date: Date
 	readonly pattern: Pattern
 	readonly weather: Weather[]
 	readonly windPower: number[]
+	readonly windPowerMin: number[]
+	readonly windPowerMax: number[]
 	readonly constellation: Constellation
 	readonly specialDay: SpecialDay
 	readonly snowLevel: SnowLevel
@@ -404,12 +407,14 @@ export class DayForecast {
 
 	constructor(
 		readonly hemisphere: Hemisphere,
-		readonly seed: number,
+		readonly seed: number|null,
 		readonly year: number,
 		readonly month: number,
-		readonly day: number
+		readonly day: number,
+		readonly forcedPattern?: Pattern
 	) {
 		this.date = new Date(year, month - 1, day)
+		this.patternPreviewMode = (seed === null)
 
 		let prevDay = day - 1, prevMonth = month, prevYear = year
 		if (prevDay == 0) {
@@ -420,10 +425,9 @@ export class DayForecast {
 			}
 			prevDay = getMonthLength(prevYear, prevMonth)
 		}
-		const prevPattern = getPattern(hemisphere, seed, prevYear, prevMonth, prevDay)
 
 		// collect data from the library
-		this.pattern = getPattern(hemisphere, seed, year, month, day)
+		this.pattern = (forcedPattern === undefined) ? getPattern(hemisphere, seed!, year, month, day) : forcedPattern
 		this.constellation = getConstellation(month, day)
 		this.specialDay = isSpecialDay(hemisphere, year, month, day)
 		this.snowLevel = getSnowLevel(hemisphere, month, day)
@@ -434,46 +438,55 @@ export class DayForecast {
 		this.lightShower = isLightShowerPattern(this.pattern)
 		this.heavyShower = isHeavyShowerPattern(this.pattern)
 
-		const rainbow = getRainbowInfo(hemisphere, seed, year, month, day, this.pattern)
-		this.rainbowCount = rainbow.count
+		const rainbow = getRainbowInfo(hemisphere, seed || 0, year, month, day, this.pattern)
+		this.rainbowCount = Math.min(rainbow.count, (seed == null) ? 1 : 2)
 		this.rainbowHour = rainbow.hour
 		rainbow.free()
 
 		this.weather = []
 		this.windPower = []
+		this.windPowerMin = []
+		this.windPowerMax = []
 		for (let hour = 0; hour < 24; hour++) {
 			this.weather.push(getWeather(hour, this.pattern))
-			this.windPower.push(getWindPower(seed, year, month, day, hour, this.pattern))
+			this.windPowerMin.push(getWindPowerMin(hour, this.pattern))
+			this.windPowerMax.push(getWindPowerMax(hour, this.pattern))
+			if (seed !== null)
+				this.windPower.push(getWindPower(seed, year, month, day, hour, this.pattern))
 		}
 
-		const prevKind = getPatternKind(prevPattern)
-		const thisKind = getPatternKind(this.pattern)
 		this.heavyFog = false
 		this.waterFog = false
-		if (preNormalFogPatterns.includes(prevKind) && fogPatterns.includes(thisKind)) {
-			this.heavyFog =
-				(this.windPower[5] < 3) && (this.windPower[6] < 3) &&
-				(this.windPower[7] < 3) && (this.windPower[8] < 3) &&
-				this.fogLevel == FogLevel.HeavyAndWater
-		}
-		if (preWaterFogPatterns.includes(prevKind) && fogPatterns.includes(thisKind)) {
-			this.waterFog =
-				(this.fogLevel != FogLevel.None) &&
-				checkWaterFog(seed, year, month, day)
-		}
-
 		this.shootingStars = []
-		for (let linearHour = 0; linearHour < 9; linearHour++) {
-			const hour = fromLinearHour(linearHour)
-			if (canHaveShootingStars(hour, this.pattern)) {
-				for (let minute = 0; minute < 60; minute++) {
-					const starCount = queryStars(seed, year, month, day, hour, minute, this.pattern)
-					if (starCount > 0) {
-						const star: StarInfo = {hour, minute, seconds: []}
-						for (let i = 0; i < starCount; i++) {
-							star.seconds.push(getStarSecond(i))
+
+		if (seed !== null) {
+			const prevPattern = getPattern(hemisphere, seed, prevYear, prevMonth, prevDay)
+			const prevKind = getPatternKind(prevPattern)
+			const thisKind = getPatternKind(this.pattern)
+			if (preNormalFogPatterns.includes(prevKind) && fogPatterns.includes(thisKind)) {
+				this.heavyFog =
+					(this.windPower[5] < 3) && (this.windPower[6] < 3) &&
+					(this.windPower[7] < 3) && (this.windPower[8] < 3) &&
+					this.fogLevel == FogLevel.HeavyAndWater
+			}
+			if (preWaterFogPatterns.includes(prevKind) && fogPatterns.includes(thisKind)) {
+				this.waterFog =
+					(this.fogLevel != FogLevel.None) &&
+					checkWaterFog(seed, year, month, day)
+			}
+
+			for (let linearHour = 0; linearHour < 9; linearHour++) {
+				const hour = fromLinearHour(linearHour)
+				if (canHaveShootingStars(hour, this.pattern)) {
+					for (let minute = 0; minute < 60; minute++) {
+						const starCount = queryStars(seed, year, month, day, hour, minute, this.pattern)
+						if (starCount > 0) {
+							const star: StarInfo = {hour, minute, seconds: []}
+							for (let i = 0; i < starCount; i++) {
+								star.seconds.push(getStarSecond(i))
+							}
+							this.shootingStars.push(star)
 						}
-						this.shootingStars.push(star)
 					}
 				}
 			}

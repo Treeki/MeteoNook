@@ -3,7 +3,7 @@
 ## Missing features for V1 parity
 
 - Loading/error screen
-- Previews of patterns from Seed page
+- Cloud pattern images on Seed tab
 
 ## More stuff
 

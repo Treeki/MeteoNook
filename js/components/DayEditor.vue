@@ -1,3 +1,12 @@
+<style>
+.patNameInList {
+	cursor: pointer;
+}
+.patNameInList:not(:last-child):after {
+	content: ', ';
+}
+</style>
+
 <template>
 	<div>
 		<p v-show='specialDayWarning' v-html='specialDayWarning'></p>
@@ -87,7 +96,7 @@
 		<p class='mt-2'>
 			<b>{{ $t('tPatterns') }}</b>
 			<span v-show='possiblePatternNames.length == 0' v-html="$t('tPatternsNone')"></span>
-			{{ possiblePatternNames.join(', ') }}
+			<span class='patNameInList' v-for='pat in possiblePatternNames' :key='pat' @click='demoPattern(pat)'>{{ pat }}</span>
 		</p>
 
 		<b-modal id='secondsEditor' :title='starSecondsTitle' :ok-title="$t('tsSave')" :cancel-title="$t('tsCancel')" scrollable @ok='saveSeconds'>
@@ -101,7 +110,7 @@
 
 <script lang='ts'>
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import {DayInfo, DayType, AmbiguousWeather, ShowerType, StarInfo, dayUsesTypes, getPossiblePatternsForDay, getPatternName, rainbowPatternsByTime} from '../model'
+import {DayInfo, DayType, AmbiguousWeather, ShowerType, StarInfo, dayUsesTypes, getPossiblePatternsForDay, getPatternName, rainbowPatternsByTime, DayForecast} from '../model'
 import {isSpecialDay, SpecialDay, Hemisphere, SpWeatherLevel, getSpWeatherLevel, Weather, Pattern} from '../../pkg'
 import { TranslateResult } from 'vue-i18n'
 
@@ -240,6 +249,14 @@ export default class DayEditor extends Vue {
 	}
 	get possiblePatternNames(): string[] {
 		return this.possiblePatterns.map(getPatternName)
+	}
+	demoPattern(patName: keyof typeof Pattern) {
+		const dayFC = new DayForecast(
+			this.hemisphere, null,
+			this.day.y, this.day.m, this.day.d,
+			Pattern[patName]
+		)
+		this.$emit('show-day', dayFC)
 	}
 
 	// Shower UI

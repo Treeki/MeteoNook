@@ -33,7 +33,12 @@
 				:date-info-fn='dateClass'
 				value-as-date
 				></b-calendar>
-			<day-editor class='flex-grow-1' :day='getDay(selectedDay)' :hemisphere='hemisphere'>
+			<day-editor
+				class='flex-grow-1'
+				:day='getDay(selectedDay)'
+				:hemisphere='hemisphere'
+				@show-day="showDayModal"
+			>
 			</day-editor>
 		</div>
 
@@ -51,7 +56,7 @@
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import DayEditor from './DayEditor.vue'
 import GuessWorkerView from './GuessWorkerView.vue'
-import {createDayInfo, DayInfo, DayType, ShowerType, Hemisphere, isDayNonEmpty} from '../model'
+import {createDayInfo, DayInfo, DayType, ShowerType, Hemisphere, isDayNonEmpty, DayForecast} from '../model'
 import {readStorageObject, readStorage, writeStorageObject, writeStorage} from '../utils'
 
 export type SeedFinderDays = {[key: string]: DayInfo}
@@ -138,6 +143,9 @@ export default class SeedFinder extends Vue {
 
 	previewSeed(seed: number, multiFlag: boolean) {
 		this.$emit('preview-seed', seed, this.hemisphere, multiFlag)
+	}
+	showDayModal(day: DayForecast) {
+		this.$emit('show-day', day)
 	}
 }
 </script>

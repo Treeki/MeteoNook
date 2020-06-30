@@ -1,12 +1,19 @@
+<style>
+.broadForecast {
+	margin-bottom: 0;
+}
+.broadForecast + p.small {
+	margin-top: 1rem;
+}
+</style>
+
 <template>
 	<b-card :title='title'>
-		<b-card-text>
-		</b-card-text>
-		<b-card-text class='mb-0' v-for='(text, index) in broadForecast' :key='index'>
+		<b-card-text class='broadForecast' v-for='(text, index) in broadForecast' :key='index'>
 			{{ text }}
 		</b-card-text>
 		<b-card-text v-if='day.heavyShower'>
-			🌠 Heavy meteor shower: expect shooting stars between {start} and {end}
+			🌠 {{ $t('oHeavyShowerAlert', {start: $d(showerStartDate, 'timeHM'), end: $d(showerEndDate, 'timeHM')}) }}
 		</b-card-text>
 		<b-card-text class='small text-muted'>
 			<b-button size='sm' variant='outline-secondary' class='float-right' @click='seeMore'>{{ $t('oSeeMore') }}</b-button>
@@ -64,6 +71,15 @@ export default class OverviewDayCard extends Vue {
 	@Prop(String) readonly title!: string
 	@Prop(Forecast) readonly forecast!: Forecast
 	@Prop(DayForecast) readonly day!: DayForecast
+
+	get showerStartDate(): Date {
+		return new Date(this.day.year, this.day.month - 1, this.day.day, 19, 0)
+	}
+	get showerEndDate(): Date {
+		// technically incorrect but w/e
+		// we only render the hour/minutes
+		return new Date(this.day.year, this.day.month - 1, this.day.day, 4, 0)
+	}
 
 	get combineEveningAndNight(): boolean {
 		return (this.$t('oEvening') == this.$t('oNight'))

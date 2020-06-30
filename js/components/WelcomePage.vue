@@ -35,7 +35,7 @@ export default class WelcomePage extends Vue {
 	}
 
 	get faqQuestions() {
-		return ['Seed', 'Celeste', 'MoreData', 'NoSeeds', 'BadSeed', 'Add', 'Donate', 'Source']
+		return ['Seed', 'Celeste', 'Wind', 'MoreData', 'NoSeeds', 'BadSeed', 'Add', 'Donate', 'Source']
 	}
 }
 </script>

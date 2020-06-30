@@ -27,7 +27,11 @@
 				<welcome-page></welcome-page>
 			</b-tab>
 			<b-tab :title="$t('sTab')">
-				<seed-finder @preview-seed='setPreviewSeedFromFinder'></seed-finder>
+				<seed-finder
+					@preview-seed='setPreviewSeedFromFinder'
+					@show-day='showDayModal'
+					>
+				</seed-finder>
 			</b-tab>
 			<b-tab :title="$t('oTab')" :active='hasIslandAtLoad' ref='overviewTab'>
 				<forecast-overview
