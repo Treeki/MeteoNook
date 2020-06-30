@@ -23,6 +23,16 @@
 			</b-button>
 		</p>
 
+		<p>
+			{{ $t('tExportBlurb') }}
+			<b-button size='sm' variant='outline-secondary' @click='exportData'>
+				{{ $t('tExportButton') }}
+			</b-button>
+			<b-modal :title="$t('deTitle')" hide-footer id='exportDataModal'>
+				<b-form-textarea ref='exportedDataTextarea' :value='exportedData' readonly rows='6' @click='selectAllExportData'></b-form-textarea>
+			</b-modal>
+		</p>
+
 		<div class='d-sm-flex'>
 			<b-calendar
 				class='align-self-start mr-3'
@@ -58,6 +68,7 @@ import DayEditor from './DayEditor.vue'
 import GuessWorkerView from './GuessWorkerView.vue'
 import {createDayInfo, DayInfo, DayType, ShowerType, Hemisphere, isDayNonEmpty, DayForecast} from '../model'
 import {readStorageObject, readStorage, writeStorageObject, writeStorage, makeTime} from '../utils'
+import { BFormTextarea } from 'bootstrap-vue'
 
 export type SeedFinderDays = {[key: string]: DayInfo}
 
@@ -99,6 +110,10 @@ export default class SeedFinder extends Vue {
 	selectedDay = new Date()
 	days: SeedFinderDays = loadSFDays()
 	hemisphere = loadSFHemisphere()
+
+	$refs!: {
+		exportedDataTextarea: BFormTextarea
+	}
 
 	getDay(date: Date) {
 		const key = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
@@ -155,6 +170,17 @@ export default class SeedFinder extends Vue {
 			case 'es': return 'explainer-es.jpg'
 			default:   return 'explainer-en.jpg'
 		}
+	}
+
+
+	exportedData = ''
+	exportData() {
+		this.$bvModal.show('exportDataModal')
+		this.exportedData = JSON.stringify({days: this.days, hemisphere: this.hemisphere})
+	}
+	selectAllExportData() {
+		const textarea = this.$refs.exportedDataTextarea.$el as HTMLTextAreaElement
+		textarea.setSelectionRange(0, textarea.value.length)
 	}
 }
 </script>

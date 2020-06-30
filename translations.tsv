@@ -65,6 +65,8 @@ tSpDayWarnRS	 This forces the EventDay00 weather pattern if you have Resident Se
 tSpDayWarn	 This forces the EventDay00 weather pattern.	 Esto fuerza el patrón EventDay00.
 tResetBlurb	Your pattern data will automatically be saved to your browser, so you can close the page and come back later. Click here to start over:	Tus datos de patrón se guardarán automáticamente en tu navegador, así que puedes cerrar la pagina y volver después. Haz clic aquí para empezar de nuevo:
 tResetButton	Reset Data	Borrar datos
+tExportBlurb	To get support with MeteoNook, you might need to supply your data. Click here to export it to JSON format:	Para obtener soporte técnico con MeteoNook, quizás tendrás que ofrecer tus datos. Haz clic aquí para exportarlos al formato JSON:
+tExportButton	Export Data	Exportar datos
 tTPatterns	Special Patterns	Patrones especiales
 tNoData	No data, or not sure	No tengo datos, o no estoy seguro
 tShower	Meteor shower or visit from Celeste	Lluvia de meteoritos o visita de Estela
@@ -115,6 +117,8 @@ tsFooter1	This is very powerful, but be careful - it's difficult to get these ri
 tsFooter2	The search algorithm allows your measurements to be up to <b>4 seconds late</b>.	El algoritmo de búsqueda permite que tus mediciones tengan <b>hasta 4 segundos de retraso</b>.
 tsCancel	Cancel	Cancelar
 tsSave	Save	Guardar
+		
+deTitle	Exported data	Datos exportados
 		
 yLight	1 light shower | {n} light showers	1 lluvia leve de meteoritos | {n} lluvias leves de meteoritos
 yHeavy	1 heavy shower | {n} heavy showers	1 lluvia fuerte de meteoritos | {n} lluvias fuertes de meteoritos

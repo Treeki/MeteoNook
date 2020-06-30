@@ -126,7 +126,7 @@ function performTests(weatherSeed: number, testSeed: number, hemisphere: Hemisph
 	const finished = guesser.work(guessData, checkRange + 1)
 	let outcome: Outcome
 
-	if (finished) {
+	if (finished == GuesserResult.Complete) {
 		const resultCount = guesser.getResultCount()
 		const results = []
 		for (let i = 0; i < resultCount; i++) {
@@ -135,8 +135,11 @@ function performTests(weatherSeed: number, testSeed: number, hemisphere: Hemisph
 
 		let kind = results.includes(weatherSeed) ? OutcomeKind.Success : OutcomeKind.Failure
 		outcome = {kind, results}
-	} else {
+	} else if (finished == GuesserResult.Failed) {
 		outcome = {kind: OutcomeKind.TooManyResults, results: []}
+	} else {
+		// should never really happen, i think
+		outcome = {kind: OutcomeKind.Failure, results: []}
 	}
 
 	guesser.free()
@@ -158,6 +161,7 @@ if (args.length > 0) {
 	console.log(outcome)
 } else {
 	const weatherSeeds = [
+		394476790,
 		1856402561, 1522270392, 342856716, 2103512880,
 		816812158, 1446278624, 1926103194, 503826528
 	]
