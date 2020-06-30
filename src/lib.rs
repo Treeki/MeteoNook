@@ -567,7 +567,6 @@ impl DayGuess {
 		// pattern check
 		let pattern_bit = 1u64 << (pattern as u8);
 		if (self.pattern_mask & pattern_bit) == 0 {
-			if seed == 1856402561 { log!("seedfail pattern"); }
 			return false;
 		}
 
@@ -582,7 +581,6 @@ impl DayGuess {
 				_ => 0 // should never happen
 			};
 			if self.rainbow_count != rainbow_count {
-				if seed == 1856402561 { log!("seedfail rainbow"); }
 				return false;
 			}
 		}
@@ -625,7 +623,6 @@ impl DayGuess {
 						None => {
 							// no stars
 							if (true_mask & minute_bit) != 0 && previous_second_mask == 0 {
-								if seed == 1856402561 { log!("seedfail stars false positive at {}:{}", from_linear_hour(linear_hour), minute); }
 								return false
 							}
 							previous_second_mask = 0;
@@ -633,7 +630,6 @@ impl DayGuess {
 						Some((_star_count, star_field)) => {
 							// some stars
 							if (false_mask & minute_bit) != 0 {
-								if seed == 1856402561 { log!("seedfail stars false negative"); }
 								return false
 							}
 
@@ -730,7 +726,7 @@ impl GuessData {
 		match self.find_day(year, month, day) {
 			None => false,
 			Some(dg) => {
-				//log!("+pat {}-{}-{} = {:?}", year, month, day, pat);
+				// log!("+pat {}-{}-{} = {:?}", year, month, day, pat);
 				dg.pattern_mask |= 1u64 << (pat as u32);
 				true
 			}

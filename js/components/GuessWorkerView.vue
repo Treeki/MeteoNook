@@ -17,7 +17,7 @@
 <script lang='ts'>
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { Guesser, GuessData, Hemisphere, GuesserResult } from '../../pkg'
-import { populateGuessData, DayInfo, PopulateErrorKind } from '../model'
+import { populateGuessData, DayInfo, PopulateErrorKind, isDayNonEmpty } from '../model'
 import { TranslateResult } from 'vue-i18n'
 import { SeedFinderDays } from './SeedFinder.vue'
 
@@ -49,6 +49,11 @@ export default class GuessWorkerView extends Vue {
 				console.warn('weird object in guessData source:', day)
 				continue
 			}
+			if (!isDayNonEmpty(day)) {
+				// ignore empty days, don't put anything in at all
+				continue
+			}
+
 			const error = populateGuessData(this.hemisphere, this.guessData, day)
 			if (error !== undefined) {
 				this.stopSearch() // free the GuessData
