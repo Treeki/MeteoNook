@@ -294,8 +294,10 @@ export class Forecast {
 	}
 
 	get todayDate(): Date {
+		// adjust back by 5 hours so the returned date
+		// corresponds with the in-game 5am-5am days
 		const now = new Date()
-		now.setTime(now.getTime() + this.island.offsetMinutes * 60_000)
+		now.setTime(now.getTime() + this.island.offsetMinutes * 60_000 - 5 * 3600_000)
 		return now
 	}
 }
