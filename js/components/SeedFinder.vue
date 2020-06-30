@@ -3,7 +3,7 @@
 		<p class='mt-3'>{{ $t('sIntro') }}</p>
 		<h4 class='mt-4'>{{ $t('sTTypes') }}</h4>
 		<div v-html="timeify($t('sTypes1'))"></div>
-		<p>(Image goes here)</p>
+		<img class='float-md-right img-thumbnail wtExplainerImg mb-2' :src='explainerImg' title='Weather type example screenshots'>
 		<div v-html="timeify($t('sTypes2'))"></div>
 		<h4 class='mt-4'>{{ $t('sTStars') }}</h4>
 		<div v-html="timeify($t('sStars'))"></div>
@@ -149,9 +149,30 @@ export default class SeedFinder extends Vue {
 	showDayModal(day: DayForecast) {
 		this.$emit('show-day', day)
 	}
+
+	get explainerImg(): string {
+		switch (this.$i18n.locale) {
+			case 'es': return 'explainer-es.jpg'
+			default:   return 'explainer-en.jpg'
+		}
+	}
 }
 </script>
 
 <style>
 .progress-bar { transition: none; }
+
+.wtExplainerImg {
+	width: 45%;
+	max-width: 720px;
+	margin-left: .5rem;
+}
+@media (max-width: 767.98px) {
+	.wtExplainerImg {
+		width: 80%; max-width: 400px;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
 </style>
