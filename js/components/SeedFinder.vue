@@ -69,8 +69,10 @@ function loadSFDays(): SeedFinderDays {
 		return obj
 
 	obj = readStorageObject<SeedFinderDays>('meteonook_data', (data: any) => data.version === 2)
-	if (obj !== null)
+	if (obj !== null) {
+		delete obj.version
 		return obj
+	}
 
 	return {}
 }
