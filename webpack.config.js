@@ -65,7 +65,7 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			hash: true,
-			title: 'MeteoNook Alpha'
+			template: 'index.html'
 		}),
 
 		new CopyPlugin({

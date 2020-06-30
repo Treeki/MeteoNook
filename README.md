@@ -1,9 +1,5 @@
 # MeteoNook
 
-## Missing features for V1 parity
-
-- Loading/error screen
-
 ## More stuff
 
 - Show light showers on OverviewDayCard

@@ -28,6 +28,8 @@ Vue.use(VueI18n)
 
 import '../custom.scss'
 
+document.getElementById('loadingPlaceholder')?.remove()
+
 const root = document.createElement('div')
 root.id = 'app'
 document.body.appendChild(root)
