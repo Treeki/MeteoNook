@@ -57,7 +57,7 @@ import { Vue, Component, Watch } from 'vue-property-decorator'
 import DayEditor from './DayEditor.vue'
 import GuessWorkerView from './GuessWorkerView.vue'
 import {createDayInfo, DayInfo, DayType, ShowerType, Hemisphere, isDayNonEmpty, DayForecast} from '../model'
-import {readStorageObject, readStorage, writeStorageObject, writeStorage} from '../utils'
+import {readStorageObject, readStorage, writeStorageObject, writeStorage, makeTime} from '../utils'
 
 export type SeedFinderDays = {[key: string]: DayInfo}
 
@@ -119,14 +119,14 @@ export default class SeedFinder extends Vue {
 		return str.replace(/[012]\d:\d\d:\d\d/g, time => {
 			const [hS, mS, sS] = time.split(':')
 			const h = parseInt(hS, 10), m = parseInt(mS, 10), s = parseInt(sS, 10)
-			return this.$d(new Date(0, 0, 0, h, m, s), 'timeHMS')
+			return this.$d(makeTime(h, m, s), 'timeHMS')
 		}).replace(/[012]\d:\d\d/g, time => {
 			const [hS, mS] = time.split(':')
 			const h = parseInt(hS, 10), m = parseInt(mS, 10)
-			return this.$d(new Date(0, 0, 0, h, m), 'timeHM')
+			return this.$d(makeTime(h, m), 'timeHM')
 		}).replace(/[012]\dH/g, time => {
 			const h = parseInt(time.slice(0, 2), 10)
-			return this.$d(new Date(0, 0, 0, h), 'timeH')
+			return this.$d(makeTime(h, 0), 'timeH')
 		})
 	}
 

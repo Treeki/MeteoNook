@@ -50,6 +50,7 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 import {DayInfo, DayType, Forecast, DayForecast, getPatternName, StarInfo} from '../model'
 import { TranslateResult } from 'vue-i18n'
 import { Pattern, SpecialDay, SnowLevel } from '../../pkg'
+import { makeTime } from '../utils'
 
 @Component
 export default class DayModal extends Vue {
@@ -63,7 +64,7 @@ export default class DayModal extends Vue {
 	get hourDates(): Date[] {
 		const results = []
 		for (let i = 0; i < 24; i++)
-			results.push(new Date(0, 0, 0, i))
+			results.push(makeTime(i, 0))
 		return results
 	}
 	get sortedStars(): {[hour: number]: String[]} {

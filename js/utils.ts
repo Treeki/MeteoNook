@@ -1,3 +1,9 @@
+export function makeTime(hours: number, minutes: number, seconds?: number): Date {
+	// originally I was using 0,0,0 in the date field
+	// but this doesn't play nicely with some timezones, like Portugal
+	return new Date(2020, 6, 30, hours, minutes, seconds || 0)
+}
+
 export function readStorageObject<T>(key: string, validCallback?: (value: T) => boolean): T|null {
 	try {
 		const blob = window.localStorage.getItem(key)

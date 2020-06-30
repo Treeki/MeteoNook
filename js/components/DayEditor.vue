@@ -113,6 +113,7 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 import {DayInfo, DayType, AmbiguousWeather, ShowerType, StarInfo, dayUsesTypes, getPossiblePatternsForDay, getPatternName, rainbowPatternsByTime, DayForecast} from '../model'
 import {isSpecialDay, SpecialDay, Hemisphere, SpWeatherLevel, getSpWeatherLevel, Weather, Pattern} from '../../pkg'
 import { TranslateResult } from 'vue-i18n'
+import { makeTime } from '../utils'
 
 @Component
 export default class DayEditor extends Vue {
@@ -122,9 +123,9 @@ export default class DayEditor extends Vue {
 	get hourOptions() {
 		const options = []
 		for (let i = 5; i < 24; i++)
-			options.push({value: i, text: this.$d(new Date(0, 0, 0, i), 'timeHOnly')})
+			options.push({value: i, text: this.$d(makeTime(i, 0), 'timeHOnly')})
 		for (let i = 0; i < 5; i++)
-			options.push({value: i, text: this.$d(new Date(0, 0, 0, i), 'timeHOnly')})
+			options.push({value: i, text: this.$d(makeTime(i, 0), 'timeHOnly')})
 		return options
 	}
 	get weatherTypeOptions() {
@@ -145,9 +146,9 @@ export default class DayEditor extends Vue {
 	get starHourOptions() {
 		const options = []
 		for (let i = 19; i < 24; i++)
-			options.push({value: i, text: this.$d(new Date(0, 0, 0, i), 'timeHOnly')})
+			options.push({value: i, text: this.$d(makeTime(i, 0), 'timeHOnly')})
 		for (let i = 0; i < 4; i++)
-			options.push({value: i, text: this.$d(new Date(0, 0, 0, i), 'timeHOnly')})
+			options.push({value: i, text: this.$d(makeTime(i, 0), 'timeHOnly')})
 		return options
 	}
 	get minuteOptions() {
@@ -165,7 +166,7 @@ export default class DayEditor extends Vue {
 	get rainbowTimeOptions() {
 		const options = []
 		for (const hour of Object.keys(rainbowPatternsByTime))
-			options.push({value: hour, text: this.$d(new Date(0, 0, 0, parseInt(hour, 10)), 'timeH')})
+			options.push({value: hour, text: this.$d(makeTime(parseInt(hour, 10), 0), 'timeH')})
 		return options
 	}
 
@@ -178,23 +179,23 @@ export default class DayEditor extends Vue {
 	}
 	get labelAuroraFine01() {
 		return this._computeAuroraGaps([
-			[new Date(0,0,0,22), new Date(0,0,0,23)],
-			[new Date(0,0,0,0), new Date(0,0,0,2)],
-			[new Date(0,0,0,3), new Date(0,0,0,4)],
+			[makeTime(22,0), makeTime(23,0)],
+			[makeTime(0,0), makeTime(2,0)],
+			[makeTime(3,0), makeTime(4,0)],
 		])
 	}
 	get labelAuroraFine03() {
 		return this._computeAuroraGaps([
-			[new Date(0,0,0,19), new Date(0,0,0,20)],
-			[new Date(0,0,0,21), new Date(0,0,0,23)],
-			[new Date(0,0,0,0), new Date(0,0,0,1)],
-			[new Date(0,0,0,2), new Date(0,0,0,4)],
+			[makeTime(19,0), makeTime(20,0)],
+			[makeTime(21,0), makeTime(23,0)],
+			[makeTime(0,0), makeTime(1,0)],
+			[makeTime(2,0), makeTime(4,0)],
 		])
 	}
 	get labelAuroraFine05() {
 		return this._computeAuroraGaps([
-			[new Date(0,0,0,22), new Date(0,0,0,23)],
-			[new Date(0,0,0,3), new Date(0,0,0,4)],
+			[makeTime(22,0), makeTime(23,0)],
+			[makeTime(3,0), makeTime(4,0)],
 		])
 	}
 
@@ -291,7 +292,7 @@ export default class DayEditor extends Vue {
 		if (star === undefined) {
 			return ''
 		} else {
-			const date = new Date(0, 0, 0, star.hour, star.minute)
+			const date = makeTime(star.hour, star.minute)
 			return this.$t('tsTitle', {time: this.$d(date, 'timeHM')})
 		}
 	}
