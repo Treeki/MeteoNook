@@ -91,7 +91,7 @@ export default class GuessWorkerView extends Vue {
 
 	work() {
 		if (this.guesser !== null && this.guessData !== null) {
-			const result = this.guesser.work(this.guessData, 0x10000)
+			const result = this.guesser.work(this.guessData, 0x200000)
 			this.progress = this.guesser.getPercentage()
 
 			const resultCount = this.guesser.getResultCount()

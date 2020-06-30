@@ -827,6 +827,7 @@ pub struct Guesser {
 }
 
 #[wasm_bindgen]
+#[derive(PartialEq, Clone, Copy, Debug)]
 pub enum GuesserResult {
 	Incomplete, Complete, Failed
 }
