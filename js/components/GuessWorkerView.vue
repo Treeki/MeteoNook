@@ -9,7 +9,7 @@
 				{{ $t('tCancel') }}
 			</b-button>
 		</div>
-		<p class='my-2'>{{ infoText }}</p>
+		<p class='my-2' v-html='infoText' @click='handleInfoClick'></p>
 		<b-progress :value='progress' max='100' show-progress></b-progress>
 	</div>
 </template>
@@ -102,6 +102,29 @@ export default class GuessWorkerView extends Vue {
 				this.timeout = window.setTimeout(() => this.work(), 0)
 			} else {
 				this.stopSearch()
+
+				// did we find a seed?
+				// if yes, throw it over to the Overview anyway
+				if (result == GuesserResult.Complete && this.results.length == 1) {
+					this.$emit('preview-seed', this.results[0], false)
+				}
+			}
+		}
+	}
+
+	makeSeedLink(seed: number): string {
+		// this is a really nasty kludge
+		// oh well :p
+		return `<a href='#' data-seed='${seed}'>${seed}</a>`
+	}
+	handleInfoClick(event: MouseEvent) {
+		if (event.target !== null) {
+			const target = event.target as HTMLElement
+			if (target.dataset.seed !== undefined) {
+				const seed = parseInt(target.dataset.seed, 10)
+				this.$emit('preview-seed', seed, true)
+				event.preventDefault()
+				event.stopPropagation()
 			}
 		}
 	}
@@ -119,10 +142,13 @@ export default class GuessWorkerView extends Vue {
 				return this.$t('tInfoRunning')
 		} else if (this.lastResult == GuesserResult.Complete) {
 			const count = this.results.length
-			if (count > 1)
-				return this.$t('tInfoMultiSeed', {count, seeds: this.results.join(', ')})
-			else
+			if (count > 1) {
+				const links = this.results.map(this.makeSeedLink).join(', ')
+				return this.$t('tInfoMultiSeed', {count, seeds: links})
+			} else if (count == 1)
 				return this.$t('tInfoSeed', {seed: this.results[0]})
+			else
+				return this.$t('tInfoNoSeeds')
 		} else {
 			return ''
 		}

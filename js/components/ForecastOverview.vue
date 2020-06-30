@@ -1,4 +1,4 @@
-<!--<style lang="scss">
+<style lang="scss">
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
@@ -9,7 +9,7 @@
 	@include media-breakpoint-only(lg) { column-count: 3; }
 	@include media-breakpoint-up(xl) { column-count: 4; }
 }
-</style>-->
+</style>
 
 <template>
 	<div>
@@ -45,6 +45,9 @@
 				<b-dropdown-item-button @click='addIsland'>{{ $t('oAddIsland') }}</b-dropdown-item-button>
 			</b-dropdown>
 		</h5>
+		<b-alert :show='guidanceModeStr.length > 0'>
+			{{ $t(guidanceModeStr) }}
+		</b-alert>
 		<b-card-group columns>
 			<overview-day-card :title="$t('oToday')" :forecast='forecast' :day='today' @show-day='showDay'></overview-day-card>
 			<overview-day-card :title="$t('oTomorrow')" :forecast='forecast' :day='tomorrow' @show-day='showDay'></overview-day-card>
@@ -77,7 +80,7 @@ import { Forecast, DayForecast, IslandInfo } from '../model'
 import ForecastConfig from './ForecastConfig.vue'
 import OverviewDayCard from './OverviewDayCard.vue'
 import { TranslateResult } from 'vue-i18n'
-import { SnowLevel, SpWeatherLevel, FogLevel, getConstellation } from '../../pkg'
+import { SnowLevel, SpWeatherLevel, FogLevel, getConstellation, Hemisphere } from '../../pkg'
 
 interface EventInfo {
 	date: Date,
@@ -89,6 +92,11 @@ enum EditMode {
 	AddNew,
 	EditExisting
 }
+enum GuidanceMode {
+	None,
+	SingleSeed,
+	MultiSeed
+}
 
 @Component({components: {ForecastConfig, OverviewDayCard}})
 export default class ForecastOverview extends Vue {
@@ -96,6 +104,7 @@ export default class ForecastOverview extends Vue {
 	@Prop(IslandInfo) readonly activeIsland!: IslandInfo
 	@Prop(Array) readonly storedIslands!: IslandInfo[]
 	editMode = EditMode.Closed
+	guidanceMode = GuidanceMode.None
 
 	$refs!: {
 		config: ForecastConfig
@@ -110,21 +119,15 @@ export default class ForecastOverview extends Vue {
 				return {current, next, nextDate}
 			}
 		}
-
-		// no dice, gotta look further
-		const nextDate = new Date(this.upcomingDays[this.upcomingDays.length - 1].date)
-		for (;;) {
-			nextDate.setTime(nextDate.getTime() + 86400_000)
-			const next = getConstellation(nextDate.getMonth() - 1, nextDate.getDate())
-			if (next != current)
-				return {current, next, nextDate}
-		}
+		// weird error case
+		// should never happen as we should always have >30 days in upcomingDays
+		return {current, next: current, nextDate: new Date()}
 	}
 
 	get upcomingDays(): DayForecast[] {
 		const days = []
 		const date = this.forecast.todayDate
-		for (let i = 0; i < 14; i++) {
+		for (let i = 0; i < 35; i++) {
 			days.push(new DayForecast(
 				this.forecast.hemisphere, this.forecast.seed,
 				date.getFullYear(), date.getMonth() + 1, date.getDate()
@@ -198,6 +201,18 @@ export default class ForecastOverview extends Vue {
 		else
 			this.$emit('add-island', island)
 		this.editMode = EditMode.Closed
+		this.guidanceMode = GuidanceMode.None
+	}
+
+	// called externally from App.vue
+	setPreviewSeedFromFinder(seed: number, hemisphere: Hemisphere, multiFlag: boolean) {
+		this.editMode = EditMode.AddNew
+		const island = new IslandInfo()
+		island.seed = seed
+		island.hemisphere = hemisphere
+		this.$refs.config.setBaseData(island)
+		this.previewIsland(island)
+		this.guidanceMode = multiFlag ? GuidanceMode.MultiSeed : GuidanceMode.SingleSeed
 	}
 
 	addIsland() {
@@ -218,6 +233,15 @@ export default class ForecastOverview extends Vue {
 
 	selectIsland(index: number) {
 		this.$emit('select-island', index)
+	}
+
+
+	get guidanceModeStr(): string {
+		switch (this.guidanceMode) {
+			case GuidanceMode.None: return ''
+			case GuidanceMode.SingleSeed: return 'oGuidanceSingle'
+			case GuidanceMode.MultiSeed: return 'oGuidanceMulti'
+		}
 	}
 
 

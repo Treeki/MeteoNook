@@ -38,7 +38,12 @@
 		</div>
 
 		<h4 class='mt-4'>{{ $t('tStep2') }}</h4>
-		<guess-worker-view :days='days' :hemisphere='hemisphere'></guess-worker-view>
+		<guess-worker-view
+			:days='days'
+			:hemisphere='hemisphere'
+			@preview-seed='previewSeed'
+			>
+		</guess-worker-view>
 	</div>
 </template>
 
@@ -130,6 +135,10 @@ export default class SeedFinder extends Vue {
 	onHemisphereChanged() { saveSFHemisphere(this.hemisphere) }
 	@Watch('days', {deep: true})
 	onDaysChanged() { saveSFDays(this.days) }
+
+	previewSeed(seed: number, multiFlag: boolean) {
+		this.$emit('preview-seed', seed, this.hemisphere, multiFlag)
+	}
 }
 </script>
 

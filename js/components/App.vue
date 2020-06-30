@@ -23,14 +23,15 @@
 
 	<b-container fluid='md'>
 		<b-tabs class='mt-2 mx-0' content-class='mt-3'>
-			<b-tab :title="$t('hTab')" :active='!forecast.specifiedInUrl'>
+			<b-tab :title="$t('hTab')" :active='!hasIslandAtLoad'>
 				<welcome-page></welcome-page>
 			</b-tab>
 			<b-tab :title="$t('sTab')">
-				<seed-finder></seed-finder>
+				<seed-finder @preview-seed='setPreviewSeedFromFinder'></seed-finder>
 			</b-tab>
-			<b-tab :title="$t('oTab')" :active='forecast.specifiedInUrl'>
+			<b-tab :title="$t('oTab')" :active='hasIslandAtLoad' ref='overviewTab'>
 				<forecast-overview
+					ref='overview'
 					:forecast='forecast'
 					:stored-islands='storedIslands'
 					:active-island='currentIsland'
@@ -184,11 +185,17 @@ export default class App extends Vue {
 	}
 
 	$refs!: {
-		monthlyTab: BTab
+		monthlyTab: BTab,
+		overviewTab: BTab,
+		overview: ForecastOverview
 	}
 
 	switchToMonthly() {
 		this.$refs.monthlyTab.activate()
+	}
+
+	get hasIslandAtLoad(): boolean {
+		return (this.currentIslandIndex !== null)
 	}
 
 	showDayModal(day: DayForecast) {
@@ -256,6 +263,10 @@ export default class App extends Vue {
 			this.storedIslands.splice(this.currentIslandIndex, 1)
 			this.selectIsland(this.storedIslands.length == 0 ? null : (this.storedIslands.length - 1), true)
 		}
+	}
+	setPreviewSeedFromFinder(seed: number, hemisphere: Hemisphere, multiFlag: boolean) {
+		this.$refs.overview.setPreviewSeedFromFinder(seed, hemisphere, multiFlag)
+		this.$refs.overviewTab.activate()
 	}
 
 	get time12(): boolean { return (this.$root as any).time12 }

@@ -232,7 +232,6 @@ export class Forecast {
 	island: IslandInfo
 	year: number
 	month: number
-	specifiedInUrl: boolean
 	monthForecasts: MonthForecast[]
 
 	get hemisphere(): Hemisphere { return this.island.hemisphere }
@@ -241,17 +240,6 @@ export class Forecast {
 
 	constructor(island?: IslandInfo) {
 		this.island = new IslandInfo(island)
-		this.specifiedInUrl = false
-
-		if (document !== undefined && document.location.search.startsWith('?v1&')) {
-			const bits = document.location.search.split('&')
-			if (bits.length === 4) {
-				this.island.name = decodeURIComponent(bits[1])
-				this.island.seed = parseInt(decodeURIComponent(bits[2]), 10)
-				this.island.hemisphere = (decodeURIComponent(bits[3]).toUpperCase() == 'S') ? Hemisphere.Southern : Hemisphere.Northern
-				this.specifiedInUrl = true
-			}
-		}
 
 		const now = new Date()
 		now.setTime(now.getTime() - this.island.offsetMinutes * 60_000)
