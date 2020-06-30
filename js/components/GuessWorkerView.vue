@@ -45,6 +45,10 @@ export default class GuessWorkerView extends Vue {
 
 		this.guessData = GuessData.new(this.hemisphere)
 		for (const day of Object.values(this.days)) {
+			if (typeof day !== 'object') {
+				console.warn('weird object in guessData source:', day)
+				continue
+			}
 			const error = populateGuessData(this.hemisphere, this.guessData, day)
 			if (error !== undefined) {
 				this.stopSearch() // free the GuessData
