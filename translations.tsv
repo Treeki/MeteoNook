@@ -42,9 +42,9 @@ hABadSeed	This happens sometimes, it sucks. What's most likely happened is that 
 hQAdd	Will you add X...?	¿Vas a añadir X...?	Wirst du Funktion X hinzufügen?
 hAAdd	Maybe. No promises.	Tal vez. No prometo nada.	Vielleicht. Vielleicht nicht. Ich kann nichts versprechen.
 hQDonate	Can I give you money?	¿Puedo darte dinero?	Kann ich dir Geld spenden?
-hADonate	Since a few people asked me on Discord and Twitter, I've added some links to the footer. Please don't feel obligated to do so, though!	Ya que alguna gente me preguntó en Discord y en Twitter, he puesto unos enlaces al final de la página. ¡Pero ten en cuenta que no hay obligación de nada!	Since a few people asked me on Discord and Twitter, I've added some links to the footer. Please don't feel obligated to do so, though!
+hADonate	Since a few people asked me on Discord and Twitter, I've added some links to the footer. Please don't feel obligated to do so, though!	Ya que alguna gente me preguntó en Discord y en Twitter, he puesto unos enlaces al final de la página. ¡Pero ten en cuenta que no hay obligación de nada!	Da ich von einigen Leuten auf Discord und Twitter gefragt wurde, habe ich ein paar Links in die Fußzeile gepackt. Bitte fühlt euch nicht dazu verpflichtet, etwas zu spenden!
 hQSource	Will this be open source?	¿Vas publicar el código fuente?	Wird das hier Open Source werden?
-hASource	This new version of MeteoNook is available on GitHub under the GNU Affero GPL 3.0. The repository link is at the bottom of this page.	Esta nueva versión de MeteoNook está publicada en GitHub, con la licencia GNU Affero GPL 3.0. El enlace está al final de esta pagina.	This new version of MeteoNook is available on GitHub under the GNU Affero GPL 3.0. The repository link is at the bottom of this page.
+hASource	This new version of MeteoNook is available on GitHub under the GNU Affero GPL 3.0. The repository link is at the bottom of this page.	Esta nueva versión de MeteoNook está publicada en GitHub, con la licencia GNU Affero GPL 3.0. El enlace está al final de esta pagina.	Diese neue Version von MeteoNook ist auf GitHub unter der GNU Affero GPL 3.0 Lizenz verfügbar. Der Repoistory-Link befindet sich am Ende der Seite.
 		
 sIntro	Before you can forecast your island's weather, you'll need to determine what weather seed it has. This tool will find it for you once you've provided enough data about your island's weather. The more information you provide, the easier it will be!	Para obtener previsiones en tu isla, tendrás que determinar la semilla ambiental. Esta herramienta te ayudará a encontrarla con los datos que introduces sobre el tiempo en tu isla. Cuanta más información, ¡más fácil será!	Before you can forecast your island's weather, you'll need to determine what weather seed it has. This tool will find it for you once you've provided enough data about your island's weather. The more information you provide, the easier it will be!
 sTTypes	Weather Types	Tipos de tiempo	Wettertypen
@@ -55,7 +55,7 @@ sStars	If you note down the exact in-game time (hour and minute) when shooting s
 sTTips	Tips	Sugerencias	Tipps
 sTips	-Don't put info in if you're not completely sure about it.%%-Look through screenshots and videos you've taken <b>on your island</b> (not on Nook Miles Ticket islands or when visiting other players) for records of your weather. In the Switch album, you can press A to see the date and time they were taken. You may be able to get more accurate times by transferring them to a microSD card and reading them from your computer.%%-⚠️ The EventDay00 weather pattern (clear weather with no shooting stars) will be forced on the day K.K. Slider performs for the first time, and any day you add a new player (Switch profile) to your island. Do not use data from these days!%%-⚠️ Days in Animal Crossing start and end at <b>05H</b>, so if you log weather or shooting stars after midnight, make sure you put them on the same calendar date as the ones before midnight.	-No introduzcas información si no estás completamente seguro.%%-Mira los pantallazos y vídeos que has grabado <b>en tu isla</b> (descartando las islas de millas Nook y las islas de otros jugadores) para obtener el histórico del tiempo. En las fotos de Switch, puedes pulsar A para ver la fecha y la hora en que se grabaron. Tal vez puedes obtener tiempos mas precisos si las pasas a una tarjeta microSD y miras los archivos en tu ordenador.%%-⚠️ El patrón EventDay00 (claro sin meteoritos) es forzado en el día del primer concierto de Totakeke, y cualquier día que añades un jugador nuevo a la isla. No utilizes datos de estos días.%%-⚠️ Los días en Animal Crossing comienzan y acaban a las <b>05H</b>, así que si grabas tiempo o meteoritos a partir de la medianoche y antes de las 05H, asegúrate de que los pones en la misma fecha que los que grabaste antes de la medianoche.	-Don't put info in if you're not completely sure about it.%%-Look through screenshots and videos you've taken <b>on your island</b> (not on Nook Miles Ticket islands or when visiting other players) for records of your weather. In the Switch album, you can press A to see the date and time they were taken. You may be able to get more accurate times by transferring them to a microSD card and reading them from your computer.%%-⚠️ The EventDay00 weather pattern (clear weather with no shooting stars) will be forced on the day K.K. Slider performs for the first time, and any day you add a new player (Switch profile) to your island. Do not use data from these days!%%-⚠️ Days in Animal Crossing start and end at <b>05H</b>, so if you log weather or shooting stars after midnight, make sure you put them on the same calendar date as the ones before midnight.
 		
-tStep1	Step 1: Enter your Information	Paso 1: Introduce tu información	Step 1: Enter your Information
+tStep1	Step 1: Enter your Information	Paso 1: Introduce tu información	1. Schritt: Informationen eingeben
 tNorthernHemi	Northern hemisphere	Hemisferio norte	Nördliche Hemisphäre
 tSouthernHemi	Southern hemisphere	Hemisferio sur	Südliche Hemisphäre
 tnorthern	northern	norte	nördliche
@@ -68,42 +68,42 @@ tResetBlurb	Your pattern data will automatically be saved to your browser, so yo
 tResetButton	Reset Data	Borrar datos	Daten zurücksetzen
 tExportBlurb	To get support with MeteoNook, you might need to supply your data. Click here to export it to JSON format:	Para obtener soporte técnico con MeteoNook, quizás tendrás que ofrecer tus datos. Haz clic aquí para exportarlos al formato JSON:	To get support with MeteoNook, you might need to supply your data. Click here to export it to JSON format:
 tExportButton	Export Data	Exportar datos	Daten exportieren
-tTPatterns	Special Patterns	Patrones especiales	Special Patterns
+tTPatterns	Special Patterns	Patrones especiales	Spezielle Muster
 tNoData	No data, or not sure	No tengo datos, o no estoy seguro	Keine Daten oder unsicher
 tShower	Meteor shower or visit from Celeste	Lluvia de meteoritos o visita de Estela	Sternschnuppen oder Besuch von Eufemia
 tRainbow	Rainbow	Arcoíris	Regenbogen
-tAuroraN	Aurora borealis	Aurora boreal	Aurora borealis
-tAuroraS	Aurora australis	Aurora astral	Aurora australis
+tAuroraN	Aurora borealis	Aurora boreal	Nordlichter
+tAuroraS	Aurora australis	Aurora astral	Südlichter
 tNone	None of the above	Ninguno de estos	Keines der zuvor genannten
-tTShower	Meteor Shower Info	Información de meteoritos	Meteor Shower Info
+tTShower	Meteor Shower Info	Información de meteoritos	Meteorschauer Information
 tHeavy	Heavy shower (mentioned by Isabelle or villagers, 5-8 stars a minute)	Lluvia fuerte (anunciado por Canela o tus vecinos, 5-8 meteoritos por minuto)	Heavy shower (mentioned by Isabelle or villagers, 5-8 stars a minute)
 tLight	Light shower (5 stars a minute, coming in rare bursts)	Lluvia leve (5 meteoritos cada minuto, con muy baja frecuencia)	Light shower (5 stars a minute, coming in rare bursts)
 tNotSure	Not sure	No estoy seguro	Unsicher
 tTTimes	Times when stars appeared	Horario de meteoritos	Times when stars appeared
 tEditSeconds	Edit Seconds	Editar segundos	Edit Seconds
 tAddTime	Add Time	Añadir hora	Add Time
-tEnoughTimes	You have enough now!	¡Tienes bastante!	You have enough now!
+tEnoughTimes	You have enough now!	¡Tienes bastante!	Genug Daten!
 tTGaps	Gaps with no stars	Huecos sin meteoritos	Gaps with no stars
 tTo	to	hasta	to
 tAddGap	Add Gap	Añadir un hueco	Add Gap
 tMakeFromTimes	Make from times	Crear a partir del horario	Make from times
-tTTypes	Weather Types	Tipos de tiempo	Weather Types
-tAddType	Add Type	Añadir un tipo	Add Type
-tPatterns	Possible patterns:	Patrones posibles:	Possible patterns:
-tPatternsNone	<span class='text-danger'>none</span>. Double-check your info!	<span class='text-danger'>ninguno</span>. ¡Comprueba tus datos!	<span class='text-danger'>none</span>. Double-check your info!
-tTRainbow	Rainbow Info	Información de arcoíris	Rainbow Info
-tTime	Time	Tiempo	Time
-tDoubleRainbow	Double rainbow	Arcoíris doble	Double rainbow
-tTAurora	Aurora Info	Información de la aurora	Aurora Info
-tAuroraFit	Which of these patterns fit?	¿Cuál de estos patrones encaja?	Which of these patterns fit?
-tStep2	Step 2: Find your Seed	Paso 2: Encuentra tu semilla	Step 2: Find your Seed
+tTTypes	Weather Types	Tipos de tiempo	Wettertypen
+tAddType	Add Type	Añadir un tipo	Wettertyp hinzufügen
+tPatterns	Possible patterns:	Patrones posibles:	Mögliche Muster:
+tPatternsNone	<span class='text-danger'>none</span>. Double-check your info!	<span class='text-danger'>ninguno</span>. ¡Comprueba tus datos!	<span class='text-danger'>Keine</span>. Überprüfe deine Angaben!
+tTRainbow	Rainbow Info	Información de arcoíris	Regenbogen Information
+tTime	Time	Tiempo	Uhrzeit
+tDoubleRainbow	Double rainbow	Arcoíris doble	Doppelter Regenbogen
+tTAurora	Aurora Info	Información de la aurora	Himmelslichter Information
+tAuroraFit	Which of these patterns fit?	¿Cuál de estos patrones encaja?	Welches dieser Muster passt?
+tStep2	Step 2: Find your Seed	Paso 2: Encuentra tu semilla	2. Schritt: Wetter Seed finden
 tStart	Start Search	Comenzar búsqueda	Suche starten
 tCancel	Cancel Search	Cancelar búsqueda	Suche abbrechen
-tWorking	Searching...	Buscando...	Suche…
+tWorking	Searching...	Buscando...	Suche...
 tInfoDefault	Once you've filled in the information above, click Start Search to begin the process.	Cuando hayas rellenado los datos, haz clic en 'Comenzar búsqueda' para... comenzar la búsqueda.	Once you've filled in the information above, click Start Search to begin the process.
-tInfoRunning	Searching, hold on...	Buscando, espera...	Searching, hold on...
-tInfoRunningC	Searching, hold on... Found {count} so far: {seeds}	Buscando, espera... {count} encontrada: {seeds}	Searching, hold on... Found {count} so far: {seeds}
-tInfoPossibleSeeds	1 possible seed | {n} possible seeds	1 semilla posible | {n} semillas posibles	1 possible seed | {n} possible seeds
+tInfoRunning	Searching, hold on...	Buscando, espera...	Suche, bitte warten...
+tInfoRunningC	Searching, hold on... Found {count} so far: {seeds}	Buscando, espera... {count} encontrada: {seeds}	Suche, bitte warten... Bisher {count} gefunden: {seeds}
+tInfoPossibleSeeds	1 possible seed | {n} possible seeds	1 semilla posible | {n} semillas posibles	1 möglicher Seed | {n} mögliche Seeds
 tInfoMoreData	You haven't entered enough weather information to narrow down your island's seed.	Estos datos no son suficientes para determinar la semilla ambiental en tu isla.	You haven't entered enough weather information to narrow down your island's seed.
 tInfoNoSeeds	There are no seeds that match the information you entered. Please double-check it!	No hay semillas que encajen con los datos que has puesto. ¡Compruébalos, por favor!	There are no seeds that match the information you entered. Please double-check it!
 tInfoMultiSeed	It looks like there are {count} seeds that fit the information you've given: {seeds}. You can look at these by clicking on each one to try it and to see how it compares to your island, or you can add more data above and try searching again.	Parece que hay {count} semillas que encajan con la información que has puesto: {seeds}. Si quieres comprobarlas, puedes hacer clic en cada una para probarla y ver cómo se comparan con el tiempo en tu isla. Si no, añade más datos en este paso e intenta buscar otra vez.	It looks like there are {count} seeds that fit the information you've given: {seeds}. You can look at these by clicking on each one to try it and to see how it compares to your island, or you can add more data above and try searching again.
@@ -116,80 +116,80 @@ tsHeader	During a heavy shower you get 5 or 8 stars in a minute, and during a li
 tsStar	Star {n}	Meteorito {n}	Star {n}
 tsFooter1	This is very powerful, but be careful - it's difficult to get these right! You may want to take a video of your Switch (e.g. with your phone) with the in-game clock and the sky visible while shooting stars are falling. Watch it afterwards and note the times when the in-game clock changes and when stars appear, then compare them to find the seconds for each star.	Esta opción tiene mucho potencial, pero ten cuidado - ¡es difícil hacerlo bien! Puedes grabar un vídeo de tu Switch (con tu móvil, por ejemplo) con el cielo y el reloj del juego cuando hay meteoritos. Si después reproduces el video y apuntas el tiempo en que el reloj cambia y el tiempo en que aparecen los meteoritos, podrás compararlos y determinar cuándo aparecen.	This is very powerful, but be careful - it's difficult to get these right! You may want to take a video of your Switch (e.g. with your phone) with the in-game clock and the sky visible while shooting stars are falling. Watch it afterwards and note the times when the in-game clock changes and when stars appear, then compare them to find the seconds for each star.
 tsFooter2	The search algorithm allows your measurements to be up to <b>4 seconds late</b>.	El algoritmo de búsqueda permite que tus mediciones tengan <b>hasta 4 segundos de retraso</b>.	The search algorithm allows your measurements to be up to <b>4 seconds late</b>.
-tsCancel	Cancel	Cancelar	Cancel
-tsSave	Save	Guardar	Save
+tsCancel	Cancel	Cancelar	Abbrechen
+tsSave	Save	Guardar	Speichern
 		
-deTitle	Exported data	Datos exportados	Exported data
+deTitle	Exported data	Datos exportados	Exportierte Daten
 		
-yLight	1 light shower | {n} light showers	1 lluvia leve de meteoritos | {n} lluvias leves de meteoritos	1 light shower | {n} light showers
-yHeavy	1 heavy shower | {n} heavy showers	1 lluvia fuerte de meteoritos | {n} lluvias fuertes de meteoritos	1 heavy shower | {n} heavy showers
-yRainbow	1 rainbow | {n} rainbows	{n} arcoíris	1 rainbow | {n} rainbows
-yRainbowDouble	({n} double)	({n} doble)	({n} double)
-yAuroraN	1 aurora borealis day | {n} aurora borealis days	1 día con aurora | {n} días con aurora	1 aurora borealis day | {n} aurora borealis days
-yAuroraS	1 aurora australis day | {n} aurora australis days	1 día con aurora | {n} días con aurora	1 aurora australis day | {n} aurora australis days
+yLight	1 light shower | {n} light showers	1 lluvia leve de meteoritos | {n} lluvias leves de meteoritos	1 leichter Regenschauer | {n} leichte Regenschauer
+yHeavy	1 heavy shower | {n} heavy showers	1 lluvia fuerte de meteoritos | {n} lluvias fuertes de meteoritos	1 starker Regenschauer | {n} starke Regenschauer
+yRainbow	1 rainbow | {n} rainbows	{n} arcoíris	1 Regenbogen | {n} Regenbögen
+yRainbowDouble	({n} double)	({n} doble)	({n} doppelt)
+yAuroraN	1 aurora borealis day | {n} aurora borealis days	1 día con aurora | {n} días con aurora	1 Nordlicht Tag | {n} Nordlicht Tage
+yAuroraS	1 aurora australis day | {n} aurora australis days	1 día con aurora | {n} días con aurora	1 Südlicht Tag | {n} Südlicht Tage
 		
-oExample	This is an example forecast that shows what MeteoNook can do. Once you find out your island's seed, fill in the details below to get your personalised overview.	Esto es un pronostico ejemplar para demostrar lo que MeteoNook puede hacer. Cuando hayas encontrado tu semilla ambiental, introduce los detalles en el formulario para recibir tu pronostico personal.	This is an example forecast that shows what MeteoNook can do. Once you find out your island's seed, fill in the details below to get your personalised overview.
-oChange	Change	Cambiar	Change
-oEditSettings	Edit settings	Editar ajustes	Edit settings
-oShareLink	Share a link	Compartir con enlace	Share a link
-oRemoveIsland	Remove island	Borrar esta isla	Remove island
-oSavedIslands	Saved islands	Islas guardadas	Saved islands
-oAddIsland	Add another island	Añadir otra isla	Add another island
-oTitle	Weather on {island}	El tiempo para {island}	Weather on {island}
+oExample	This is an example forecast that shows what MeteoNook can do. Once you find out your island's seed, fill in the details below to get your personalised overview.	Esto es un pronostico ejemplar para demostrar lo que MeteoNook puede hacer. Cuando hayas encontrado tu semilla ambiental, introduce los detalles en el formulario para recibir tu pronostico personal.	Dies ist ein Vorhersage-Beispiel welches zeigt, was MeteoNook kann. Sobald du den Wetter Seed deiner Insel gefunden hast, trage ihn unten ein um deine persönliche Wettervorhersage zu bekommen.
+oChange	Change	Cambiar	Ändern
+oEditSettings	Edit settings	Editar ajustes	Einstellungen bearbeiten
+oShareLink	Share a link	Compartir con enlace	Link teilen
+oRemoveIsland	Remove island	Borrar esta isla	Insel entfernen
+oSavedIslands	Saved islands	Islas guardadas	Gespeicherte Inseln
+oAddIsland	Add another island	Añadir otra isla	Weitere Insel hinzufügen
+oTitle	Weather on {island}	El tiempo para {island}	Wetter auf {island}
 		
-oToday	Today	Hoy	Today
-oTomorrow	Tomorrow	Mañana	Tomorrow
-oSeeMore	See more	Ver más	See more
-oPattern	Pattern: {pattern}	Patrón: {pattern}	Pattern: {pattern}
-oSunny	Clear {list}	Claro {list}	Clear {list}
-oCloudy	Cloudy {list}	Nublado {list}	Cloudy {list}
-oRain	Rain {list}	Lluvia {list}	Rain {list}
-oSnow	Snow {list}	Nevando {list}	Snow {list}
-oMorning	morning	mañana	morning
-oAfternoon	afternoon	tarde	afternoon
-oEvening	evening	noche	evening
-oNight	night	noche	night
-oZoneList1	in the {0}	por la {0}	in the {0}
-oZoneList2	in the {0} and {1}	por la {0} y {1}	in the {0} and {1}
-oZoneList3	in the {0}, {1} and {2}	por la {0}, {1} y {2}	in the {0}, {1} and {2}
-oZoneRest	for the rest of the day	el resto del día	for the rest of the day
-oZoneAllDay	all day	todo el día	all day
+oToday	Today	Hoy	Heute
+oTomorrow	Tomorrow	Mañana	Morgen
+oSeeMore	See more	Ver más	Mehr sehen
+oPattern	Pattern: {pattern}	Patrón: {pattern}	Muster: {pattern}
+oSunny	Clear {list}	Claro {list}	Wolkenlos {list}
+oCloudy	Cloudy {list}	Nublado {list}	Bewölkt {list}
+oRain	Rain {list}	Lluvia {list}	Regen {list}
+oSnow	Snow {list}	Nevando {list}	Schnee {list}
+oMorning	morning	mañana	morgens
+oAfternoon	afternoon	tarde	mittags
+oEvening	evening	noche	abends
+oNight	night	noche	nachts
+oZoneList1	in the {0}	por la {0}	{0}
+oZoneList2	in the {0} and {1}	por la {0} y {1}	{0} und {1}
+oZoneList3	in the {0}, {1} and {2}	por la {0}, {1} y {2}	{0}, {1} und {2}
+oZoneRest	for the rest of the day	el resto del día	für den Rest des Tages
+oZoneAllDay	all day	todo el día	den ganzen Tag
 		
-oHeavyShowerAlert	Heavy meteor shower: expect shooting stars between {start} and {end}	Lluvia fuerte: verás meteoritos entre las {start} y las {end}	Heavy meteor shower: expect shooting stars between {start} and {end}
-oShowerAlert	Expect some shooting stars around {list}	Verás algunos meteoritos alrededor de {list}	Expect some shooting stars around {list}
+oHeavyShowerAlert	Heavy meteor shower: expect shooting stars between {start} and {end}	Lluvia fuerte: verás meteoritos entre las {start} y las {end}	Starker Meteorschauer: erwarte Sternschnuppen zwischen {start} und {end}
+oShowerAlert	Expect some shooting stars around {list}	Verás algunos meteoritos alrededor de {list}	Erwarte einige Sternschnuppen um {list}
 oTimeList1	{0}	las {0}	{0}
-oTimeList2	{0} and {1}	{0} y las {1}	{0} and {1}
+oTimeList2	{0} and {1}	{0} y las {1}	{0} und {1}
 		
-oUpcoming	Coming up	Próximamente	Coming up
-oRainbowAt	Rainbow at {time}	Arcoíris a las {time}	Rainbow at {time}
+oUpcoming	Coming up	Próximamente	Demnächst
+oRainbowAt	Rainbow at {time}	Arcoíris a las {time}	Regenbogen um {time}
 oHeavyShower	Heavy meteor shower	Lluvia fuerte de meteoritos	Heavy meteor shower
-oSnowStart	Snowy season begins	Comienza la temporada de nieve	Snowy season begins
-oSnowEnd	Snowy season ends	Acaba la temporada de nieve	Snowy season ends
-oFogStart	Fog season begins	Comienza la temporada de niebla	Fog season begins
-oFogEnd	Fog season ends	Acaba la temporada de niebla	Fog season ends
+oSnowStart	Snowy season begins	Comienza la temporada de nieve	Schnee-Saison beginnt
+oSnowEnd	Snowy season ends	Acaba la temporada de nieve	Schnee-Saison endet
+oFogStart	Fog season begins	Comienza la temporada de niebla	Nebel-Saison beginnt
+oFogEnd	Fog season ends	Acaba la temporada de niebla	Nebel-Saison endet
 		
-oConstellation	Constellation	Constelación	Constellation
-oZodiacNow	Now:	Ahora:	Now:
-oZodiacNext	Next:	Próximo:	Next:
-oZodiacFrom	(from {date})	(desde el {date})	(from {date})
+oConstellation	Constellation	Constelación	Konstellation
+oZodiacNow	Now:	Ahora:	Jetzt:
+oZodiacNext	Next:	Próximo:	Als nächstes:
+oZodiacFrom	(from {date})	(desde el {date})	(ab {date})
 		
-tForecastConfig	Forecast configuration	Configuración del pronóstico	Forecast configuration
-tIslandName	Island name	Nombre de la isla	Island name
-tIslandNameDesc	This doesn't affect the forecast, but if you want to keep track of multiple islands in MeteoNook, this will allow you to tell them apart.	Esto no influye el pronóstico, pero si quieres echarle un ojo a varias islas en MeteoNook, esta opción te permitirá distinguirlas.	This doesn't affect the forecast, but if you want to keep track of multiple islands in MeteoNook, this will allow you to tell them apart.
-tSeed	Weather seed	Semilla ambiental	Weather seed
-tHemisphere	Hemisphere	Hemisferio	Hemisphere
-tNorthern	Northern	Norte	Northern
-tSouthern	Southern	Sur	Southern
-tClockMode	Are you time sly?	¿Como tienes tu reloj?	Are you time sly?
-tRealTime	No, my Switch's clock is real time	Mi consola Switch tiene el tiempo actual	No, my Switch's clock is real time
-tTimeTravel	Yes, I time travel	Viajo en el tiempo	Yes, I time travel
-tClockModeDesc	This option will set what MeteoNook considers as "today". This does not affect the predictions, it just makes the app a little more convenient to use.	Esta opción controla como MeteoNook decide la fecha para mostrar como "hoy". No afecta las previsiones, pero la app sera un poquito mas útil si lo configuras bien.	This option will set what MeteoNook considers as "today". This does not affect the predictions, it just makes the app a little more convenient to use.
-tClockOffset	Clock offset	Desplazamiento del reloj	Clock offset
-tClockOffsetDesc	You can enter an offset in minutes, or select the date and time that your Switch is currently set to.	Puedes introducir una cantidad de minutos como el desplazamiento, o elegir la fecha y hora que aparecen en tu consola Switch ahora mismo.	You can enter an offset in minutes, or select the date and time that your Switch is currently set to.
-tMinutesSuffix	minutes	minutos	minutes
-tPreview	Try (don't save)	Probar (sin guardar)	Try (don't save)
-tSave	Save Settings	Guardar estas opciones	Save Settings
-tCancel	Cancel	Cancelar	Cancel
+tForecastConfig	Forecast configuration	Configuración del pronóstico	Vorhersage konfigurieren
+tIslandName	Island name	Nombre de la isla	Inselname
+tIslandNameDesc	This doesn't affect the forecast, but if you want to keep track of multiple islands in MeteoNook, this will allow you to tell them apart.	Esto no influye el pronóstico, pero si quieres echarle un ojo a varias islas en MeteoNook, esta opción te permitirá distinguirlas.	Die Vorhersage wird dadruch nicht beeinflusst. Wenn du das Wetter mehrere Inseln mit MeteoNook beobachtest, erleichtert dir diese Einstellung die Inseln zu erkennen.
+tSeed	Weather seed	Semilla ambiental	Wetter Seed
+tHemisphere	Hemisphere	Hemisferio	Hemisphäre
+tNorthern	Northern	Norte	Nördlich
+tSouthern	Southern	Sur	Südlich
+tClockMode	Are you time sly?	¿Como tienes tu reloj?	Reist du durch die Zeit?
+tRealTime	No, my Switch's clock is real time	Mi consola Switch tiene el tiempo actual	Nein, meine Switch Uhrzeit entspricht der realen Uhrzeit
+tTimeTravel	Yes, I time travel	Viajo en el tiempo	Ja, ich reise in der Zeit
+tClockModeDesc	This option will set what MeteoNook considers as "today". This does not affect the predictions, it just makes the app a little more convenient to use.	Esta opción controla como MeteoNook decide la fecha para mostrar como "hoy". No afecta las previsiones, pero la app sera un poquito mas útil si lo configuras bien.	Diese Einstellung beeinflusst, was MeteoNook als "heute" bezeichnet. Die Prognose wird dadurch nicht beeinflusst sondern nur die Nutzbarkeit dieser App verbessert.
+tClockOffset	Clock offset	Desplazamiento del reloj	Uhrzeit Verschiebung
+tClockOffsetDesc	You can enter an offset in minutes, or select the date and time that your Switch is currently set to.	Puedes introducir una cantidad de minutos como el desplazamiento, o elegir la fecha y hora que aparecen en tu consola Switch ahora mismo.	Du kannst den Zeitversatz in Minuten angeben oder du wählst das Datum und die Uhrzeit, die aktuell auf deiner Switch sind.
+tMinutesSuffix	minutes	minutos	Minuten
+tPreview	Try (don't save)	Probar (sin guardar)	Testen (ohne speichern)
+tSave	Save Settings	Guardar estas opciones	Einstellungen speichern
+tCancel	Cancel	Cancelar	Abbrechen
 		
 oGuidanceSingle	This is the weather that you should get with the seed that MeteoNook has calculated. You can see more details on the 'Yearly' and 'Monthly' tabs. If it doesn't look right, then you may have made a mistake in your data - don't worry, it happens. If everything looks good, then fill in the remaining fields and click Save. Enjoy MeteoNook!	Aquí tienes el tiempo que deberías tener en tu isla con la semilla que MeteoNook ha encontrado. Puedes ver mas detalles en la pestañas 'Anual' y 'Mensual'. Si no se ve bien, tal vez tendrás un fallo en tus datos - no te preocupes, suele pasar de vez en cuando. Si todo se ve bien, completa los campos que quedan en el formulario y dale a Guardar. ¡Disfruta MeteoNook!	This is the weather that you should get with the seed that MeteoNook has calculated. You can see more details on the 'Yearly' and 'Monthly' tabs. If it doesn't look right, then you may have made a mistake in your data - don't worry, it happens. If everything looks good, then fill in the remaining fields and click Save. Enjoy MeteoNook!
 oGuidanceMulti	This is the weather that you should get if this seed is the correct one for your island. You can see more details on the 'Yearly' and 'Monthly' tabs. If it doesn't look right, then go back to the 'Seed' tab and try a different one. If it all fits, then you're lucky - fill in the remaining fields and hit Save. Enjoy MeteoNook!	Aquí tienes el tiempo que deberías tener en tu isla si esta semilla es la que verdaderamente tiene tu isla. Puedes ver mas detalles en la pestañas 'Anual' y 'Mensual'. Si no se ve bien, vuelve a la pestaña 'Semilla' y prueba otra. Si todo encaja, has tenido suerte - completa los campos que quedan en el formulario y dale a Guardar. ¡Disfruta MeteoNook!	This is the weather that you should get if this seed is the correct one for your island. You can see more details on the 'Yearly' and 'Monthly' tabs. If it doesn't look right, then go back to the 'Seed' tab and try a different one. If it all fits, then you're lucky - fill in the remaining fields and hit Save. Enjoy MeteoNook!
