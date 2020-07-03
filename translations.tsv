@@ -194,36 +194,36 @@ tCancel	Cancel	Cancelar	Cancel
 oGuidanceSingle	This is the weather that you should get with the seed that MeteoNook has calculated. You can see more details on the 'Yearly' and 'Monthly' tabs. If it doesn't look right, then you may have made a mistake in your data - don't worry, it happens. If everything looks good, then fill in the remaining fields and click Save. Enjoy MeteoNook!	Aquí tienes el tiempo que deberías tener en tu isla con la semilla que MeteoNook ha encontrado. Puedes ver mas detalles en la pestañas 'Anual' y 'Mensual'. Si no se ve bien, tal vez tendrás un fallo en tus datos - no te preocupes, suele pasar de vez en cuando. Si todo se ve bien, completa los campos que quedan en el formulario y dale a Guardar. ¡Disfruta MeteoNook!	This is the weather that you should get with the seed that MeteoNook has calculated. You can see more details on the 'Yearly' and 'Monthly' tabs. If it doesn't look right, then you may have made a mistake in your data - don't worry, it happens. If everything looks good, then fill in the remaining fields and click Save. Enjoy MeteoNook!
 oGuidanceMulti	This is the weather that you should get if this seed is the correct one for your island. You can see more details on the 'Yearly' and 'Monthly' tabs. If it doesn't look right, then go back to the 'Seed' tab and try a different one. If it all fits, then you're lucky - fill in the remaining fields and hit Save. Enjoy MeteoNook!	Aquí tienes el tiempo que deberías tener en tu isla si esta semilla es la que verdaderamente tiene tu isla. Puedes ver mas detalles en la pestañas 'Anual' y 'Mensual'. Si no se ve bien, vuelve a la pestaña 'Semilla' y prueba otra. Si todo encaja, has tenido suerte - completa los campos que quedan en el formulario y dale a Guardar. ¡Disfruta MeteoNook!	This is the weather that you should get if this seed is the correct one for your island. You can see more details on the 'Yearly' and 'Monthly' tabs. If it doesn't look right, then go back to the 'Seed' tab and try a different one. If it all fits, then you're lucky - fill in the remaining fields and hit Save. Enjoy MeteoNook!
 		
-lsTitle	Shared link	Enlace compartido	Shared link
-lsBlurb	The link below contains the data for your island. You can give it to a friend for them to see your weather patterns, or you can just store it somewhere for safekeeping. The choice is yours!	El siguiente enlace contiene los datos para tu isla. Puedes compartirlo con un amigo para que pueda ver el tiempo en tu isla, o guardarlo en algún lado para seguridad. ¡La decisión es tuya!	The link below contains the data for your island. You can give it to a friend for them to see your weather patterns, or you can just store it somewhere for safekeeping. The choice is yours!
-lsDone	Done, thank you	Listo, gracias	Done, thank you
+lsTitle	Shared link	Enlace compartido	Geteilter Link
+lsBlurb	The link below contains the data for your island. You can give it to a friend for them to see your weather patterns, or you can just store it somewhere for safekeeping. The choice is yours!	El siguiente enlace contiene los datos para tu isla. Puedes compartirlo con un amigo para que pueda ver el tiempo en tu isla, o guardarlo en algún lado para seguridad. ¡La decisión es tuya!	Der unten stehende Link enthält die Daten deiner Insel. Du kannst ihn einem Freund/einer Freundin senden, damit er/sie dein Wettermuster sehen kann oder du speicherst dir den Link irgendwo zur Sicherheit. Du kannst frei entscheiden!
+lsDone	Done, thank you	Listo, gracias	Fertig, danke
 		
 		
 		
 		
 		
-dTitlePreview	Preview of pattern {pattern}	Ejemplo del patrón {pattern}	Preview of pattern {pattern}
-dTitleDay	Weather for {date} ({pattern})	El tiempo para {date} ({pattern})	Weather for {date} ({pattern})
-dSpDay	This day has special weather because of {day}	Este día hace un tiempo especial porque se celebra {day}	This day has special weather because of {day}
-dWindTooltip	Wind strength	Velocidad del viento	Wind strength
-dHeavyFog	Heavy fog	Niebla sobre la isla	Heavy fog
-dWaterFog	Water fog	Niebla sobre el agua	Water fog
-dRainbowSingle	Rainbow!	¡Arcoíris!	Rainbow!
-dRainbowDouble	Double rainbow!	¡Arcoíris doble!	Double rainbow!
-dRainbowEither	Rainbow or double rainbow	Arcoíris o arcoíris doble	Rainbow or double rainbow
-dAuroraN	Aurora borealis!	¡Aurora boreal!	Aurora borealis!
-dAuroraS	Aurora australis!	¡Aurora austral!	Aurora australis!
-dStars	Stars possible!	¡Meteoritos posibles!	Stars possible!
+dTitlePreview	Preview of pattern {pattern}	Ejemplo del patrón {pattern}	Vorschau von Muster {pattern}
+dTitleDay	Weather for {date} ({pattern})	El tiempo para {date} ({pattern})	Wetter für {date} ({pattern})
+dSpDay	This day has special weather because of {day}	Este día hace un tiempo especial porque se celebra {day}	Dieser Tag hat besonderes Wetter wegen {day}
+dWindTooltip	Wind strength	Velocidad del viento	Windstärke
+dHeavyFog	Heavy fog	Niebla sobre la isla	Starker Nebel
+dWaterFog	Water fog	Niebla sobre el agua	Diesig
+dRainbowSingle	Rainbow!	¡Arcoíris!	Regenbogen!
+dRainbowDouble	Double rainbow!	¡Arcoíris doble!	Doppelter Regenbogen!
+dRainbowEither	Rainbow or double rainbow	Arcoíris o arcoíris doble	Regenbogen oder doppelter Regenbogen
+dAuroraN	Aurora borealis!	¡Aurora boreal!	Nordlichter!
+dAuroraS	Aurora australis!	¡Aurora austral!	Südlichter!
+dStars	Stars possible!	¡Meteoritos posibles!	Sternschnuppen möglich!
 		
-dunno	Don't know	No sé	Don't know
-lstWeekdays	Sun%%Mon%%Tue%%Wed%%Thu%%Fri%%Sat	Dom%%Lun%%Mar%%Mié%%Jue%%Vie%%Sáb	Sun%%Mon%%Tue%%Wed%%Thu%%Fri%%Sat
-lstMonths	January%%February%%March%%April%%May%%June%%July%%August%%September%%October%%November%%December	Enero%%Febrero%%Marzo%%Abril%%Mayo%%Junio%%Julio%%Agosto%%Septiembre%%Octubre%%Noviembre%%Diciembre	January%%February%%March%%April%%May%%June%%July%%August%%September%%October%%November%%December
-lstSpecialDays	Bunny Day%%Fishing Tourney%%Bug-Off%%New Year's Eve Countdown	la Caza del Huevo%%el Torneo de Pesca%%la Caza de Bichos%%Nochevieja	Bunny Day%%Fishing Tourney%%Bug-Off%%New Year's Eve Countdown
-lstSpecialDaysA	Bunny Day%%the Fishing Tourney%%the Bug-Off%%the New Year's Eve Countdown	la Caza del Huevo%%el Torneo de Pesca%%la Caza de Bichos%%Nochevieja	Bunny Day%%the Fishing Tourney%%the Bug-Off%%the New Year's Eve Countdown
-lstPatternChoices	☀ Clear/Fine%%🌤 Sunny%%🌥 Cloudy%%☁ Rain Clouds%%🌧 Rain/Snow%%⛈ Heavy Rain/Snow%%Unsure (clear or sunny)%%Unsure (sunny or cloudy)%%Unsure (cloudy or rain clouds)%%Unsure (no rain/snow)%%Unsure (rain/snow)	☀ Claro%%🌤 Soleado%%🌥 Nublado%%☁ Nubes de lluvia%%🌧 Lluvia/nieve%%⛈ Lluvia/nieve fuerte%%No estoy seguro (claro o soleado)%%No estoy seguro (soleado o nublado)%%No estoy seguro (nublado o nubes de lluvia)%%No estoy seguro (sin lluvia o nieve)%%No estoy seguro (lluvia o nieve)	☀ Clear/Fine%%🌤 Sunny%%🌥 Cloudy%%☁ Rain Clouds%%🌧 Rain/Snow%%⛈ Heavy Rain/Snow%%Unsure (clear or sunny)%%Unsure (sunny or cloudy)%%Unsure (cloudy or rain clouds)%%Unsure (no rain/snow)%%Unsure (rain/snow)
-lstPatternNoSnow	☀ Clear/Fine%%🌤 Sunny%%🌥 Cloudy%%☁ Rain Clouds%%🌧 Rain%%⛈ Heavy Rain	☀ Claro%%🌤 Soleado%%🌥 Nublado%%☁ Nubes de lluvia%%🌧 Lluvia%%⛈ Lluvia fuerte	☀ Clear/Fine%%🌤 Sunny%%🌥 Cloudy%%☁ Rain Clouds%%🌧 Rain%%⛈ Heavy Rain
-lstPatternSnow	☀ Clear/Fine%%🌤 Sunny%%🌥 Cloudy%%☁ Rain Clouds%%🌨 Snow%%🌨 Heavy Snow	☀ Claro%%🌤 Soleado%%🌥 Nublado%%☁ Nubes de lluvia%%🌨 Nieve%%🌨 Nieve fuerte	☀ Clear/Fine%%🌤 Sunny%%🌥 Cloudy%%☁ Rain Clouds%%🌨 Snow%%🌨 Heavy Snow
-lstConstellation	Capricorn%%Aquarius%%Pisces%%Aries%%Taurus%%Gemini%%Cancer%%Leo%%Virgo%%Libra%%Scorpio%%Sagittarius	capricornio%%acuario%%piscis%%aries%%tauro%%géminis%%cáncer%%leo%%virgo%%libra%%escorpio%%sagitario	Capricorn%%Aquarius%%Pisces%%Aries%%Taurus%%Gemini%%Cancer%%Leo%%Virgo%%Libra%%Scorpio%%Sagittarius
+dunno	Don't know	No sé	Unbekannt
+lstWeekdays	Sun%%Mon%%Tue%%Wed%%Thu%%Fri%%Sat	Dom%%Lun%%Mar%%Mié%%Jue%%Vie%%Sáb	So%%Mo%%Di%%Mi%%Do%%Fr%%Sa
+lstMonths	January%%February%%March%%April%%May%%June%%July%%August%%September%%October%%November%%December	Enero%%Febrero%%Marzo%%Abril%%Mayo%%Junio%%Julio%%Agosto%%Septiembre%%Octubre%%Noviembre%%Diciembre	Januar%%Februar%%März%%April%%Mai%%Juni%%Juli%%August%%September%%Oktober%%November%%Dezember
+lstSpecialDays	Bunny Day%%Fishing Tourney%%Bug-Off%%New Year's Eve Countdown	la Caza del Huevo%%el Torneo de Pesca%%la Caza de Bichos%%Nochevieja	Häschentag%%Angelturnier%%Insektikus-Turnier%%Silvester Countdown
+lstSpecialDaysA	Bunny Day%%the Fishing Tourney%%the Bug-Off%%the New Year's Eve Countdown	la Caza del Huevo%%el Torneo de Pesca%%la Caza de Bichos%%Nochevieja	der Häschentag%%das Angelturnier%%das Insektikus-Turnier%%der Silvester Countdown
+lstPatternChoices	☀ Clear/Fine%%🌤 Sunny%%🌥 Cloudy%%☁ Rain Clouds%%🌧 Rain/Snow%%⛈ Heavy Rain/Snow%%Unsure (clear or sunny)%%Unsure (sunny or cloudy)%%Unsure (cloudy or rain clouds)%%Unsure (no rain/snow)%%Unsure (rain/snow)	☀ Claro%%🌤 Soleado%%🌥 Nublado%%☁ Nubes de lluvia%%🌧 Lluvia/nieve%%⛈ Lluvia/nieve fuerte%%No estoy seguro (claro o soleado)%%No estoy seguro (soleado o nublado)%%No estoy seguro (nublado o nubes de lluvia)%%No estoy seguro (sin lluvia o nieve)%%No estoy seguro (lluvia o nieve)	☀ Wolkenlos%%🌤 Sonnig%%🌥 Bewölkt%%☁ Regenwolken%%🌧 Regen/Schnee%%⛈ Starker Regen/Schnee%%Unsicher (wolkenlos oder sonnig)%%Unsicher (sonnig oder bewölkt)%%Unsicher (bewölkt oder Regenwolken)%%Unsicher (kein Regen/Schnee)%%Unsicher (Regen/Schnee)
+lstPatternNoSnow	☀ Clear/Fine%%🌤 Sunny%%🌥 Cloudy%%☁ Rain Clouds%%🌧 Rain%%⛈ Heavy Rain	☀ Claro%%🌤 Soleado%%🌥 Nublado%%☁ Nubes de lluvia%%🌧 Lluvia%%⛈ Lluvia fuerte	☀ Wolkenlos%%🌤 Sonnig%%🌥 Bewölkt%%☁ Regenwolken%%🌧 Regen%%⛈ Starker Regen
+lstPatternSnow	☀ Clear/Fine%%🌤 Sunny%%🌥 Cloudy%%☁ Rain Clouds%%🌨 Snow%%🌨 Heavy Snow	☀ Claro%%🌤 Soleado%%🌥 Nublado%%☁ Nubes de lluvia%%🌨 Nieve%%🌨 Nieve fuerte	☀ Wolkenlos%%🌤 Sonnig%%🌥 Bewölkt%%☁ Regenwolken%%🌨 Schnee%%🌨 Starker Schnee
+lstConstellation	Capricorn%%Aquarius%%Pisces%%Aries%%Taurus%%Gemini%%Cancer%%Leo%%Virgo%%Libra%%Scorpio%%Sagittarius	capricornio%%acuario%%piscis%%aries%%tauro%%géminis%%cáncer%%leo%%virgo%%libra%%escorpio%%sagitario	Widder%%Stier%%Zwillinge%%Krebs%%Löwe%%Jungfrau%%Steinbock%%Wassermann%%Fische%%Waage%%Skorpion%%Schütze
 		
 credTitle	Credits	Agradecimientos	Danksagung
 credSource	MeteoNook is available under the {license}. The source code is available on GitHub: {repo}	MeteoNook está distribuido bajo la {license}. El código fuente está disponible en GitHub: {repo}	MeteoNook ist verfügbar unter {license}. Der Quellcode ist verfügbar auf GitHub: {repo}
