@@ -61,9 +61,9 @@ tSouthernHemi	Southern hemisphere	Hemisferio sur	Südliche Hemisphäre
 tnorthern	northern	norte	nördliche
 tsouthern	southern	sur	südliche
 tSpecialDay	Careful: In the {hemi} hemisphere, this day is <b>{day}</b>!{warn}	Aviso: En el hemisferio {hemi}, este día es <b>{day}</b>!{warn}	Vorsicht: In der {hemi} Hemisphäre ist heute <b>{day}</b>!{warn}
-tSpDayWarnEv	This forces the EventDay00 weather pattern if you have the event unlocked.	Esto fuerza el patrón EventDay00 si tienes este evento activo.	This forces the EventDay00 weather pattern if you have the event unlocked.
-tSpDayWarnRS	This forces the EventDay00 weather pattern if you have Resident Services upgraded.	Esto fuerza el patrón EventDay00 si has reformado la oficina de gestión vecinal.	This forces the EventDay00 weather pattern if you have Resident Services upgraded.
-tSpDayWarn	This forces the EventDay00 weather pattern.	Esto fuerza el patrón EventDay00.	This forces the EventDay00 weather pattern.
+tSpDayWarnEv	 This forces the EventDay00 weather pattern if you have the event unlocked.	 Esto fuerza el patrón EventDay00 si tienes este evento activo.	 Dies erzwingt das EventDay00 Wettermuster wenn du das Ereignis freigeschaltet hast.
+tSpDayWarnRS	 This forces the EventDay00 weather pattern if you have Resident Services upgraded.	 Esto fuerza el patrón EventDay00 si has reformado la oficina de gestión vecinal.	 Dies erzwingt das EventDay00 Wettermuster wenn du Service-Center ausgebaut hast.
+tSpDayWarn	 This forces the EventDay00 weather pattern.	 Esto fuerza el patrón EventDay00.	 Dies erzwingt das EventDay00 Wettermuster.
 tResetBlurb	Your pattern data will automatically be saved to your browser, so you can close the page and come back later. Click here to start over:	Tus datos de patrón se guardarán automáticamente en tu navegador, así que puedes cerrar la pagina y volver después. Haz clic aquí para empezar de nuevo:	Your pattern data will automatically be saved to your browser, so you can close the page and come back later. Click here to start over:
 tResetButton	Reset Data	Borrar datos	Daten zurücksetzen
 tExportBlurb	To get support with MeteoNook, you might need to supply your data. Click here to export it to JSON format:	Para obtener soporte técnico con MeteoNook, quizás tendrás que ofrecer tus datos. Haz clic aquí para exportarlos al formato JSON:	To get support with MeteoNook, you might need to supply your data. Click here to export it to JSON format:
