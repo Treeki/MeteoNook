@@ -453,9 +453,10 @@ pub fn get_wind_power_max(hour: u8, pattern: Pattern) -> u8 {
 pub fn can_have_shooting_stars(hour: u8, pattern: Pattern) -> bool {
 	if hour >= 19 || hour < 4 {
 		use Pattern::*;
+		// always true as of AC 1.3.0
 		match pattern {
 			Fine00 => true,
-			Fine02 | Fine04 | Fine06 => get_weather(hour, pattern) == Weather::Clear,
+			Fine02 | Fine04 | Fine06 => true,
 			_ => false
 		}
 	} else {
