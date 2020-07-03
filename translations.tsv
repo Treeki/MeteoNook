@@ -64,9 +64,9 @@ tSpecialDay	Careful: In the {hemi} hemisphere, this day is <b>{day}</b>!{warn}	A
 tSpDayWarnEv	 This forces the EventDay00 weather pattern if you have the event unlocked.	 Esto fuerza el patrón EventDay00 si tienes este evento activo.	 Dies erzwingt das EventDay00 Wettermuster wenn du das Ereignis freigeschaltet hast.
 tSpDayWarnRS	 This forces the EventDay00 weather pattern if you have Resident Services upgraded.	 Esto fuerza el patrón EventDay00 si has reformado la oficina de gestión vecinal.	 Dies erzwingt das EventDay00 Wettermuster wenn du Service-Center ausgebaut hast.
 tSpDayWarn	 This forces the EventDay00 weather pattern.	 Esto fuerza el patrón EventDay00.	 Dies erzwingt das EventDay00 Wettermuster.
-tResetBlurb	Your pattern data will automatically be saved to your browser, so you can close the page and come back later. Click here to start over:	Tus datos de patrón se guardarán automáticamente en tu navegador, así que puedes cerrar la pagina y volver después. Haz clic aquí para empezar de nuevo:	Your pattern data will automatically be saved to your browser, so you can close the page and come back later. Click here to start over:
+tResetBlurb	Your pattern data will automatically be saved to your browser, so you can close the page and come back later. Click here to start over:	Tus datos de patrón se guardarán automáticamente en tu navegador, así que puedes cerrar la pagina y volver después. Haz clic aquí para empezar de nuevo:	Deine Daten werden automatisch in deinem Browser gespeichert. Du kannst die Seite schließen und jederzeit wiederkommen. Klicke hier um von vorne zu beginnen:
 tResetButton	Reset Data	Borrar datos	Daten zurücksetzen
-tExportBlurb	To get support with MeteoNook, you might need to supply your data. Click here to export it to JSON format:	Para obtener soporte técnico con MeteoNook, quizás tendrás que ofrecer tus datos. Haz clic aquí para exportarlos al formato JSON:	To get support with MeteoNook, you might need to supply your data. Click here to export it to JSON format:
+tExportBlurb	To get support with MeteoNook, you might need to supply your data. Click here to export it to JSON format:	Para obtener soporte técnico con MeteoNook, quizás tendrás que ofrecer tus datos. Haz clic aquí para exportarlos al formato JSON:	Um Unterstützung bei MeteoNook zu erhalten musst du eventuell deine Daten mit einreichen. Klicke hier, um sie im JSON Format zu exportieren:
 tExportButton	Export Data	Exportar datos	Daten exportieren
 tTPatterns	Special Patterns	Patrones especiales	Spezielle Muster
 tNoData	No data, or not sure	No tengo datos, o no estoy seguro	Keine Daten oder unsicher
@@ -76,17 +76,17 @@ tAuroraN	Aurora borealis	Aurora boreal	Nordlichter
 tAuroraS	Aurora australis	Aurora astral	Südlichter
 tNone	None of the above	Ninguno de estos	Keines der zuvor genannten
 tTShower	Meteor Shower Info	Información de meteoritos	Meteorschauer Information
-tHeavy	Heavy shower (mentioned by Isabelle or villagers, 5-8 stars a minute)	Lluvia fuerte (anunciado por Canela o tus vecinos, 5-8 meteoritos por minuto)	Heavy shower (mentioned by Isabelle or villagers, 5-8 stars a minute)
-tLight	Light shower (5 stars a minute, coming in rare bursts)	Lluvia leve (5 meteoritos cada minuto, con muy baja frecuencia)	Light shower (5 stars a minute, coming in rare bursts)
+tHeavy	Heavy shower (mentioned by Isabelle or villagers, 5-8 stars a minute)	Lluvia fuerte (anunciado por Canela o tus vecinos, 5-8 meteoritos por minuto)	Starker Meteorschauer (wird von Melinda oder Bewohnern erwähnt, 5-8 Sternschnuppen pro Minute)
+tLight	Light shower (5 stars a minute, coming in rare bursts)	Lluvia leve (5 meteoritos cada minuto, con muy baja frecuencia)	Leichter Meteorschauer (5 Sterne pro Minute, in geringer Frequenz)
 tNotSure	Not sure	No estoy seguro	Unsicher
-tTTimes	Times when stars appeared	Horario de meteoritos	Times when stars appeared
-tEditSeconds	Edit Seconds	Editar segundos	Edit Seconds
-tAddTime	Add Time	Añadir hora	Add Time
+tTTimes	Times when stars appeared	Horario de meteoritos	Zeiten, zu denen Sternschnuppen erscheinen
+tEditSeconds	Edit Seconds	Editar segundos	Sekunden bearbeiten
+tAddTime	Add Time	Añadir hora	Zeit hinzufügen
 tEnoughTimes	You have enough now!	¡Tienes bastante!	Genug Daten!
-tTGaps	Gaps with no stars	Huecos sin meteoritos	Gaps with no stars
-tTo	to	hasta	to
-tAddGap	Add Gap	Añadir un hueco	Add Gap
-tMakeFromTimes	Make from times	Crear a partir del horario	Make from times
+tTGaps	Gaps with no stars	Huecos sin meteoritos	Lücken ohne Sternschnuppen
+tTo	to	hasta	bis
+tAddGap	Add Gap	Añadir un hueco	Lücke hinzufügen
+tMakeFromTimes	Make from times	Crear a partir del horario	Aus Zeitplan erstellen
 tTTypes	Weather Types	Tipos de tiempo	Wettertypen
 tAddType	Add Type	Añadir un tipo	Wettertyp hinzufügen
 tPatterns	Possible patterns:	Patrones posibles:	Mögliche Muster:
@@ -104,12 +104,12 @@ tInfoDefault	Once you've filled in the information above, click Start Search to 
 tInfoRunning	Searching, hold on...	Buscando, espera...	Suche, bitte warten...
 tInfoRunningC	Searching, hold on... Found {count} so far: {seeds}	Buscando, espera... {count} encontrada: {seeds}	Suche, bitte warten... Bisher {count} gefunden: {seeds}
 tInfoPossibleSeeds	1 possible seed | {n} possible seeds	1 semilla posible | {n} semillas posibles	1 möglicher Seed | {n} mögliche Seeds
-tInfoMoreData	You haven't entered enough weather information to narrow down your island's seed.	Estos datos no son suficientes para determinar la semilla ambiental en tu isla.	You haven't entered enough weather information to narrow down your island's seed.
-tInfoNoSeeds	There are no seeds that match the information you entered. Please double-check it!	No hay semillas que encajen con los datos que has puesto. ¡Compruébalos, por favor!	There are no seeds that match the information you entered. Please double-check it!
-tInfoMultiSeed	It looks like there are {count} seeds that fit the information you've given: {seeds}. You can look at these by clicking on each one to try it and to see how it compares to your island, or you can add more data above and try searching again.	Parece que hay {count} semillas que encajan con la información que has puesto: {seeds}. Si quieres comprobarlas, puedes hacer clic en cada una para probarla y ver cómo se comparan con el tiempo en tu isla. Si no, añade más datos en este paso e intenta buscar otra vez.	It looks like there are {count} seeds that fit the information you've given: {seeds}. You can look at these by clicking on each one to try it and to see how it compares to your island, or you can add more data above and try searching again.
-tInfoSeed	Your island's weather seed is <b>{seed}</b>. Write it down somewhere for safekeeping. Once you've done that, go to the 'Overview' tab to finish the process and see your forecast.	La semilla ambiental en tu isla es <b>{seed}</b>. Apúntala en algún lado para no perderla. Cuando la hayas guardado, pásate a la pestaña 'Ahora' para completar los datos y ver tu pronóstico.	Your island's weather seed is <b>{seed}</b>. Write it down somewhere for safekeeping. Once you've done that, go to the 'Overview' tab to finish the process and see your forecast.
-tErrNoPatterns	The information you have for {date} doesn't match any of the possible weather patterns for that date. Please double-check that data.	La información que tienes para el {date} no encaja con ningunos de los patrones posibles en ese día. ¡Comprueba tus datos!	The information you have for {date} doesn't match any of the possible weather patterns for that date. Please double-check that data.
-tErrStarConflict	You have a gap saying that at {time} on {date}, there both is and isn't a star. Please fix it!	Tienes un hueco diciendo que a las {time} del {date} hubo y no hubo un meteorito. ¡Arregla eso!	You have a gap saying that at {time} on {date}, there both is and isn't a star. Please fix it!
+tInfoMoreData	You haven't entered enough weather information to narrow down your island's seed.	Estos datos no son suficientes para determinar la semilla ambiental en tu isla.	Du hastnicht genügend Wetterdaten eingegeben, um den Wetter Seed deiner Insel einzugrenzen.
+tInfoNoSeeds	There are no seeds that match the information you entered. Please double-check it!	No hay semillas que encajen con los datos que has puesto. ¡Compruébalos, por favor!	Es gibt keinen Wetter Seed, der zu den von dir eingegebenen Informationen passt. Prüfe deine Eingaben!
+tInfoMultiSeed	It looks like there are {count} seeds that fit the information you've given: {seeds}. You can look at these by clicking on each one to try it and to see how it compares to your island, or you can add more data above and try searching again.	Parece que hay {count} semillas que encajan con la información que has puesto: {seeds}. Si quieres comprobarlas, puedes hacer clic en cada una para probarla y ver cómo se comparan con el tiempo en tu isla. Si no, añade más datos en este paso e intenta buscar otra vez.	Es scheint so, als gäbe es {count} Seeds die zu deinen Angaben passen: {seeds}. Du kannst sie dir anschauen, in dem du auf sie klickst. Vergleiche die jeweiligen Angaben mit dem Wetter auf deiner Insel oder gib mehr Daten ein, um den richtigen Seed zu ermitteln.
+tInfoSeed	Your island's weather seed is <b>{seed}</b>. Write it down somewhere for safekeeping. Once you've done that, go to the 'Overview' tab to finish the process and see your forecast.	La semilla ambiental en tu isla es <b>{seed}</b>. Apúntala en algún lado para no perderla. Cuando la hayas guardado, pásate a la pestaña 'Ahora' para completar los datos y ver tu pronóstico.	Der Wetter Seed deiner Insel ist <b>{seed}</b>. Schreib ihn dir zur Sicherheit irgendwo auf. Wenn du das erledigt hast, wechsel zum 'Übersicht'-Tab, vervollständige die Einstellungen und sieh dir deine Wetterprognose an.
+tErrNoPatterns	The information you have for {date} doesn't match any of the possible weather patterns for that date. Please double-check that data.	La información que tienes para el {date} no encaja con ningunos de los patrones posibles en ese día. ¡Comprueba tus datos!	Die Informationen für {date} passen zu keinem möglichen Wettermuster für diesen Tag. Bitte überprüfe deine Eingaben.
+tErrStarConflict	You have a gap saying that at {time} on {date}, there both is and isn't a star. Please fix it!	Tienes un hueco diciendo que a las {time} del {date} hubo y no hubo un meteorito. ¡Arregla eso!	Du hast eine Abweichung um {time} am {date} die besagt, dass gleichzeitig Sternschnuppen da sind und keine Sternschnuppen da sind. Bitte behebe den Fehler!
 		
 tsTitle	Editing star at {time}	Meteorito a las {time}	Editing star at {time}
 tsHeader	During a heavy shower you get 5 or 8 stars in a minute, and during a light shower, you get 5 stars in a minute. If you know the exact seconds for each star, enter them below.	Durante una lluvia fuerte, habrá 5 u 8 meteoritos en un minuto, y durante una lluvia leve pasarán 5 meteoritos en un minuto. Si sabes los segundos en que cada meteorito apareció, ponlo aquí.	During a heavy shower you get 5 or 8 stars in a minute, and during a light shower, you get 5 stars in a minute. If you know the exact seconds for each star, enter them below.
