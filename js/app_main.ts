@@ -37,7 +37,16 @@ document.body.appendChild(root)
 
 import messages from './translations'
 
-// not too happy with this
+// not too happy with this time stuff in general
+declare global {
+	// kludge to work around missing property in TypeScript
+	namespace Intl {
+		interface DateTimeFormatOptions {
+			hourCycle?: string
+		}
+	}
+}
+
 const dtfBase: DateTimeFormat = {
 	short: {year: 'numeric', month: '2-digit', day: '2-digit'},
 	long: {year: 'numeric', month: 'long', day: 'numeric'},
@@ -47,14 +56,14 @@ const dtfBase: DateTimeFormat = {
 const dtf24: DateTimeFormat = {}, dtf12: DateTimeFormat = {}
 Object.assign(dtf24, dtfBase)
 Object.assign(dtf12, dtfBase)
-dtf24.timeHMS = {hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false}
-dtf24.timeHM = {hour: '2-digit', minute: '2-digit', hour12: false}
-dtf24.timeH = {hour: '2-digit', minute: '2-digit', hour12: false}
-dtf24.timeHOnly = {hour: '2-digit', hour12: false}
-dtf12.timeHMS = {hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true}
-dtf12.timeHM = {hour: '2-digit', minute: '2-digit', hour12: true}
-dtf12.timeH = {hour: '2-digit', hour12: true}
-dtf12.timeHOnly = {hour: '2-digit', hour12: true}
+dtf24.timeHMS = {hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'}
+dtf24.timeHM = {hour: '2-digit', minute: '2-digit', hourCycle: 'h23'}
+dtf24.timeH = {hour: '2-digit', minute: '2-digit', hourCycle: 'h23'}
+dtf24.timeHOnly = {hour: '2-digit', hourCycle: 'h23'}
+dtf12.timeHMS = {hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h12'}
+dtf12.timeHM = {hour: '2-digit', minute: '2-digit', hourCycle: 'h12'}
+dtf12.timeH = {hour: '2-digit', hourCycle: 'h12'}
+dtf12.timeHOnly = {hour: '2-digit', hourCycle: 'h12'}
 
 const startTime12 = readStorage('meteonook_timeFormat', (e) => e == '12') || false
 
