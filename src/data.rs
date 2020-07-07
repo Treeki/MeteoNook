@@ -150,11 +150,11 @@ pub static PATTERNS: [[Weather;24];34] = [
 //   0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23
 	[F, F, C, C, F, F, C, F, C, F, C, C, F, C, F, C, C, F, C, F, F, F, C, F,],  // Fine00
 	[F, F, C, F, F, C, F, C, C, C, F, C, O, F, C, F, C, C, O, C, O, C, F, C,],  // Fine01
-	[F, F, C, C, C, C, C, F, C, F, O, F, C, F, C, C, F, C, C, O, C, C, F, F,],  // Fine02
+	[F, F, C, C, C, C, C, F, C, F, O, F, C, F, C, C, F, C, O, C, C, C, F, F,],  // Fine02
 	[F, C, F, F, F, C, C, F, C, C, F, C, C, O, C, F, C, C, C, F, O, F, F, C,],  // Fine03
 	[F, F, F, C, C, C, C, C, C, O, C, C, F, C, O, C, F, C, F, C, C, F, C, F,],  // Fine04
 	[O, C, C, F, C, C, C, C, F, C, C, F, C, C, O, C, C, F, C, O, C, C, F, C,],  // Fine05
-	[F, C, F, C, C, C, O, C, C, O, F, C, F, C, C, F, C, C, O, O, C, C, F, F,],  // Fine06
+	[F, C, F, C, C, C, O, C, C, O, F, C, F, C, C, F, C, O, O, C, C, C, F, F,],  // Fine06
 	[C, C, C, O, O, O, RC,O, O, O, C, C, O, O, O, C, C, O, O, O, RC,O, O, C,],  // Cloud00
 	[C, O, RC,O, O, O, O, O, C, O, RC,O, O, C, O, O, O, RC,RC,O, O, C, C, C,],  // Cloud01
 	[O, O, O, RC,O, O, O, RC,R, R, R, O, O, RC,R, R, R, O, O, RC,O, RC,O, O,],  // Cloud02

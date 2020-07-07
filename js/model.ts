@@ -92,10 +92,31 @@ function checkTypeMatch(realType: Weather, expected: Weather|AmbiguousWeather): 
 			return realType == expected
 	}
 }
+
+function getOldWeather(hour: number, pat: Pattern): Weather|undefined {
+	if (pat == Pattern.Fine02) {
+		// Pre-v1.3.0
+		if (hour == 18) return Weather.Sunny
+		if (hour == 19) return Weather.Cloudy
+	} else if (pat == Pattern.Fine06) {
+		// Pre-v1.3.0
+		if (hour == 17) return Weather.Sunny
+		if (hour == 19) return Weather.Cloudy
+	}
+	return undefined
+}
+
 function checkPatternAgainstTypes(pat: Pattern, types: WeatherTypeInfo[]): boolean {
 	for (const typeInfo of types) {
-		if (checkTypeMatch(getWeather(typeInfo.time, pat), typeInfo.type) == false)
-			return false
+		const hour = typeInfo.time
+		const claimedWeather = typeInfo.type
+		const realWeather = getWeather(hour, pat)
+		if (checkTypeMatch(realWeather, claimedWeather) == false) {
+			// allow for discrepancies
+			const oldWeather = getOldWeather(hour, pat)
+			if (oldWeather === undefined || checkTypeMatch(oldWeather, claimedWeather) == false)
+				return false
+		}
 	}
 	return true
 }
