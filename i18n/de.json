@@ -12,7 +12,7 @@
     "yTab": "Jährlich",
     "mTab": "Monatlich",
     "hTWelcome": "Willkommen zu MeteoNook Alpha",
-    "hWelcome": "MeteoNook ist eine Wettervorhersage für <i>Animal Crossing: New Horizons</i> Version 1.3.0.%%Dieses Tool sagt das Wetterverhalten deiner Insel voraus, inklusive exakten Uhrzeiten für Sternschnuppen, Regenbogen und Nordlichter. Um zu beginnen benötigst du einen Wetter Seed. Das ist eine lange, einzigartige Zahl für deine Insel die festlegt, wie dein Wetter sein wird. Folge der Anleitung im <b>Seed</b>-Tab um mehr herauszufinden.",
+    "hWelcome": "MeteoNook ist eine Wettervorhersage für <i>Animal Crossing: New Horizons</i> {version}.%%Dieses Tool sagt das Wetterverhalten deiner Insel voraus, inklusive exakten Uhrzeiten für Sternschnuppen, Regenbogen und Nordlichter. Um zu beginnen benötigst du einen Wetter Seed. Das ist eine lange, einzigartige Zahl für deine Insel die festlegt, wie dein Wetter sein wird. Folge der Anleitung im <b>Seed</b>-Tab um mehr herauszufinden.",
     "hTLog": "Änderungshistorie",
     "hLog20200610": "Initial testing release",
     "hLog20200611": "Added per-second and rainbow/aurora searching, fog forecasts, week borders and some more stuff I forgot",
@@ -215,5 +215,7 @@
     "credThank3": "Danke an:",
     "footerCopy": "MeteoNook © {me}, {year}. Keine Verbindung zu Nintendo, keine Unterstützung durch Nintendo.",
     "footerDonate": "Du möchtest mich unterstützen?",
-    "footerVersion": "Version:"
+    "footerVersion": "Version:",
+    "hGameVer1": "Version {0}",
+    "hGameVerMulti": "Version {0} und {1}"
 }
