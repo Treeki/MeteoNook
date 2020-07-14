@@ -10,6 +10,7 @@ Special thanks to the following contributors:
 
 - **Testing and suggestions for v1**: Ahri, Alexis, andrewtabs, astro, capstone, ctar17, Denna, GoldenCrater, rainbowannie, robotic_scarab
 - **Spanish translation proofreading**: [@jerdieh](https://twitter.com/jerdieh)
+- **German translation**: [@TheVaan](https://github.com/TheVaan)
 - **Chinese (Simplified) translation**: [@IceLitty](https://github.com/IceLitty)
 
 Translations are managed centrally using POEditor. Join the project here to contribute: https://poeditor.com/join/project/CerldM8Yc9

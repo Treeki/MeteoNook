@@ -17,6 +17,7 @@
 			<li>
 				<b>{{ $t('credThank1b') }}</b>
 				<a href='https://twitter.com/jerdieh'>@jerdieh</a> <i>(español)</i>,
+				<a href='https://github.com/TheVaan'>@TheVaan</a> <i>(Deutsch)</i>,
 				<a href='https://github.com/IceLitty'>@IceLitty</a> <i>(简体中文)</i>,
 			</li>
 		</ul>
