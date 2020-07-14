@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<h2 class='mt-3'>{{ $t('hTWelcome') }}</h2>
-		<div v-html="$t('hWelcome')"></div>
+		<div v-html="$t('hWelcome', {version: compatVersion})"></div>
 		<h3 class='mt-3'>{{ $t('hTLog') }}</h3>
 		<ul>
 			<li v-for='(entry, index) in changelogEntries' :key='index'>
@@ -56,6 +56,11 @@ export default class WelcomePage extends Vue {
 
 	get faqQuestions() {
 		return ['Seed', 'Celeste', 'Wind', 'StarVis', 'Star130', 'MoreData', 'NoSeeds', 'BadSeed', 'Add', 'Donate', 'Source']
+	}
+
+	get compatVersion() {
+		//return this.$t('hGameVer1', ['1.3.0'])
+		return this.$t('hGameVerMulti', ['1.3.0', '1.3.1'])
 	}
 }
 </script>
