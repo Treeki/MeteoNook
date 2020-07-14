@@ -20,6 +20,7 @@
 				<a href='https://github.com/TheVaan'>@TheVaan</a> <i>(Deutsch)</i>,
 				<a href='https://github.com/Swpolo'>@Swpolo</a> <i>(Français)</i>,
 				<a href='https://github.com/IceLitty'>@IceLitty</a> <i>(简体中文)</i>,
+				<a href='https://github.com/yuma-m'>@yuma-m</a> <i>(日本語)</i>,
 			</li>
 		</ul>
 		<p class='font-weight-bold'>{{ $t('credThank2') }}</p>

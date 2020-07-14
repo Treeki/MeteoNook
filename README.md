@@ -13,6 +13,7 @@ Special thanks to the following contributors:
 - **French translation**: [@Swpolo](https://github.com/Swpolo)
 - **German translation**: [@TheVaan](https://github.com/TheVaan)
 - **Chinese (Simplified) translation**: [@IceLitty](https://github.com/IceLitty)
+- **Japanese translation**: [@yuma-m](https://github.com/yuma-m)
 
 Translations are managed centrally using POEditor. Join the project here to contribute: https://poeditor.com/join/project/CerldM8Yc9
 
