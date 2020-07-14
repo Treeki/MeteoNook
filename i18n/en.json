@@ -12,7 +12,7 @@
     "yTab": "Yearly",
     "mTab": "Monthly",
     "hTWelcome": "Welcome to MeteoNook Alpha",
-    "hWelcome": "MeteoNook is a weather forecaster for <i>Animal Crossing: New Horizons</i> version 1.3.0.%%This tool will predict your island's weather patterns, including exact times for meteor showers, rainbows and the aurora borealis. To get started, you'll need the seed, a long number unique to your island that determines what your weather will be. Follow the instructions on the <b>Seed</b> tab to find it.",
+    "hWelcome": "MeteoNook is a weather forecaster for <i>Animal Crossing: New Horizons</i> {version}.%%This tool will predict your island's weather patterns, including exact times for meteor showers, rainbows and the aurora borealis. To get started, you'll need the seed, a long number unique to your island that determines what your weather will be. Follow the instructions on the <b>Seed</b> tab to find it.",
     "hTLog": "Changelog",
     "hLog20200610": "Initial testing release",
     "hLog20200611": "Added per-second and rainbow/aurora searching, fog forecasts, week borders and some more stuff I forgot",
@@ -215,5 +215,7 @@
     "credThank3": "Shoutouts to:",
     "footerCopy": "MeteoNook is © {me}, {year}. Not affiliated with or endorsed by Nintendo.",
     "footerDonate": "Want to support me?",
-    "footerVersion": "Version:"
+    "footerVersion": "Version:",
+    "hGameVer1": "version {0}",
+    "hGameVerMulti": "versions {0} and {1}"
 }
