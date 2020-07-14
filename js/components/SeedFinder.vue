@@ -3,7 +3,15 @@
 		<p class='mt-3'>{{ $t('sIntro') }}</p>
 		<h4 class='mt-4'>{{ $t('sTTypes') }}</h4>
 		<div v-html="timeify($t('sTypes1'))"></div>
-		<img class='float-md-right img-thumbnail wtExplainerImg mb-2' :src='explainerImg' title='Weather type example screenshots'>
+		<div class='float-md-right img-thumbnail wtExplainerImgHolder mb-2'>
+			<img src='explainer.jpg' class='wtExplainerImg'>
+			<span class='wte0'>{{ $t('lstPatternNoSnow0') }}</span>
+			<span class='wte1'>{{ $t('lstPatternNoSnow1') }}</span>
+			<span class='wte2'>{{ $t('lstPatternNoSnow2') }}</span>
+			<span class='wte3'>{{ $t('lstPatternNoSnow3') }}</span>
+			<span class='wte4'>{{ $t('lstPatternNoSnow4') }}</span>
+			<span class='wte5'>{{ $t('lstPatternNoSnow5') }}</span>
+		</div>
 		<div v-html="timeify($t('sTypes2'))"></div>
 		<h4 class='mt-4'>{{ $t('sTStars') }}</h4>
 		<div v-html="timeify($t('sStars'))"></div>
@@ -165,13 +173,6 @@ export default class SeedFinder extends Vue {
 		this.$emit('show-day', day)
 	}
 
-	get explainerImg(): string {
-		switch (this.$i18n.locale) {
-			case 'es': return 'explainer-es.jpg'
-			default:   return 'explainer-en.jpg'
-		}
-	}
-
 
 	exportedData = ''
 	exportData() {
@@ -185,16 +186,33 @@ export default class SeedFinder extends Vue {
 }
 </script>
 
-<style>
+<style lang='scss'>
 .progress-bar { transition: none; }
 
-.wtExplainerImg {
+.wtExplainerImgHolder {
 	width: 45%;
 	max-width: 720px;
 	margin-left: .5rem;
+	position: relative;
+	& > span {
+		width: 50%;
+		position: absolute;
+		text-align: center;
+		color: white;
+		text-shadow: -1px -1px 1px #494867, 1px -1px 1px #494867, -1px 1px 1px #494867, 1px 1px 1px #494867, 0 3px 5px black;
+		font-weight: bold;
+	}
+}
+.wte0,.wte2,.wte4 { left: 0; }
+.wte1,.wte3,.wte5 { left: 50%; }
+.wte0,.wte1 { bottom: calc(66.67% + .167rem); }
+.wte2,.wte3 { bottom: calc(33.33% + .333rem); }
+.wte4,.wte5 { bottom: .5rem; }
+.wtExplainerImg {
+	width: 100%;
 }
 @media (max-width: 767.98px) {
-	.wtExplainerImg {
+	.wtExplainerImgHolder {
 		width: 80%; max-width: 400px;
 		display: block;
 		margin-left: auto;
