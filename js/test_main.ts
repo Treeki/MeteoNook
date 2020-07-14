@@ -1,6 +1,5 @@
 import { Forecast, Hemisphere, MonthForecast, DayForecast, DayInfo, createDayInfo, populateGuessData, DayType, ShowerType, AmbiguousWeather, StarInfo } from './model'
 import { Guesser, GuessData, GuesserResult, Random, SpecialDay, Weather, Pattern } from '../pkg'
-import translations from './translations'
 
 const ambiguousWeatherTypes = {
 	[Weather.Clear]: [AmbiguousWeather.NoRain, AmbiguousWeather.ClearOrSunny],

@@ -35,7 +35,53 @@ const root = document.createElement('div')
 root.id = 'app'
 document.body.appendChild(root)
 
-import messages from './translations'
+// TODO: do this on compile using some webpack voodoo, probably
+function fixI18N(strs: {[key: string]: string}): {[key: string]: string} {
+	for (const k of Object.keys(strs)) {
+		if (k.startsWith('lst')) {
+			const bits = strs[k].split('%%')
+			for (let i = 0; i < bits.length; i++) {
+				strs[k + i] = bits[i]
+			}
+		} else if (strs[k].indexOf('%%') > 0) {
+			// generate HTML pieces
+			const bits = []
+			let ulFlag = false
+			for (const bit of strs[k].split('%%')) {
+				if (bit.startsWith('-')) {
+					if (!ulFlag) {
+						bits.push('<ul>')
+						ulFlag = true
+					}
+					bits.push('<li>')
+					bits.push(bit.slice(1))
+					bits.push('</li>')
+				} else {
+					if (ulFlag) {
+						bits.push('</ul>')
+						ulFlag = false
+					}
+					bits.push('<p>')
+					bits.push(bit)
+					bits.push('</p>')
+				}
+			}
+			if (ulFlag) {
+				bits.push('</ul>')
+			}
+			strs[k] = bits.join('')
+		}
+	}
+	return strs
+}
+
+const messages = {
+	en: fixI18N(require('../i18n/en.json')),
+	es: fixI18N(require('../i18n/es.json')),
+	'en-GB': {'lang': 'English (UK)'},
+	'en-US': {'lang': 'English (US)'},
+}
+delete messages['en']['lang'] // do not show plain English in the list
 
 // not too happy with this time stuff in general
 declare global {
@@ -81,7 +127,7 @@ else if (startLocale === null)
 const i18n = new VueI18n({
 	locale: startLocale,
 	fallbackLocale: 'en',
-	messages,
+	messages: Object.freeze(messages),
 	dateTimeFormats,
 	silentFallbackWarn: true,
 })
