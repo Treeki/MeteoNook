@@ -11,6 +11,8 @@ Special thanks to the following contributors:
 - **Testing and suggestions for v1**: Ahri, Alexis, andrewtabs, astro, capstone, ctar17, Denna, GoldenCrater, rainbowannie, robotic_scarab
 - **Spanish translation proofreading**: [@jerdieh](https://twitter.com/jerdieh)
 
+Translations are managed centrally using POEditor. Join the project here to contribute: https://poeditor.com/join/project/CerldM8Yc9
+
 There's no obligation to do so, but if you'd like to support my work on this project and other AC:NH research: [PayPal.me](https://paypal.me/trashcurl) | [Ko-fi](https://ko-fi.com/ninji_) | [Monzo](https://monzo.me/ninji) (UK)
 
 ## Roadmap/to-do list
