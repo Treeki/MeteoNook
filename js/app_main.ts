@@ -78,6 +78,7 @@ function fixI18N(strs: {[key: string]: string}): {[key: string]: string} {
 const messages = {
 	en: fixI18N(require('../i18n/en.json')),
 	es: fixI18N(require('../i18n/es.json')),
+	'zh-CN': fixI18N(require('../i18n/zh-CN.json')),
 	'en-GB': {'lang': 'English (UK)'},
 	'en-US': {'lang': 'English (US)'},
 }
@@ -122,8 +123,16 @@ for (const k of Object.keys(messages)) {
 let startLocale = readStorage('meteonook_language', e => e)
 if (startLocale === 'en')
 	startLocale = (navigator.language === 'en-US') ? 'en-US' : 'en-GB'
-else if (startLocale === null)
-	startLocale = (navigator.language in messages) ? navigator.language : 'en-GB'
+else if (startLocale === null) {
+	// what do we prefer?
+	if (navigator.language.startsWith('zh-'))
+		startLocale = 'zh-CN' // change if any other Chinese variants are added
+	else if (navigator.language in messages)
+		startLocale = navigator.language
+	else
+		startLocale = 'en-GB'
+}
+
 const i18n = new VueI18n({
 	locale: startLocale,
 	fallbackLocale: 'en',
