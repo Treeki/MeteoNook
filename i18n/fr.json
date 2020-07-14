@@ -12,7 +12,7 @@
     "yTab": "Annuel",
     "mTab": "Mensuel",
     "hTWelcome": "Bienvenue sur MétéoNook Alpha",
-    "hWelcome": "MétéoNook est un outil de prévision météo pour <i>Animal Crossing: New Horizon</i> version 1.2.0 et 1.2.1.%%Cet outil permet de prédire les conditions météorologique de votre île, incluant les temps d'apparition des pluies d'étoiles filantes, arc-en-ciels et aurores polaires. Pour commencer, vous aurez besoin de la graine aléatoire, seed en anglais, un nombre unique à votre île qui determine quelle météo il y fera. Suivez les instructions dans l'onglet <b>Graine</b> pour le trouver.",
+    "hWelcome": "MétéoNook est un outil de prévision météo pour <i>Animal Crossing: New Horizon</i> {version}.%%Cet outil permet de prédire les conditions météorologique de votre île, incluant les temps d'apparition des pluies d'étoiles filantes, arc-en-ciels et aurores polaires. Pour commencer, vous aurez besoin de la graine aléatoire, seed en anglais, un nombre unique à votre île qui determine quelle météo il y fera. Suivez les instructions dans l'onglet <b>Graine</b> pour le trouver.",
     "hTLog": "Notes de version",
     "hLog20200610": "Version de test initiale",
     "hLog20200611": "Ajout de recherche à la seconde et des arcs-en-ciel/aurores, prévision du brouillard, bordures des semaines et d'autre choses que j'oublie",
@@ -215,5 +215,7 @@
     "credThank3": "Remerciements à:",
     "footerCopy": "MétéoNook est © par {me}, {year}. N'est pas affilié ou approuvé par Nintendo.",
     "footerDonate": "Vous voulez me soutenir ?",
-    "footerVersion": "Version:"
+    "footerVersion": "Version:",
+    "hGameVer1": "version {0}",
+    "hGameVerMulti": "version {0} et {1}"
 }
