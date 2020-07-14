@@ -127,13 +127,23 @@ let startLocale = readStorage('meteonook_language', e => e)
 if (startLocale === 'en')
 	startLocale = (navigator.language === 'en-US') ? 'en-US' : 'en-GB'
 else if (startLocale === null) {
-	// what do we prefer?
-	if (navigator.language.startsWith('zh-'))
-		startLocale = 'zh-CN' // change if any other Chinese variants are added
-	else if (navigator.language in messages)
-		startLocale = navigator.language
-	else
-		startLocale = 'en-GB'
+	const browserLang = navigator.language.toLowerCase()
+	const firstChunk = browserLang.split('-')[0]
+	// find a match, if possible
+	startLocale = 'en-GB'
+	for (const k of Object.keys(messages)) {
+		if (messages[k].lang) {
+			const kl = k.toLowerCase()
+			if (kl === browserLang) {
+				// perfect match
+				startLocale = k
+				break
+			} else if (kl.startsWith(firstChunk)) {
+				// okay match
+				startLocale = k
+			}
+		}
+	}
 }
 
 const i18n = new VueI18n({
