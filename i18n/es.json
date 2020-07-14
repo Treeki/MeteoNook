@@ -12,7 +12,7 @@
     "yTab": "Anual",
     "mTab": "Mensual",
     "hTWelcome": "Bienvenido a MeteoNook Alpha",
-    "hWelcome": "MeteoNook predice el tiempo para <i>Animal Crossing: New Horizons</i> en su versión 1.3.0.%%Esta herramienta te dará pronósticos para los patrones que sigue el clima en tu isla, incluyendo tiempos exactos para las lluvias de meteoritos, los arcoíris y la aurora. Para comenzar, necesitarás la semilla ambiental, un numero que pertenece a tu isla y que influye el sistema. Sigue los pasos en la pestaña <b>Semilla</b> para encontrarlo.",
+    "hWelcome": "MeteoNook predice el tiempo para <i>Animal Crossing: New Horizons</i> en {version}.%%Esta herramienta te dará pronósticos para los patrones que sigue el clima en tu isla, incluyendo tiempos exactos para las lluvias de meteoritos, los arcoíris y la aurora. Para comenzar, necesitarás la semilla ambiental, un numero que pertenece a tu isla y que influye el sistema. Sigue los pasos en la pestaña <b>Semilla</b> para encontrarlo.",
     "hTLog": "Actualizaciones",
     "hLog20200610": "Primera versión de pruebas",
     "hLog20200611": "Añadido: Búsquedas con tiempos al segundo y arcoíris/aurora, previsiones de niebla, bordes en las semanas y algunas cosas mas que he olvidado",
@@ -215,5 +215,7 @@
     "credThank3": "Además, gracias a:",
     "footerCopy": "MeteoNook es © de {me}, {year}. Esta web no esta asociada con ni avalada por Nintendo.",
     "footerDonate": "¿Quieres apoyarme?",
-    "footerVersion": "Versión:"
+    "footerVersion": "Versión:",
+    "hGameVer1": "su versión {0}",
+    "hGameVerMulti": "sus versiónes {0} y {1}"
 }
