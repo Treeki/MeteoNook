@@ -217,5 +217,6 @@
     "footerDonate": "Want to support me?",
     "footerVersion": "Version:",
     "hGameVer1": "version {0}",
-    "hGameVerMulti": "versions {0} and {1}"
+    "hGameVerMulti": "versions {0} and {1}",
+    "hLog20200715": "With many thanks to several contributors, MeteoNook now includes translations into French, German, Japanese and Chinese. If you would like to contribute or improve a translation, check the README on GitHub to join the POEditor project."
 }
