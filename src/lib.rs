@@ -36,7 +36,7 @@ pub fn is_special_day(hemi: Hemisphere, y: u16, m: u8, d: u8) -> SpecialDay {
 			Hemisphere::Southern => {
 				if m == 1 && d == INSECT_CON_JAN_S[y - 2000] { return InsectCon; }
 				if m == 2 && d == INSECT_CON_FEB_S[y - 2000] { return InsectCon; }
-				if m == 3 && d == INSECT_CON_MAR_S[y - 2000] { return InsectCon; }
+				if m == 11 && d == INSECT_CON_NOV_S[y - 2000] { return InsectCon; }
 				if m == 12 && d == INSECT_CON_DEC_S[y - 2000] { return InsectCon; }
 			}
 		}
