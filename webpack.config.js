@@ -6,6 +6,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const WasmPackPlugin = require('@wasm-tool/wasm-pack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const { DefinePlugin } = require('webpack')
 
@@ -23,7 +24,8 @@ module.exports = {
 	},
 	output: {
 		path: dist,
-		filename: '[name].js'
+		filename: '[name].[contenthash].js',
+		chunkFilename: '[name].[contenthash].js'
 	},
 	devServer: {
 		contentBase: dist,
@@ -63,6 +65,8 @@ module.exports = {
 		]
 	},
 	plugins: [
+		new CleanWebpackPlugin(),
+
 		new HtmlWebpackPlugin({
 			hash: true,
 			template: 'index.html'
@@ -77,7 +81,10 @@ module.exports = {
 		}),
 
 		new VueLoaderPlugin(),
-		new MiniCssExtractPlugin(),
+		new MiniCssExtractPlugin({
+			filename: '[name].[contenthash].css',
+			chunkFilename: '[name].[contenthash].css'
+		}),
 
 		new DefinePlugin({
 			METEONOOK_GIT_COMMIT_SHORT: JSON.stringify(gitCommitShort),
