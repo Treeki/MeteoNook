@@ -131,8 +131,8 @@ else if (startLocale === null) {
 	const firstChunk = browserLang.split('-')[0]
 	// find a match, if possible
 	startLocale = 'en-GB'
-	for (const k of Object.keys(messages)) {
-		if (messages[k].lang) {
+	for (const [k, v] of Object.entries(messages)) {
+		if (v.lang) {
 			const kl = k.toLowerCase()
 			if (kl === browserLang) {
 				// perfect match
