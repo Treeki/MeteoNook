@@ -14,14 +14,6 @@
     "hTWelcome": "Bienvenido a MeteoNook Alpha",
     "hWelcome": "MeteoNook predice el tiempo para <i>Animal Crossing: New Horizons</i> en {version}.%%Esta herramienta te dará pronósticos para los patrones que sigue el clima en tu isla, incluyendo tiempos exactos para las lluvias de meteoritos, los arcoíris y la aurora. Para comenzar, necesitarás la semilla ambiental, un numero que pertenece a tu isla y que influye el sistema. Sigue los pasos en la pestaña <b>Semilla</b> para encontrarlo.",
     "hTLog": "Actualizaciones",
-    "hLog20200610": "Primera versión de pruebas",
-    "hLog20200611": "Añadido: Búsquedas con tiempos al segundo y arcoíris/aurora, previsiones de niebla, bordes en las semanas y algunas cosas mas que he olvidado",
-    "hLog20200612": "Corregido: Los cálculos del horario de meteoritos y la velocidad del viento a partir de la medianoche en los últimos dos días del año",
-    "hLog20200613": "Corregido: Un error en que las búsquedas con horario de meteoritos incluyendo segundos no cuadraban con ninguna semilla",
-    "hLog20200614": "Corregido: Las opciones de aurora no se actualizaban correctamente. El patrón para el evento de la Caza del Huevo esta ahora restringido al 2020. Añadido: Muestra de 'patrones posibles' a la pestaña Semilla, advertencias para días con patrones de evento, y opción para mostrar tiempos en el sistema de 12 horas para los americanos.",
-    "hLog20200615": "Añadido: Soporte para traducciones, y una traducción a español.",
-    "hLog20200616": "Corregido: Un error en que los huecos en el horario de meteoritos no podían acabar en el ultimo minuto de la hora (X:59).",
-    "hLog20200630": "MeteoNook ha sido reescrito para hacerlo mas robusto y mas fácil de actualizar, y ahora tiene su código abierto. Hay una nueva pestaña, 'Ahora', que muestra información sobre el tiempo actual y que permite guardar los datos de tu isla. El buscador de semillas es más fácil de usar porque tiene mas opciones del tipo 'no estoy seguro' y ahora soporta pequeños fallos en el horario de meteoritos. Además, el idioma \"English (US)\" ahora muestra las fechas en el formato mes/día/año.",
     "hLog20200702": "Soporte inicial para la versión 1.3.0. Aun quedan algunas cosas que hay que resolver con cambios en los patrones Fine02 y Fine06.",
     "hLog20200708": "Soporte completo para la versión 1.3.0. Las lluvias leves de meteoritos ahora aparecen en la pestaña 'Ahora'.",
     "hTFAQ": "Preguntas frecuentes",
@@ -218,5 +210,9 @@
     "footerVersion": "Versión:",
     "hGameVer1": "su versión {0}",
     "hGameVerMulti": "sus versiónes {0} y {1}",
-    "hLog20200715": "Con muchísimas gracias a varios colaboradores, MeteoNook ahora cuenta con traducciones a francés, alemán, japonés y chino. Si quieres contribuir o mejorar una traducción, acceder al README en GitHub para unirte al proyecto POEditor."
+    "hLog20200715": "Con muchísimas gracias a varios colaboradores, MeteoNook ahora cuenta con traducciones a francés, alemán, japonés y chino. Si quieres contribuir o mejorar una traducción, acceder al README en GitHub para unirte al proyecto POEditor.",
+    "warningTitle": "Aviso",
+    "warningMessage": "¿Estás seguro que quieres borrar los datos de semilla para la isla {0}?",
+    "warningCancel": "No, cancelar",
+    "warningOK": "Si, bórralo"
 }
