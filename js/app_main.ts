@@ -81,7 +81,9 @@ const messages = {
 	de: fixI18N(require('../i18n/de.json')),
 	fr: fixI18N(require('../i18n/fr.json')),
 	ja: fixI18N(require('../i18n/ja.json')),
-	'zh-CN': fixI18N(require('../i18n/zh-CN.json')),
+	ru: fixI18N(require('../i18n/ru.json')),
+	'zh-Hans': fixI18N(require('../i18n/zh-Hans.json')),
+	'zh-Hant': fixI18N(require('../i18n/zh-Hant.json')),
 	'en-GB': {'lang': 'English (UK)'},
 	'en-US': {'lang': 'English (US)'},
 }
@@ -126,21 +128,36 @@ for (const k of Object.keys(messages)) {
 let startLocale = readStorage('meteonook_language', e => e)
 if (startLocale === 'en')
 	startLocale = (navigator.language === 'en-US') ? 'en-US' : 'en-GB'
+else if (startLocale === 'zh-CN')
+	startLocale = 'zh-Hans' // this file was originally called zh-CN when it was the only Chinese variant implemented
 else if (startLocale === null) {
 	const browserLang = navigator.language.toLowerCase()
-	const firstChunk = browserLang.split('-')[0]
+	const tags = browserLang.split('-')
+	const firstChunk = tags[0]
 	// find a match, if possible
 	startLocale = 'en-GB'
-	for (const [k, v] of Object.entries(messages)) {
-		if (v.lang) {
-			const kl = k.toLowerCase()
-			if (kl === browserLang) {
-				// perfect match
-				startLocale = k
-				break
-			} else if (kl.startsWith(firstChunk)) {
-				// okay match
-				startLocale = k
+	if (firstChunk === 'zh') {
+		// special logic for Chinese
+		startLocale = 'zh-Hans'
+		for (const tag of tags) {
+			if (tag === 'tw') {
+				startLocale = 'zh-Hant' // change to zh-TW when added
+			} else if (tag === 'hk' || tag === 'mo' || tag === 'hant') {
+				startLocale = 'zh-Hant'
+			}
+		}
+	} else {
+		for (const [k, v] of Object.entries(messages)) {
+			if (v.lang) {
+				const kl = k.toLowerCase()
+				if (kl === browserLang) {
+					// perfect match
+					startLocale = k
+					break
+				} else if (kl.startsWith(firstChunk)) {
+					// okay match
+					startLocale = k
+				}
 			}
 		}
 	}

@@ -81,7 +81,7 @@
 	</b-container>
 
 	<day-modal id='dayModal' :forecast='forecast' :day='dayModalData'></day-modal>
-	<b-modal id='confirmationModal' :title="$t('warningTitle')" @ok='confirmDeletion'>
+	<b-modal id='confirmationModal' :title="$t('warningTitle')" @ok='confirmDeletion' :ok-title="$t('warningOK')" :cancel-title="$t('warningCancel')">
 		<p class='my-4'>{{ $t('warningMessage', [currentIsland.name]) }}</p>
 	</b-modal>
 

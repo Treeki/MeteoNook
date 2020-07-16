@@ -22,7 +22,6 @@ There's no obligation to do so, but if you'd like to support my work on this pro
 ## Roadmap/to-do list
 
 - Refresh overview when the day changes at 5am
-- Confirmation on deleting an island
 - Forecast exports
 - Some sort of hosted API
 - Dark mode
