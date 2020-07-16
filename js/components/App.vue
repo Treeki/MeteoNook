@@ -81,6 +81,10 @@
 	</b-container>
 
 	<day-modal id='dayModal' :forecast='forecast' :day='dayModalData'></day-modal>
+	<b-modal id='confirmationModal' :title="$t('warningTitle')" @ok='confirmDeletion'>
+		<p class='my-4'>{{ $t('warningMessage', [currentIsland.name]) }}</p>
+	</b-modal>
+
 	<credits-modal id='credits-modal'></credits-modal>
 </div>
 </template>
@@ -262,6 +266,9 @@ export default class App extends Vue {
 		this.selectIsland(this.storedIslands.length - 1, true)
 	}
 	removeIsland() {
+		this.$bvModal.show('confirmationModal')
+	}
+	confirmDeletion() {
 		if (this.currentIslandIndex !== null) {
 			this.storedIslands.splice(this.currentIslandIndex, 1)
 			this.selectIsland(this.storedIslands.length == 0 ? null : (this.storedIslands.length - 1), true)
