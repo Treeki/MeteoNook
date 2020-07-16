@@ -14,14 +14,6 @@
     "hTWelcome": "Welcome to MeteoNook Alpha",
     "hWelcome": "MeteoNook is a weather forecaster for <i>Animal Crossing: New Horizons</i> {version}.%%This tool will predict your island's weather patterns, including exact times for meteor showers, rainbows and the aurora borealis. To get started, you'll need the seed, a long number unique to your island that determines what your weather will be. Follow the instructions on the <b>Seed</b> tab to find it.",
     "hTLog": "Changelog",
-    "hLog20200610": "Initial testing release",
-    "hLog20200611": "Added per-second and rainbow/aurora searching, fog forecasts, week borders and some more stuff I forgot",
-    "hLog20200612": "Fixed calculation of shooting star times and wind power after midnight on the last two days of the month",
-    "hLog20200613": "Fixed bug where seed searches involving shooting star times with seconds wouldn't actually match anything (I'm sorry, this was really silly)",
-    "hLog20200614": "Fixed checkboxes for aurora not updating properly. Restricted Bunny Day special weather to 2020. Added 'possible patterns' display to the seed finder, and warnings for event days. Added 12-hour display option.",
-    "hLog20200615": "Added translation support and a Spanish translation.",
-    "hLog20200616": "Fixed bug involving meteor shower gaps ending in the last minute of the hour (X:59).",
-    "hLog20200630": "MeteoNook has been rewritten from scratch to be more robust and updatable, and is now open-source. There is a new Overview page that shows you information about your upcoming weather and lets you store island information. The seed finder has been made easier to use by adding more 'not sure' options and it can now tolerate small errors in shooting star timing. Dates will now show in M/D/Y format if you select \"English (US)\".",
     "hLog20200702": "Initial support for 1.3.0. There are still a couple of necessary changes (Fine02 and Fine06 have changed slightly) which will be implemented tomorrow.",
     "hLog20200708": "Full support for 1.3.0. Light showers are now shown on the Overview tab.",
     "hTFAQ": "Frequently Asked Questions",
@@ -218,5 +210,9 @@
     "footerVersion": "Version:",
     "hGameVer1": "version {0}",
     "hGameVerMulti": "versions {0} and {1}",
-    "hLog20200715": "With many thanks to several contributors, MeteoNook now includes translations into French, German, Japanese and Chinese. If you would like to contribute or improve a translation, check the README on GitHub to join the POEditor project."
+    "hLog20200715": "With many thanks to several contributors, MeteoNook now includes translations into French, German, Japanese and Chinese. If you would like to contribute or improve a translation, check the README on GitHub to join the POEditor project.",
+    "warningTitle": "Warning",
+    "warningMessage": "Are you sure you want to permanently delete the seed data for the island {0}?",
+    "warningCancel": "No, cancel",
+    "warningOK": "Yes, delete it"
 }
