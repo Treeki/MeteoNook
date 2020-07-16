@@ -214,5 +214,6 @@
     "warningTitle": "Предупреждение",
     "warningMessage": "Вы уверены что хотите окончательно удалить данные сида для острова {0}?",
     "warningCancel": "Нет, отмена",
-    "warningOK": "Да, удалить"
+    "warningOK": "Да, удалить",
+    "hLog20200716": "Fixed the dates for the Bug-Off in the Southern Hemisphere. Added Chinese (Traditional) and Russian translations."
 }

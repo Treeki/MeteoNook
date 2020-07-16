@@ -214,5 +214,6 @@
     "warningTitle": "Warning",
     "warningMessage": "Are you sure you want to permanently delete the seed data for the island {0}?",
     "warningCancel": "No, cancel",
-    "warningOK": "Yes, delete it"
+    "warningOK": "Yes, delete it",
+    "hLog20200716": "Fixed the dates for the Bug-Off in the Southern Hemisphere. Added Chinese (Traditional) and Russian translations."
 }

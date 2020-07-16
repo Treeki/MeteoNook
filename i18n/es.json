@@ -214,5 +214,6 @@
     "warningTitle": "Aviso",
     "warningMessage": "¿Estás seguro que quieres borrar los datos de semilla para la isla {0}?",
     "warningCancel": "No, cancelar",
-    "warningOK": "Si, bórralo"
+    "warningOK": "Si, bórralo",
+    "hLog20200716": "Corregido: las fechas para la Caza del Bicho en el hemisferio sur. Añadido: traducciones a chino (tradicional) y ruso."
 }
