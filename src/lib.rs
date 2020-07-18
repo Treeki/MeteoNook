@@ -623,8 +623,18 @@ impl DayGuess {
 					match query_stars_internal(hour_seed, minute, pattern) {
 						None => {
 							// no stars
-							if (true_mask & minute_bit) != 0 && previous_second_mask == 0 {
-								return false
+							if (true_mask & minute_bit) != 0 {
+								// the user claimed to see stars
+								if previous_second_mask == 0 {
+									// no stars occurred within the last 4 seconds of the previous
+									// minute, so rollover would not be a factor
+									return false
+								}
+								if (hg.second_mask[minute as usize] & 0xffffffffffffff0u64) != 0 {
+									// the user specified seconds after :4 which means
+									// rollover from the previous minute would not be a factor
+									return false
+								}
 							}
 							previous_second_mask = 0;
 						}

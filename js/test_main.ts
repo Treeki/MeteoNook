@@ -169,6 +169,7 @@ if (args.length > 0) {
 		const testSeedMax = testSeedMin + 20
 		for (const hemisphere of [Hemisphere.Northern, Hemisphere.Southern]) {
 			console.log(`Testing ${weatherSeed} in hemisphere ${hemisphere}...`)
+			let ok = 0, tooMany = 0, fail = 0
 			for (let testSeed = testSeedMin; testSeed < testSeedMax; testSeed++) {
 				for (let month = 1; month <= 12; month++) {
 					const year = 2020
@@ -176,6 +177,11 @@ if (args.length > 0) {
 						const outcome = performTests(weatherSeed, testSeed, hemisphere, year, month)
 						if (outcome.kind == OutcomeKind.Failure) {
 							console.error(`FAILED: ${weatherSeed} ${testSeed} ${hemisphere} ${year} ${month} (${outcome.results.length} results)`)
+							fail += 1
+						} else if (outcome.kind == OutcomeKind.TooManyResults) {
+							tooMany += 1
+						} else if (outcome.kind == OutcomeKind.Success) {
+							ok += 1
 						}
 					} catch (ex) {
 						console.log(`weatherSeed=${weatherSeed} testSeed=${testSeed} hemisphere=${hemisphere} ${year}-${month}`)
@@ -183,6 +189,7 @@ if (args.length > 0) {
 					}
 				}
 			}
+			console.log(`${ok} ok, ${tooMany} too many, ${fail} failed`)
 		}
 	}
 }
