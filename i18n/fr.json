@@ -197,7 +197,7 @@
     "lstPatternChoices": "☀ Clair%%🌤 Ensoleillé%%🌥 Nuageux%%☁ Nuages épais%%🌧 Pluie/Neige%%⛈ Pluie/Neige intense%%Incertain (clair ou ensoleillé)%%Incertain (ensoleillé ou nuageux)%%Incertain (nuageux ou nuage de pluie)%%Incertain (pas de pluie/neige)%%Incertain (pluie/neige)",
     "lstPatternNoSnow": "☀ Clair%%🌤 Ensoleillé%%🌥 Nuageux%%☁ Nuages épais%%🌧 Pluie%%⛈ Pluie intense",
     "lstPatternSnow": "☀ Clair%%🌤 Ensoleillé%%🌥 Nuageux%%☁ Nuages épais%%🌧 Neige%%⛈ Neige intense",
-    "lstConstellation": "Verseau%%Poisson%%Bélier%%Taureau%%Gémeaux%%Cancer%%Lion%%Vierge%%Balance%%Scorpion%%Sagittaire%%Capricorne",
+    "lstConstellation": "Capricorne%%Verseau%%Poisson%%Bélier%%Taureau%%Gémeaux%%Cancer%%Lion%%Vierge%%Balance%%Scorpion%%Sagittaire",
     "credTitle": "Crédits",
     "credSource": "MétéoNook est disponible sous la license {license}. Le code source est disponible sur GitHub: {repo}",
     "credThank1": "Remerciement aux personnes suivantes pour leur aide:",
