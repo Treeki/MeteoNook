@@ -80,6 +80,7 @@ const messages = {
 	es: fixI18N(require('../i18n/es.json')),
 	de: fixI18N(require('../i18n/de.json')),
 	fr: fixI18N(require('../i18n/fr.json')),
+	it: fixI18N(require('../i18n/it.json')),
 	ja: fixI18N(require('../i18n/ja.json')),
 	ru: fixI18N(require('../i18n/ru.json')),
 	'zh-Hans': fixI18N(require('../i18n/zh-Hans.json')),
