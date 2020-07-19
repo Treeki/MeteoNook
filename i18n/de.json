@@ -197,7 +197,7 @@
     "lstPatternChoices": "☀ Wolkenlos%%🌤 Sonnig%%🌥 Bewölkt%%☁ Regenwolken%%🌧 Regen/Schnee%%⛈ Starker Regen/Schnee%%Unsicher (wolkenlos oder sonnig)%%Unsicher (sonnig oder bewölkt)%%Unsicher (bewölkt oder Regenwolken)%%Unsicher (kein Regen/Schnee)%%Unsicher (Regen/Schnee)",
     "lstPatternNoSnow": "☀ Wolkenlos%%🌤 Sonnig%%🌥 Bewölkt%%☁ Regenwolken%%🌧 Regen%%⛈ Starker Regen",
     "lstPatternSnow": "☀ Wolkenlos%%🌤 Sonnig%%🌥 Bewölkt%%☁ Regenwolken%%🌨 Schnee%%🌨 Starker Schnee",
-    "lstConstellation": "Steinbock%%Wassermann%%Fische%%Widder%%Stier%%Zwillinge%%Krebs&&Löwe%%Jungfrau%%Waage%%Skorpion%%Schütze",
+    "lstConstellation": "Steinbock%%Wassermann%%Fische%%Widder%%Stier%%Zwillinge%%Krebs%%Löwe%%Jungfrau%%Waage%%Skorpion%%Schütze",
     "credTitle": "Danksagung",
     "credSource": "MeteoNook ist verfügbar unter {license}. Der Quellcode ist verfügbar auf GitHub: {repo}",
     "credThank1": "Spezieller Dank an folgende Leute für ihre Hilfe:",
