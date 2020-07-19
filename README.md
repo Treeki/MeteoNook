@@ -13,6 +13,7 @@ Special thanks to the following contributors:
 - **Italian translation**: Thordgar
 - **French translation**: [@Swpolo](https://github.com/Swpolo)
 - **German translation**: [@TheVaan](https://github.com/TheVaan)
+- **German (CH) translation**: Fabio
 - **Chinese (Simplified) translation**: [@IceLitty](https://github.com/IceLitty)
 - **Chinese (Traditional) translation**: [@Small-Ku](https://github.com/Small-Ku)
 - **Japanese translation**: [@yuma-m](https://github.com/yuma-m)

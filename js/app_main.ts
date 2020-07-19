@@ -79,6 +79,7 @@ const messages = {
 	en: fixI18N(require('../i18n/en.json')),
 	es: fixI18N(require('../i18n/es.json')),
 	de: fixI18N(require('../i18n/de.json')),
+	'de-CH': fixI18N(require('../i18n/de-CH.json')),
 	fr: fixI18N(require('../i18n/fr.json')),
 	it: fixI18N(require('../i18n/it.json')),
 	ja: fixI18N(require('../i18n/ja.json')),
@@ -126,43 +127,49 @@ for (const k of Object.keys(messages)) {
 	dateTimeFormats[k] = startTime12 ? dtf12 : dtf24
 }
 
+function matchBrowserLanguage(lang: string): string {
+	const tags = lang.split('-')
+	const first = tags[0]
+
+	if (first === 'zh') {
+		// special logic for Chinese
+		// prefer Hans/Hant tags first, if neither exists, check for country
+		if (tags.indexOf('hant') >= 0)
+			return 'zh-Hant'
+		else if (tags.indexOf('hans') >= 0)
+			return 'zh-Hans'
+		else if (tags.indexOf('tw') >= 0)
+			return 'zh-Hant' // change to zh-TW when added
+		else if (tags.indexOf('hk') >= 0 || tags.indexOf('mo') >= 0)
+			return 'zh-Hant'
+		else
+			return 'zh-Hans'
+	}
+
+	// look for an exact match (for en-GB, en-US, de-CH, etc)
+	for (const [k, v] of Object.entries(messages)) {
+		if (v.lang && k.toLowerCase() === lang)
+			return k
+	}
+
+	// look for a language-only match (for es, de, fr, etc)
+	for (const [k, v] of Object.entries(messages)) {
+		if (v.lang && k.toLowerCase() === first)
+			return k
+	}
+
+	// if none are found (no base language, or English variant)
+	// then just default to en-GB
+	return 'en-GB'
+}
+
 let startLocale = readStorage('meteonook_language', e => e)
 if (startLocale === 'en')
 	startLocale = (navigator.language === 'en-US') ? 'en-US' : 'en-GB'
 else if (startLocale === 'zh-CN')
 	startLocale = 'zh-Hans' // this file was originally called zh-CN when it was the only Chinese variant implemented
-else if (startLocale === null) {
-	const browserLang = navigator.language.toLowerCase()
-	const tags = browserLang.split('-')
-	const firstChunk = tags[0]
-	// find a match, if possible
-	startLocale = 'en-GB'
-	if (firstChunk === 'zh') {
-		// special logic for Chinese
-		startLocale = 'zh-Hans'
-		for (const tag of tags) {
-			if (tag === 'tw') {
-				startLocale = 'zh-Hant' // change to zh-TW when added
-			} else if (tag === 'hk' || tag === 'mo' || tag === 'hant') {
-				startLocale = 'zh-Hant'
-			}
-		}
-	} else {
-		for (const [k, v] of Object.entries(messages)) {
-			if (v.lang) {
-				const kl = k.toLowerCase()
-				if (kl === browserLang) {
-					// perfect match
-					startLocale = k
-					break
-				} else if (kl.startsWith(firstChunk)) {
-					// okay match
-					startLocale = k
-				}
-			}
-		}
-	}
-}
+else if (startLocale === null)
+	startLocale = matchBrowserLanguage(navigator.language.toLowerCase())
 
 const i18n = new VueI18n({
 	locale: startLocale,
