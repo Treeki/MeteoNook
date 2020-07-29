@@ -558,7 +558,6 @@ struct DayGuess {
 	month: u8,
 	day: u8,
 	rainbow_count: u8,
-	special_day_flag: bool,
 	hour_mask: u16,
 	hours: [HourGuess;9]
 }
@@ -722,7 +721,6 @@ impl GuessData {
 		dg.day = day;
 		dg.seed_add = seed_add;
 		dg.rainbow_seed_add = compute_seed_ymd(0, 0x1000000, 0x40000, 0x1000, year, month, day);
-		dg.special_day_flag = is_special_day(self.hemisphere, year, month, day) != SpecialDay::None;
 		for linear_hour in 0..9 {
 			let hour = from_linear_hour(linear_hour);
 			let (n_year, n_month, n_day) = normalise_late_ymd(year, month, day, hour);
@@ -799,18 +797,14 @@ impl GuessData {
 	pub fn check(&self, seed: u32) -> bool {
 		for i in 0..self.count {
 			let dg = &self.days[i];
-			let pattern = if dg.special_day_flag {
-				Pattern::EventDay00
-			} else {
-				let mut rng = Random::with_seed(seed.wrapping_add(dg.seed_add));
-				rng.roll();
-				rng.roll();
-				let rate_set = match self.hemisphere {
-					Hemisphere::Northern => RATE_LOOKUP_N[(dg.month - 1) as usize][(dg.day - 1) as usize],
-					Hemisphere::Southern => RATE_LOOKUP_S[(dg.month - 1) as usize][(dg.day - 1) as usize]
-				};
-				Pattern::from_u8(RATE_MAPS[rate_set as usize][rng.roll_max(100) as usize])
+			let mut rng = Random::with_seed(seed.wrapping_add(dg.seed_add));
+			rng.roll();
+			rng.roll();
+			let rate_set = match self.hemisphere {
+				Hemisphere::Northern => RATE_LOOKUP_N[(dg.month - 1) as usize][(dg.day - 1) as usize],
+				Hemisphere::Southern => RATE_LOOKUP_S[(dg.month - 1) as usize][(dg.day - 1) as usize]
 			};
+			let pattern = Pattern::from_u8(RATE_MAPS[rate_set as usize][rng.roll_max(100) as usize]);
 
 			if !dg.check(seed, pattern) {
 				return false
