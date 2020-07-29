@@ -47,7 +47,7 @@
 
 <script lang='ts'>
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import {DayInfo, DayType, Forecast, DayForecast, getPatternName, StarInfo} from '../model'
+import {DayInfo, DayType, Forecast, DayForecast, StarInfo} from '../model'
 import { TranslateResult } from 'vue-i18n'
 import { Pattern, SpecialDay, SnowLevel } from '../../pkg'
 import { makeTime } from '../utils'
@@ -85,7 +85,7 @@ export default class DayModal extends Vue {
 	}
 
 	get modalTitle(): TranslateResult {
-		const pattern = getPatternName(this.day.pattern)
+		const pattern = Pattern[this.day.pattern]
 		if (this.day.patternPreviewMode) {
 			return this.$t('dTitlePreview', {pattern})
 		} else {

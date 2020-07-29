@@ -113,7 +113,7 @@
 
 <script lang='ts'>
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import {DayInfo, DayType, AmbiguousWeather, ShowerType, StarInfo, dayUsesTypes, getPossiblePatternsForDay, getPatternName, rainbowPatternsByTime, DayForecast} from '../model'
+import {DayInfo, DayType, AmbiguousWeather, ShowerType, StarInfo, dayUsesTypes, getPossiblePatternsForDay, rainbowPatternsByTime, DayForecast} from '../model'
 import {isSpecialDay, SpecialDay, Hemisphere, SpWeatherLevel, getSpWeatherLevel, Weather, Pattern} from '../../pkg'
 import { TranslateResult } from 'vue-i18n'
 import { makeTime } from '../utils'
@@ -252,7 +252,7 @@ export default class DayEditor extends Vue {
 		return getPossiblePatternsForDay(this.hemisphere, this.day)
 	}
 	get possiblePatternNames(): string[] {
-		return this.possiblePatterns.map(getPatternName)
+		return this.possiblePatterns.map(p => Pattern[p])
 	}
 	demoPattern(patName: keyof typeof Pattern) {
 		const dayFC = new DayForecast(
