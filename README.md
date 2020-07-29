@@ -16,12 +16,13 @@ Special thanks to the following contributors:
 - **German (CH) translation**: [@einfallstoll](https://github.com/einfallstoll)
 - **Chinese (Simplified) translation**: [@IceLitty](https://github.com/IceLitty)
 - **Chinese (Traditional) translation**: [@Small-Ku](https://github.com/Small-Ku)
+- **Taiwanese translation**: Laurence Chen
 - **Japanese translation**: [@yuma-m](https://github.com/yuma-m)
 - **Russian translation**: [@yozhique_acnh](https://twitter.com/yozhique_acnh)
 
-Translations are managed centrally using POEditor. Join the project here to contribute: https://poeditor.com/join/project/CerldM8Yc9
+Translations are managed centrally using POEditor. Join the project here to contribute: https://poeditor.com/join/project/CerldM8Yc9 - There's no good way for me to map POEditor accounts to users for crediting above and in the app, so to be added, please let me know who you are by submitting a pull request, commenting on issue #6 or mentioning me on Twitter.
 
-There's no obligation to do so, but if you'd like to support my work on this project and other AC:NH research: [PayPal.me](https://paypal.me/trashcurl) | [Ko-fi](https://ko-fi.com/ninji_) | [Monzo](https://monzo.me/ninji) (UK)
+Additionally, there's no obligation to do so, but if you'd like to support my work on this project and other AC:NH research: [PayPal.me](https://paypal.me/trashcurl) | [Ko-fi](https://ko-fi.com/ninji_) | [Monzo](https://monzo.me/ninji) (UK)
 
 ## Roadmap/to-do list
 

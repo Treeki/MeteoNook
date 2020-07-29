@@ -86,6 +86,7 @@ const messages = {
 	ru: fixI18N(require('../i18n/ru.json')),
 	'zh-Hans': fixI18N(require('../i18n/zh-Hans.json')),
 	'zh-Hant': fixI18N(require('../i18n/zh-Hant.json')),
+	'zh-TW': fixI18N(require('../i18n/zh-TW.json')),
 	'en-GB': {'lang': 'English (UK)'},
 	'en-US': {'lang': 'English (US)'},
 }
@@ -139,7 +140,7 @@ function matchBrowserLanguage(lang: string): string {
 		else if (tags.indexOf('hans') >= 0)
 			return 'zh-Hans'
 		else if (tags.indexOf('tw') >= 0)
-			return 'zh-Hant' // change to zh-TW when added
+			return 'zh-TW'
 		else if (tags.indexOf('hk') >= 0 || tags.indexOf('mo') >= 0)
 			return 'zh-Hant'
 		else

@@ -23,6 +23,7 @@
 				<a href='https://github.com/Swpolo'>@Swpolo</a> <i>(Français)</i>,
 				<a href='https://github.com/IceLitty'>@IceLitty</a> <i>(简体中文)</i>,
 				<a href='https://github.com/Small-Ku'>@Small-Ku</a> <i>(繁體中文)</i>,
+				Laurence Chen <i>(臺灣正體)</i>,
 				<a href='https://github.com/yuma-m'>@yuma-m</a> <i>(日本語)</i>,
 				<a href='https://twitter.com/yozhique_acnh'>@yozhique_acnh</a> <i>(Русский)</i>
 			</li>
