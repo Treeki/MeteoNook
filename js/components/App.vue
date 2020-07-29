@@ -147,6 +147,11 @@ function loadIslands(): IslandInfoHolder {
 			info.currentIndex = islands.length - 1
 			immediateSave = true
 		}
+
+		// remove this island from the URL
+		const emptyURL = new URL(document.location.toString())
+		emptyURL.search = ''
+		history.replaceState(null, '', emptyURL.toString())
 	}
 
 	if (info.currentIndex === null && islands.length > 0)
