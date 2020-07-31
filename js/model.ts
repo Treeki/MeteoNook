@@ -530,4 +530,27 @@ export class DayForecast {
 			}
 		}
 	}
+
+	toJSON(): any {
+		return {
+			date: [this.year, this.month, this.day],
+			weekday: this.weekday,
+			pattern: Pattern[this.pattern],
+			weather: this.weather.map(w => Weather[w]),
+			windPower: this.windPower,
+			windPowerMin: this.windPowerMin,
+			windPowerMax: this.windPowerMax,
+			constellation: Constellation[this.constellation],
+			specialDay: SpecialDay[this.specialDay],
+			snowLevel: SnowLevel[this.snowLevel],
+			heavyFog: this.heavyFog,
+			waterFog: this.waterFog,
+			rainbowCount: this.rainbowCount,
+			rainbowHour: this.rainbowHour,
+			aurora: this.aurora,
+			lightShower: this.lightShower,
+			heavyShower: this.heavyShower,
+			shootingStars: this.shootingStars
+		}
+	}
 }
