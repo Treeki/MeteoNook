@@ -32,3 +32,20 @@ Additionally, there's no obligation to do so, but if you'd like to support my wo
 - Dark mode
 - Toggle to use system-agnostic icons for those stuck on Windows 7 without emoji support
 - Special cloud pattern support
+
+## Getting Started
+
+### Rust
+
+The JS needs this to be compiled, so this must be done first.
+
+1. Install rust
+2. cargo install wasm-pack
+
+### JS
+
+1. Install node & yarn
+2. npm install
+3. npm run-script dev
+
+you can visit your install at http://localhost:8080/

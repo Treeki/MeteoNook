@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { ButtonPlugin, CalendarPlugin, DropdownPlugin, FormCheckboxPlugin, FormRadioPlugin, LayoutPlugin, NavbarPlugin, TabsPlugin, FormGroupPlugin, ModalPlugin, FormSelectPlugin, InputGroupPlugin, LinkPlugin, SpinnerPlugin, ProgressPlugin, AlertPlugin, FormInputPlugin, FormPlugin, FormDatepickerPlugin, FormTimepickerPlugin, CardPlugin, FormTextareaPlugin } from 'bootstrap-vue'
 import VueI18n, { DateTimeFormats, DateTimeFormat } from 'vue-i18n'
+import ICS from 'vue-ics'
 
 Vue.use(AlertPlugin)
 Vue.use(ButtonPlugin)
@@ -26,6 +27,7 @@ Vue.use(ProgressPlugin)
 Vue.use(SpinnerPlugin)
 Vue.use(TabsPlugin)
 Vue.use(VueI18n)
+Vue.use(ICS)
 
 import '../custom.scss'
 
