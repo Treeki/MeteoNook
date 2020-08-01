@@ -1,5 +1,6 @@
 {
     "lang": "English",
+    "appTitle": "MeteoNook",
     "title": "MeteoNook for {island}",
     "mSettings": "Settings",
     "mTimeFormat": "Time format",
@@ -11,6 +12,7 @@
     "oTab": "Overview",
     "yTab": "Yearly",
     "mTab": "Monthly",
+    "eTab": "Export",
     "hTWelcome": "Welcome to MeteoNook Alpha",
     "hWelcome": "MeteoNook is a weather forecaster for <i>Animal Crossing: New Horizons</i> {version}.%%This tool will predict your island's weather patterns, including exact times for meteor showers, rainbows and the aurora borealis. To get started, you'll need the seed, a long number unique to your island that determines what your weather will be. Follow the instructions on the <b>Seed</b> tab to find it.",
     "hTLog": "Changelog",
@@ -147,6 +149,7 @@
     "oTimeList2": "{0} and {1}",
     "oUpcoming": "Coming up",
     "oRainbowAt": "Rainbow at {time}",
+    "oLightShower": "Light meteor shower",
     "oHeavyShower": "Heavy meteor shower",
     "oSnowStart": "Snowy season begins",
     "oSnowEnd": "Snowy season ends",
@@ -203,6 +206,7 @@
     "credThank1": "Special thanks to the following people for their help:",
     "credThank1a": "Testing and suggestions:",
     "credThank1b": "Translations:",
+    "credThank1c": "Contributors:",
     "credThank2": "MeteoNook includes parts of the following software:",
     "credThank3": "Shoutouts to:",
     "footerCopy": "MeteoNook is © {me}, {year}. Not affiliated with or endorsed by Nintendo.",
@@ -215,5 +219,12 @@
     "warningMessage": "Are you sure you want to permanently delete the seed data for the island {0}?",
     "warningCancel": "No, cancel",
     "warningOK": "Yes, delete it",
-    "hLog20200716": "Fixed the dates for the Bug-Off in the Southern Hemisphere. Added Chinese (Traditional) and Russian translations."
+    "hLog20200716": "Fixed the dates for the Bug-Off in the Southern Hemisphere. Added Chinese (Traditional) and Russian translations.",
+    "hTExport": "Export Calendar",
+    "hExport": "To use your MeteoNook information in another application, you can use the options on this page to export the data. For now, you can only export to the .iCal format for importing into Calendar applications like Apple Calendar.",
+    "hICalExport": "iCal Export",
+    "hICalOptions": "Events to Export",
+    "tICalExport": "Currently, MeteoNook exports daily calendar events by year in iCal. We recommend creating a new calendar and importing it to there. It can otherwise be difficult to delete multiple events from your calendar.",
+    "tICalExportButton": "Export {0} iCal"
+
 }

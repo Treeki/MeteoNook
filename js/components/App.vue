@@ -55,6 +55,9 @@
 			<b-tab :title="$t('mTab')" ref='monthlyTab'>
 				<monthly-view :forecast='forecast' :month='forecast.currentMonth' @show-day='showDayModal'></monthly-view>
 			</b-tab>
+			<b-tab :title="$t('eTab')">
+				<export-page :forecast='forecast'></export-page>
+			</b-tab>
 		</b-tabs>
 
 		<footer class='my-5 pt-2 border-top text-muted'>
@@ -103,6 +106,7 @@ import YearlyView from './YearlyView.vue'
 import MonthlyView from './MonthlyView.vue'
 import DayModal from './DayModal.vue'
 import CreditsModal from './CreditsModal.vue'
+import ExportPage from './ExportPage.vue'
 import { Forecast, DayForecast, Hemisphere, IslandInfo } from '../model'
 import { BTab } from 'bootstrap-vue'
 import { LocaleMessage, DateTimeFormat } from 'vue-i18n'
@@ -171,7 +175,7 @@ function saveIslands(islands: IslandInfo[], currentIndex: number|null) {
 }
 
 
-@Component({components: {WelcomePage, SeedFinder, YearlyView, MonthlyView, ForecastOverview, DayModal, CreditsModal}})
+@Component({components: {WelcomePage, SeedFinder, YearlyView, MonthlyView, ForecastOverview, DayModal, CreditsModal, ExportPage}})
 export default class App extends Vue {
 	currentIslandIndex!: number|null
 	previewIsland!: IslandInfo
