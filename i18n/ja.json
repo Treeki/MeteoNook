@@ -192,8 +192,8 @@
     "dunno": "不明",
     "lstWeekdays": "日%%月%%火%%水%%木%%金%%土",
     "lstMonths": "1月%%2月%%3月%%4月%%5月%%6月%%7月%%8月%%9月%%10月%%11月%%12月",
-    "lstSpecialDays": "イースター%%釣り大会%%虫取り大会%%年越しカウントダウン",
-    "lstSpecialDaysA": "イースター%%釣り大会%%虫取り大会%%年越しカウントダウン",
+    "lstSpecialDays": "イースター%%釣り大会%%虫取り大会%%年越しカウントダウン%%花火大会",
+    "lstSpecialDaysA": "イースター%%釣り大会%%虫取り大会%%年越しカウントダウン%%花火大会",
     "lstPatternChoices": "☀ 快晴%%🌤 晴れ%%🌥 曇り%%☁ 雨雲%%🌧 雨/雪%%⛈ 大雨/大雪%%不明 (快晴もしくは晴れ)%%不明 (晴れもしくは曇り)%%不明 (曇りもしくは雨雲)%%不明 (雨や雪ではない)%%不明 (雨もしくは雪)",
     "lstPatternNoSnow": "☀ 快晴%%🌤 晴れ%%🌥 曇り%%☁ 雨雲%%🌧 雨%%⛈ 大雨",
     "lstPatternSnow": "☀ 快晴%%🌤 晴れ%%🌥 曇り%%☁ 雨雲%%🌨 雪%%🌨 大雪",
@@ -216,5 +216,8 @@
     "warningCancel": "いいえ、削除しません",
     "warningOK": "はい、削除します",
     "hLog20200716": "南半球の虫捕り大会の日付を修正。中国語(繁体字)とロシア語の翻訳を追加。",
-    "lstSpecialClouds": "Cumulonimbus%%Cirrus%%Cirrocumulus%%Thin clouds%%Billow clouds"
+    "lstSpecialClouds": "Cumulonimbus%%Cirrus%%Cirrocumulus%%Thin clouds%%Billow clouds",
+    "hLog20200802": "Added predictions for special types of clouds that appear during certain parts of the year (displayed using the 🌀 symbol), and the fireworks show added in 1.4.0.",
+    "hQEventDay": "The predictions were perfect for weeks and are now suddenly wrong! What happened?",
+    "hAEventDay": "On certain days, Animal Crossing will ignore the weather pattern selected by your seed and instead use the fixed EventDay00 pattern (clear weather all day, without shooting stars). MeteoNook shows most of these, like the Bug-Off and fireworks shows, with two exceptions: the day of <b>K.K. Slider's first concert</b> and any day on which you <b>add a new resident player</b>. So, if your weather forecast suddenly looks wrong after making a new profile or after you've just reached 3 stars, don't worry, that's supposed to happen. It will return to normal within the next couple of days!"
 }

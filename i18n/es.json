@@ -192,8 +192,8 @@
     "dunno": "No sé",
     "lstWeekdays": "Dom%%Lun%%Mar%%Mié%%Jue%%Vie%%Sáb",
     "lstMonths": "Enero%%Febrero%%Marzo%%Abril%%Mayo%%Junio%%Julio%%Agosto%%Septiembre%%Octubre%%Noviembre%%Diciembre",
-    "lstSpecialDays": "la Caza del Huevo%%el Torneo de Pesca%%la Caza de Bichos%%Nochevieja",
-    "lstSpecialDaysA": "la Caza del Huevo%%el Torneo de Pesca%%la Caza de Bichos%%Nochevieja",
+    "lstSpecialDays": "la Caza del Huevo%%el Torneo de Pesca%%la Caza de Bichos%%Nochevieja%%el espectáculo de fuegos artificiales",
+    "lstSpecialDaysA": "la Caza del Huevo%%el Torneo de Pesca%%la Caza de Bichos%%Nochevieja%%el espectáculo de fuegos artificiales",
     "lstPatternChoices": "☀ Claro%%🌤 Soleado%%🌥 Nublado%%☁ Nubes de lluvia%%🌧 Lluvia/nieve%%⛈ Lluvia/nieve fuerte%%No estoy seguro (claro o soleado)%%No estoy seguro (soleado o nublado)%%No estoy seguro (nublado o nubes de lluvia)%%No estoy seguro (sin lluvia o nieve)%%No estoy seguro (lluvia o nieve)",
     "lstPatternNoSnow": "☀ Claro%%🌤 Soleado%%🌥 Nublado%%☁ Nubes de lluvia%%🌧 Lluvia%%⛈ Lluvia fuerte",
     "lstPatternSnow": "☀ Claro%%🌤 Soleado%%🌥 Nublado%%☁ Nubes de lluvia%%🌨 Nieve%%🌨 Nieve fuerte",
@@ -216,5 +216,8 @@
     "warningCancel": "No, cancelar",
     "warningOK": "Si, bórralo",
     "hLog20200716": "Corregido: las fechas para la Caza del Bicho en el hemisferio sur. Añadido: traducciones a chino (tradicional) y ruso.",
-    "lstSpecialClouds": "Cumulonimbos%%Cirrus%%Cirrocúmulos%%Nubes finas%%Nubes onduladas"
+    "lstSpecialClouds": "Cumulonimbos%%Cirrus%%Cirrocúmulos%%Nubes finas%%Nubes onduladas",
+    "hLog20200802": "Añadido: predicciones para las nubes especiales que aparecen durante ciertas partes del año (mostrado con el símbolo 🌀), y el espectáculo de fuegos artificiales que comienza desde la versión 1.4.0.",
+    "hQEventDay": "¡Las predicciones estaban perfectas durante semanas, y ahora no cuadran! ¿Que pasó?",
+    "hAEventDay": "Hay ciertos días en que el patrón elegido a través de tu semilla ambiental será ignorado, y el juego utilizara el patrón fijo EventDay00 (tiempo claro todo el día, sin meteoritos). MeteoNook muestra la mayoría de estos días, con dos excepciones: el día del <b>primer concierto de Totakeke</b>, y cualquier día que <b>añades un jugador nuevo</b>. Entonces, si tu pronóstico se ve mal tras crear un nuevo perfil o después de conseguir 3 estrellas, no te preocupes. El tiempo volverá a la normalidad en los dos días siguientes."
 }

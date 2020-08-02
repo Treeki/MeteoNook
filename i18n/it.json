@@ -192,8 +192,8 @@
     "dunno": "Non so",
     "lstWeekdays": "Dom%%Lun%%Mar%%Mer%%Gio%%Ven%%Sab",
     "lstMonths": "Gennaio%%Febbraio%%Marzo%%Aprile%%Maggio%%Giugno%%Luglio%%Agosto%%Settembre%%Ottobre%%Novembre%%Dicembre",
-    "lstSpecialDays": "Caccia all'uovo%%Torneo di pesca%%Insettomania%%Notte di San Silvestro",
-    "lstSpecialDaysA": "la Caccia all'uovo%%il Torneo di pesca%%l'Insettomania%%la Notte di San Silvestro",
+    "lstSpecialDays": "Caccia all'uovo%%Torneo di pesca%%Insettomania%%Notte di San Silvestro%%fuochi d'artificio",
+    "lstSpecialDaysA": "la Caccia all'uovo%%il Torneo di pesca%%l'Insettomania%%la Notte di San Silvestro%%i fuochi d'artificio",
     "lstPatternChoices": "☀ Sereno%%🌤 Soleggiato%%🌥 Nuvoloso%%☁ Nuvole di pioggia%%🌧 Pioggia/Neve%%⛈ Piogia/Neve intensa%%Non sono sicuro (sereno o soleggiato)%%Non sono sicuro (soleggiato o nuvoloso)%%Non sono sicuro (nuvoloso o nuvole di pioggia)%%Non sono sicuro (no pioggia/neve)%%Non sono sicuro (pioggia/neve)",
     "lstPatternNoSnow": "☀ Sereno%%🌤 Soleggiato%%🌥 Nuvoloso%%☁ Nuvole di pioggia%%🌧 Pioggia%%⛈ Pioggia intensa",
     "lstPatternSnow": "☀ Sereno%%🌤 Soleggiato%%🌥 Nuvoloso%%☁ Nuvole di pioggia%%🌨 Neve%%🌨 Neve intensa",
@@ -216,5 +216,8 @@
     "warningCancel": "No, annulla",
     "warningOK": "Sì, cancellalo",
     "hLog20200716": "Corrette le date per l'Insettomania nell'Emisfero Australe. Aggiunte le traduzioni in Cinese (Tradizionale) e Russo.",
-    "lstSpecialClouds": "Cumulonimbus%%Cirrus%%Cirrocumulus%%Thin clouds%%Billow clouds"
+    "lstSpecialClouds": "Cumulonimbus%%Cirrus%%Cirrocumulus%%Thin clouds%%Billow clouds",
+    "hLog20200802": "Added predictions for special types of clouds that appear during certain parts of the year (displayed using the 🌀 symbol), and the fireworks show added in 1.4.0.",
+    "hQEventDay": "The predictions were perfect for weeks and are now suddenly wrong! What happened?",
+    "hAEventDay": "On certain days, Animal Crossing will ignore the weather pattern selected by your seed and instead use the fixed EventDay00 pattern (clear weather all day, without shooting stars). MeteoNook shows most of these, like the Bug-Off and fireworks shows, with two exceptions: the day of <b>K.K. Slider's first concert</b> and any day on which you <b>add a new resident player</b>. So, if your weather forecast suddenly looks wrong after making a new profile or after you've just reached 3 stars, don't worry, that's supposed to happen. It will return to normal within the next couple of days!"
 }

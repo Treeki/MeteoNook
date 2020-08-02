@@ -192,8 +192,8 @@
     "dunno": "不知道",
     "lstWeekdays": "日%%一%%二%%三%%四%%五%%六",
     "lstMonths": "一月%%二月%%三月%%四月%%五月%%六月%%七月%%八月%%九月%%十月%%十一月%%十二月",
-    "lstSpecialDays": "復活節%%釣魚大會%%捕蟲大會%%跨年倒數",
-    "lstSpecialDaysA": "復活節%%釣魚大會%%捕蟲大會%%跨年倒數",
+    "lstSpecialDays": "復活節%%釣魚大會%%捕蟲大會%%跨年倒數%%煙火大會",
+    "lstSpecialDaysA": "復活節%%釣魚大會%%捕蟲大會%%跨年倒數%%煙火大會",
     "lstPatternChoices": "☀ 晴天%%🌤 晴時多雲%%🌥  多雲%%☁雨雲%%🌧 下雨/下雪%%⛈ 暴雨/暴雪%%不確定 (晴天或晴時多雲)%%不確定 (晴時多雲或多雲)%%不確定 (多雲或雨雲)%%不確定 (沒下雨/下雪)%%不確定 (下雨/下雪)",
     "lstPatternNoSnow": "☀ 晴天%%🌤 晴時多雲%%🌥  多雲%%☁雨雲%%🌧 下雨%%⛈ 暴雨",
     "lstPatternSnow": "☀ 晴天%%🌤 晴時多雲%%🌥  多雲%%☁雨雲%%🌨 下雪%%🌨 暴雪",
@@ -216,5 +216,8 @@
     "warningCancel": "不，取消。",
     "warningOK": "是，刪除。",
     "hLog20200716": "修復南半球捕蟲大會的日期。\n增加中文（繁體）及俄語翻譯。",
-    "lstSpecialClouds": "Cumulonimbus%%Cirrus%%Cirrocumulus%%Thin clouds%%Billow clouds"
+    "lstSpecialClouds": "Cumulonimbus%%Cirrus%%Cirrocumulus%%Thin clouds%%Billow clouds",
+    "hLog20200802": "Added predictions for special types of clouds that appear during certain parts of the year (displayed using the 🌀 symbol), and the fireworks show added in 1.4.0.",
+    "hQEventDay": "The predictions were perfect for weeks and are now suddenly wrong! What happened?",
+    "hAEventDay": "On certain days, Animal Crossing will ignore the weather pattern selected by your seed and instead use the fixed EventDay00 pattern (clear weather all day, without shooting stars). MeteoNook shows most of these, like the Bug-Off and fireworks shows, with two exceptions: the day of <b>K.K. Slider's first concert</b> and any day on which you <b>add a new resident player</b>. So, if your weather forecast suddenly looks wrong after making a new profile or after you've just reached 3 stars, don't worry, that's supposed to happen. It will return to normal within the next couple of days!"
 }

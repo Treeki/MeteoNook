@@ -192,8 +192,8 @@
     "dunno": "Je ne sais pas",
     "lstWeekdays": "Dim%%Lun%%Mar%%Mer%%Jeu%%Ven%%Sam",
     "lstMonths": "Janvier%%Février%%Mars%%Avril%%Mai%%Juin%%Juillet%%Août%%Septembre%%Octobre%%Novembre%%Décembre",
-    "lstSpecialDays": "Fête des oeufs%%Tournoi de pêche%%Insectosafari%%Nouvel an",
-    "lstSpecialDaysA": "Fête des oeufs%%Tournoi de pêche%%Insectosafari%%Nouvel an",
+    "lstSpecialDays": "Fête des oeufs%%Tournoi de pêche%%Insectosafari%%Nouvel an%%Feu d'artifice",
+    "lstSpecialDaysA": "Fête des oeufs%%Tournoi de pêche%%Insectosafari%%Nouvel an%%Feu d'artifice",
     "lstPatternChoices": "☀ Clair%%🌤 Ensoleillé%%🌥 Nuageux%%☁ Nuages épais%%🌧 Pluie/Neige%%⛈ Pluie/Neige intense%%Incertain (clair ou ensoleillé)%%Incertain (ensoleillé ou nuageux)%%Incertain (nuageux ou nuage de pluie)%%Incertain (pas de pluie/neige)%%Incertain (pluie/neige)",
     "lstPatternNoSnow": "☀ Clair%%🌤 Ensoleillé%%🌥 Nuageux%%☁ Nuages épais%%🌧 Pluie%%⛈ Pluie intense",
     "lstPatternSnow": "☀ Clair%%🌤 Ensoleillé%%🌥 Nuageux%%☁ Nuages épais%%🌧 Neige%%⛈ Neige intense",
@@ -216,5 +216,8 @@
     "warningCancel": "Non, annuler",
     "warningOK": "Oui, supprimer",
     "hLog20200716": "Correction des dates pour l'insectosafari dans l'hémisphère sud. Ajout des traductions en chinois (traditionnel) et russe",
-    "lstSpecialClouds": "Cumulonimbus%%Cirrus%%Cirrocumulus%%Thin clouds%%Billow clouds"
+    "lstSpecialClouds": "Cumulonimbus%%Cirrus%%Cirrocumulus%%Flocus%%Undulatus",
+    "hLog20200802": "Added predictions for special types of clouds that appear during certain parts of the year (displayed using the 🌀 symbol), and the fireworks show added in 1.4.0.",
+    "hQEventDay": "The predictions were perfect for weeks and are now suddenly wrong! What happened?",
+    "hAEventDay": "On certain days, Animal Crossing will ignore the weather pattern selected by your seed and instead use the fixed EventDay00 pattern (clear weather all day, without shooting stars). MeteoNook shows most of these, like the Bug-Off and fireworks shows, with two exceptions: the day of <b>K.K. Slider's first concert</b> and any day on which you <b>add a new resident player</b>. So, if your weather forecast suddenly looks wrong after making a new profile or after you've just reached 3 stars, don't worry, that's supposed to happen. It will return to normal within the next couple of days!"
 }

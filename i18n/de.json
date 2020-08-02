@@ -192,8 +192,8 @@
     "dunno": "Unbekannt",
     "lstWeekdays": "So%%Mo%%Di%%Mi%%Do%%Fr%%Sa",
     "lstMonths": "Januar%%Februar%%März%%April%%Mai%%Juni%%Juli%%August%%September%%Oktober%%November%%Dezember",
-    "lstSpecialDays": "Häschentag%%Angelturnier%%Insektikus-Turnier%%Silvester Countdown",
-    "lstSpecialDaysA": "der Häschentag%%das Angelturnier%%das Insektikus-Turnier%%der Silvester Countdown",
+    "lstSpecialDays": "Häschentag%%Angelturnier%%Insektikus-Turnier%%Silvester Countdown%%Feuerwerk",
+    "lstSpecialDaysA": "der Häschentag%%das Angelturnier%%das Insektikus-Turnier%%der Silvester Countdown%%das Feuerwerk",
     "lstPatternChoices": "☀ Wolkenlos%%🌤 Sonnig%%🌥 Bewölkt%%☁ Regenwolken%%🌧 Regen/Schnee%%⛈ Starker Regen/Schnee%%Unsicher (wolkenlos oder sonnig)%%Unsicher (sonnig oder bewölkt)%%Unsicher (bewölkt oder Regenwolken)%%Unsicher (kein Regen/Schnee)%%Unsicher (Regen/Schnee)",
     "lstPatternNoSnow": "☀ Wolkenlos%%🌤 Sonnig%%🌥 Bewölkt%%☁ Regenwolken%%🌧 Regen%%⛈ Starker Regen",
     "lstPatternSnow": "☀ Wolkenlos%%🌤 Sonnig%%🌥 Bewölkt%%☁ Regenwolken%%🌨 Schnee%%🌨 Starker Schnee",
@@ -216,5 +216,8 @@
     "warningCancel": "Nein, abbrechen",
     "warningOK": "Ja, löschen",
     "hLog20200716": "Behebt ein Problem mit den Daten für das Insektikus-Turnier in der südlichen Hemisphäre. Chinesische (Traditionell) und Russische Übersetzung hinzugefügt.",
-    "lstSpecialClouds": "Cumulonimbus%%Cirrus%%Cirrocumulus%%Thin clouds%%Billow clouds"
+    "lstSpecialClouds": "Cumulonimbus%%Cirrus%%Cirrocumulus%%Thin clouds%%Billow clouds",
+    "hLog20200802": "Added predictions for special types of clouds that appear during certain parts of the year (displayed using the 🌀 symbol), and the fireworks show added in 1.4.0.",
+    "hQEventDay": "The predictions were perfect for weeks and are now suddenly wrong! What happened?",
+    "hAEventDay": "On certain days, Animal Crossing will ignore the weather pattern selected by your seed and instead use the fixed EventDay00 pattern (clear weather all day, without shooting stars). MeteoNook shows most of these, like the Bug-Off and fireworks shows, with two exceptions: the day of <b>K.K. Slider's first concert</b> and any day on which you <b>add a new resident player</b>. So, if your weather forecast suddenly looks wrong after making a new profile or after you've just reached 3 stars, don't worry, that's supposed to happen. It will return to normal within the next couple of days!"
 }

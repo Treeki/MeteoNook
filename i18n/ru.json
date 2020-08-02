@@ -192,8 +192,8 @@
     "dunno": "Не знаю",
     "lstWeekdays": "ВС%%ПН%%ВТ%%СР%%ЧТ%%ПТ%%СБ",
     "lstMonths": "Январь%%Февраль%%Март%%Апрель%%Май%%Июнь%%Июль%%Август%%Сентябрь%%Октябрь%%Ноябрь%%Декабрь",
-    "lstSpecialDays": "День зайца%%Мастер удочки%%Мастер сачка%%Канун Нового Года",
-    "lstSpecialDaysA": "День зайца%%Мастер удочки%%Мастер сачка%%Канун Нового Года",
+    "lstSpecialDays": "День зайца%%Мастер удочки%%Мастер сачка%%Канун Нового Года%%фейерверк",
+    "lstSpecialDaysA": "День зайца%%Мастер удочки%%Мастер сачка%%Канун Нового Года%%фейерверк",
     "lstPatternChoices": "☀ Ясно%%🌤 Малооблачно%%🌥 Облачно%%☁ Пасмурно%%🌧 Дождь/Снег%%⛈ Ливень/Снег%%временами (ясно или малооблачно)%%временами (ясно или облачно)%%временами (облачно или пасмурно)%%временами (без дождя/снега)%%временами (дождь/снег)",
     "lstPatternNoSnow": "☀ Ясно%%🌤 Малооблачно%%🌥 Облачно%%☁ Пасмурно%%🌧 Дождь%%⛈ Ливень",
     "lstPatternSnow": "☀ Ясно%%🌤 Малооблачно%%🌥 Облачно%%☁ Пасмурно%%🌨 Снег%%🌨 Снегопад",
@@ -216,5 +216,8 @@
     "warningCancel": "Нет, отмена",
     "warningOK": "Да, удалить",
     "hLog20200716": "Исправлены даты проведения Мастера Сачка на южном полушарии. Добавлены Традиционная Китайская и Русская локализации.",
-    "lstSpecialClouds": "Cumulonimbus%%Cirrus%%Cirrocumulus%%Thin clouds%%Billow clouds"
+    "lstSpecialClouds": "Cumulonimbus%%Cirrus%%Cirrocumulus%%Thin clouds%%Billow clouds",
+    "hLog20200802": "Added predictions for special types of clouds that appear during certain parts of the year (displayed using the 🌀 symbol), and the fireworks show added in 1.4.0.",
+    "hQEventDay": "The predictions were perfect for weeks and are now suddenly wrong! What happened?",
+    "hAEventDay": "On certain days, Animal Crossing will ignore the weather pattern selected by your seed and instead use the fixed EventDay00 pattern (clear weather all day, without shooting stars). MeteoNook shows most of these, like the Bug-Off and fireworks shows, with two exceptions: the day of <b>K.K. Slider's first concert</b> and any day on which you <b>add a new resident player</b>. So, if your weather forecast suddenly looks wrong after making a new profile or after you've just reached 3 stars, don't worry, that's supposed to happen. It will return to normal within the next couple of days!"
 }
