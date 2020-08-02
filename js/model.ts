@@ -1,7 +1,7 @@
 export enum DayType { NoData = 0, None, Shower, Rainbow, Aurora }
 export enum ShowerType { NotSure = 0, Light, Heavy }
 
-import {Hemisphere, Weather, SpecialDay, getMonthLength, Pattern, getPattern, getWeather, getWindPower, isSpecialDay, SnowLevel, CloudLevel, FogLevel, getSnowLevel, getCloudLevel, getFogLevel, checkWaterFog, RainbowInfo, getRainbowInfo, isAuroraPattern, fromLinearHour, toLinearHour, canHaveShootingStars, queryStars, getStarSecond, isLightShowerPattern, isHeavyShowerPattern, isPatternPossibleAtDate, GuessData, getPatternKind, PatternKind, SpWeatherLevel, getSpWeatherLevel, Constellation, getConstellation, getWindPowerMin, getWindPowerMax, getSpecialCloudInfo, SpecialCloud} from '../pkg'
+import {Hemisphere, Weather, SpecialDay, getMonthLength, Pattern, getPattern, getWeather, getWindPower, isSpecialDay, SnowLevel, CloudLevel, FogLevel, getSnowLevel, getCloudLevel, getFogLevel, checkWaterFog, getRainbowInfo, isAuroraPattern, fromLinearHour, toLinearHour, canHaveShootingStars, queryStars, getStarSecond, isLightShowerPattern, isHeavyShowerPattern, isPatternPossibleAtDate, GuessData, getPatternKind, PatternKind, SpWeatherLevel, getSpWeatherLevel, Constellation, getConstellation, getWindPowerMin, getWindPowerMax, getSpecialCloudInfo, SpecialCloud} from '../pkg'
 export {Hemisphere, Weather, SpecialDay, getMonthLength}
 
 export enum AmbiguousWeather {
@@ -487,9 +487,8 @@ export class DayForecast {
 		this.heavyShower = isHeavyShowerPattern(this.pattern)
 
 		const rainbow = getRainbowInfo(hemisphere, seed || 0, year, month, day, this.pattern)
-		this.rainbowCount = Math.min(rainbow.count, (seed == null) ? 1 : 2)
-		this.rainbowHour = rainbow.hour
-		rainbow.free()
+		this.rainbowCount = Math.min(rainbow >>> 8, (seed == null) ? 1 : 2)
+		this.rainbowHour = rainbow & 0xFF
 
 		this.weather = []
 		this.windPower = []
@@ -527,20 +526,23 @@ export class DayForecast {
 
 			const nextPattern = getPattern(hemisphere, seed, nextYear, nextMonth, nextDay)
 			const specialCloudInfo = getSpecialCloudInfo(hemisphere, seed || 0, year, month, day, this.pattern, nextPattern)
-			if (specialCloudInfo !== undefined) {
-				const allowMultipleBlocks = (specialCloudInfo.cloud == SpecialCloud.Cumulonimbus)
+			if (specialCloudInfo !== 0xFFFFFFFF) {
+				const cloud = (specialCloudInfo >>> 16) as SpecialCloud
+				const rangeStart = (specialCloudInfo >>> 8) & 0xFF
+				const rangeEnd = specialCloudInfo & 0xFF
+
+				const allowMultipleBlocks = (cloud == SpecialCloud.Cumulonimbus)
 				let seenFirstBlock = false
-				for (let hour = specialCloudInfo.range_start; hour <= specialCloudInfo.range_end; hour++) {
+				for (let hour = rangeStart; hour <= rangeEnd; hour++) {
 					const weather = this.weather[hour % 24]
 					if (weather == Weather.Clear || weather == Weather.Sunny) {
 						seenFirstBlock = true
-						this.specialClouds[hour % 24] = specialCloudInfo.cloud
+						this.specialClouds[hour % 24] = cloud
 					} else {
 						if (seenFirstBlock && !allowMultipleBlocks)
 							break
 					}
 				}
-				specialCloudInfo.free()
 			}
 
 			for (let linearHour = 0; linearHour < 9; linearHour++) {

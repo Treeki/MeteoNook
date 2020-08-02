@@ -320,6 +320,13 @@ pub fn check_water_fog(seed: u32, year: u16, month: u8, day: u8) -> bool {
 pub struct RainbowInfo { pub count: u8, pub hour: u8 }
 
 #[wasm_bindgen(js_name = getRainbowInfo)]
+pub fn kludge_get_rainbow_info(hemi: Hemisphere, seed: u32, year: u16, month: u8, day: u8, pattern: Pattern) -> u16 {
+	let info = get_rainbow_info(hemi, seed, year, month, day, pattern);
+	let a: u16 = info.count.into();
+	let b: u16 = info.hour.into();
+	(a << 8) | b
+}
+
 pub fn get_rainbow_info(hemi: Hemisphere, seed: u32, year: u16, month: u8, day: u8, pattern: Pattern) -> RainbowInfo {
 	if get_sp_weather_level(hemi, month, day) == SpWeatherLevel::Rainbow {
 		match pattern.kind() {
@@ -434,7 +441,19 @@ pub struct SpecialCloudInfo {
 }
 
 #[wasm_bindgen(js_name = getSpecialCloudInfo)]
-pub fn get_special_cloud_info(hemi: Hemisphere, seed: u32, year: u16, month: u8, day: u8, today: Pattern, tomorrow: Pattern) -> Option<SpecialCloudInfo> {
+pub fn kludge_get_special_cloud_info(hemi: Hemisphere, seed: u32, year: u16, month: u8, day: u8, today: Pattern, tomorrow: Pattern) -> u32 {
+	match get_special_cloud_info(hemi, seed, year, month, day, today, tomorrow) {
+		None => 0xFFFFFFFFu32,
+		Some(info) => {
+			let a: u32 = info.cloud as u32;
+			let b: u32 = info.range_start.into();
+			let c: u32 = info.range_end.into();
+			(a << 16) | (b << 8) | c
+		}
+	}
+}
+
+fn get_special_cloud_info(hemi: Hemisphere, seed: u32, year: u16, month: u8, day: u8, today: Pattern, tomorrow: Pattern) -> Option<SpecialCloudInfo> {
 	use PatternKind::*;
 
 	let level = get_cloud_level(hemi, month, day);
