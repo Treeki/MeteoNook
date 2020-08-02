@@ -40,6 +40,7 @@ pub fn is_special_day(hemi: Hemisphere, y: u16, m: u8, d: u8) -> SpecialDay {
 				if m == 12 && d == INSECT_CON_DEC_S[y - 2000] { return InsectCon; }
 			}
 		}
+		if m == 8 && (((d - 1) % 7) + 1) == AUGUST_SUNDAYS[y - 2000] { return Fireworks; }
 	}
 	if m == 12 && d == 31 { return Countdown; }
 	return None;

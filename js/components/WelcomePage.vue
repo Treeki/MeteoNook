@@ -55,12 +55,12 @@ export default class WelcomePage extends Vue {
 	}
 
 	get faqQuestions() {
-		return ['Seed', 'Celeste', 'Wind', 'StarVis', 'Star130', 'MoreData', 'NoSeeds', 'BadSeed', 'Add', 'Donate', 'Source']
+		return ['Seed', 'Celeste', 'Wind', 'StarVis', 'EventDay', 'Star130', 'MoreData', 'NoSeeds', 'BadSeed', 'Add', 'Donate', 'Source']
 	}
 
 	get compatVersion() {
-		//return this.$t('hGameVer1', ['1.3.0'])
-		return this.$t('hGameVerMulti', ['1.3.0', '1.3.1'])
+		return this.$t('hGameVer1', ['1.4.0'])
+		// return this.$t('hGameVerMulti', ['1.3.0', '1.3.1'])
 	}
 }
 </script>
