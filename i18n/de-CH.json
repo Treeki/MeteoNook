@@ -215,5 +215,6 @@
     "warningMessage": "Bist du sicher, dass du die Daten für die Insel {0} unwiderruflich löschen willst?",
     "warningCancel": "Nein, abbrechen",
     "warningOK": "Ja, löschen",
-    "hLog20200716": "Behebt ein Problem mit den Daten für das Insektikus-Turnier in der südlichen Hemisphäre. Chinesische (Traditionell) und Russische Übersetzung hinzugefügt."
+    "hLog20200716": "Behebt ein Problem mit den Daten für das Insektikus-Turnier in der südlichen Hemisphäre. Chinesische (Traditionell) und Russische Übersetzung hinzugefügt.",
+    "lstSpecialClouds": "Cumulonimbus%%Cirrus%%Cirrocumulus%%Thin clouds%%Billow clouds"
 }

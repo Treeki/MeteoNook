@@ -215,5 +215,6 @@
     "warningMessage": "Sei sicuro di voler eliminare completamente i dati del seme dell'isola {0}?",
     "warningCancel": "No, annulla",
     "warningOK": "Sì, cancellalo",
-    "hLog20200716": "Corrette le date per l'Insettomania nell'Emisfero Australe. Aggiunte le traduzioni in Cinese (Tradizionale) e Russo."
+    "hLog20200716": "Corrette le date per l'Insettomania nell'Emisfero Australe. Aggiunte le traduzioni in Cinese (Tradizionale) e Russo.",
+    "lstSpecialClouds": "Cumulonimbus%%Cirrus%%Cirrocumulus%%Thin clouds%%Billow clouds"
 }

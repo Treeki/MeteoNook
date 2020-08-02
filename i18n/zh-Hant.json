@@ -1,6 +1,6 @@
 {
     "lang": "正體中文",
-    "title": "{island} 的 \nMeteoNook",
+    "title": "{island}的 \nMeteoNook",
     "mSettings": "設定",
     "mTimeFormat": "時間格式",
     "mTime12": "12 小時",
@@ -100,9 +100,9 @@
     "tInfoNoSeeds": "沒有種子碼匹配你的數據。請再三檢查！",
     "tInfoMultiSeed": "找到 {count} 個與資訊相符的種子：{seeds}。為了嘗試並與島嶼比較，請逐一點擊查看，或是新增更多數據再重新搜索。",
     "tInfoSeed": "你島上的天氣種子碼是<b>{seed}</b>。請記錄下來保管好。之後前往「概況」標籤完整整個程序，並查看天氣預報。",
-    "tErrNoPatterns": "{date} 的資訊與可能的天氣模式並不相符。請再三檢查那天的數據。",
-    "tErrStarConflict": "{date} 的 {time} 時，數據顯示同時出現或沒有流星。請修正！",
-    "tsTitle": "編輯 {time} 的流星",
+    "tErrNoPatterns": "{date}的資訊與可能的天氣模式並不相符。請再三檢查那天的數據。",
+    "tErrStarConflict": "{date}的{time}時，數據顯示同時出現或沒有流星。請修正！",
+    "tsTitle": "編輯{time}的流星",
     "tsHeader": "流星雨時，一分鐘會出現 5 或 8 顆流星，而零散流星則有 5 顆。請在下方輸入每顆流星的確切秒數。",
     "tsStar": "流星 {n}",
     "tsFooter1": "這非常有效，但請小心，秒數很難正確記錄！你可能需要拍影片記錄遊戲內的時鐘與流星落下的天空。之後觀看並記錄遊戲內時鐘的跳動，和流星的出現，然後比較兩者的時間來找到每顆星星的秒數。",
@@ -123,7 +123,7 @@
     "oRemoveIsland": "移除島嶼",
     "oSavedIslands": "島嶼存檔",
     "oAddIsland": "新增島嶼",
-    "oTitle": "{island} 的天氣",
+    "oTitle": "{island}的天氣",
     "oToday": "今天",
     "oTomorrow": "明天",
     "oSeeMore": "查看更多",
@@ -178,7 +178,7 @@
     "lsBlurb": "以下連結包含你島上的資訊。你可以分享給朋友，讓他們看你的天氣模式，或者存起來以防萬一。都是你的選擇！",
     "lsDone": "可以了，謝謝",
     "dTitlePreview": "{pattern} 模式預覽",
-    "dTitleDay": "{date} 的天氣 ({pattern})",
+    "dTitleDay": "{date}的天氣 ({pattern})",
     "dSpDay": "這天是{day}，有特殊天氣",
     "dWindTooltip": "風力",
     "dHeavyFog": "濃霧",
@@ -215,5 +215,6 @@
     "warningMessage": "確定要永久刪除島嶼 {0} 的種子碼數據？",
     "warningCancel": "不，取消",
     "warningOK": "是，刪除",
-    "hLog20200716": "修正南半球捕蟲大賽的日子。新增正體中文與俄文翻譯。"
+    "hLog20200716": "修正南半球捕蟲大賽的日子。新增正體中文與俄文翻譯。",
+    "lstSpecialClouds": "Cumulonimbus%%Cirrus%%Cirrocumulus%%Thin clouds%%Billow clouds"
 }

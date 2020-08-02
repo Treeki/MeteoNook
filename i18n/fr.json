@@ -215,5 +215,6 @@
     "warningMessage": "Êtes vous sûr de vouloir supprimer définitivement les données de l'île {0} ?",
     "warningCancel": "Non, annuler",
     "warningOK": "Oui, supprimer",
-    "hLog20200716": "Correction des dates pour l'insectosafari dans l'hémisphère sud. Ajout des traductions en chinois (traditionnel) et russe"
+    "hLog20200716": "Correction des dates pour l'insectosafari dans l'hémisphère sud. Ajout des traductions en chinois (traditionnel) et russe",
+    "lstSpecialClouds": "Cumulonimbus%%Cirrus%%Cirrocumulus%%Thin clouds%%Billow clouds"
 }

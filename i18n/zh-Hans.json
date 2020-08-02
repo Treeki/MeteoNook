@@ -215,5 +215,6 @@
     "warningMessage": "你确定想删除 {0} 的全部数据吗？",
     "warningCancel": "不，取消",
     "warningOK": "是的，删除",
-    "hLog20200716": "修复南半球捕虫大赛的日期问题。增加了繁体中文和俄文翻译。"
+    "hLog20200716": "修复南半球捕虫大赛的日期问题。增加了繁体中文和俄文翻译。",
+    "lstSpecialClouds": "Cumulonimbus%%Cirrus%%Cirrocumulus%%Thin clouds%%Billow clouds"
 }
