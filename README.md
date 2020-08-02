@@ -31,4 +31,3 @@ Additionally, there's no obligation to do so, but if you'd like to support my wo
 - Some sort of hosted API
 - Dark mode
 - Toggle to use system-agnostic icons for those stuck on Windows 7 without emoji support
-- Special cloud pattern support

@@ -1,7 +1,7 @@
 export enum DayType { NoData = 0, None, Shower, Rainbow, Aurora }
 export enum ShowerType { NotSure = 0, Light, Heavy }
 
-import {Hemisphere, Weather, SpecialDay, getMonthLength, Pattern, getPattern, getWeather, getWindPower, isSpecialDay, SnowLevel, CloudLevel, FogLevel, getSnowLevel, getCloudLevel, getFogLevel, checkWaterFog, RainbowInfo, getRainbowInfo, isAuroraPattern, fromLinearHour, toLinearHour, canHaveShootingStars, queryStars, getStarSecond, isLightShowerPattern, isHeavyShowerPattern, isPatternPossibleAtDate, GuessData, getPatternKind, PatternKind, SpWeatherLevel, getSpWeatherLevel, Constellation, getConstellation, getWindPowerMin, getWindPowerMax} from '../pkg'
+import {Hemisphere, Weather, SpecialDay, getMonthLength, Pattern, getPattern, getWeather, getWindPower, isSpecialDay, SnowLevel, CloudLevel, FogLevel, getSnowLevel, getCloudLevel, getFogLevel, checkWaterFog, RainbowInfo, getRainbowInfo, isAuroraPattern, fromLinearHour, toLinearHour, canHaveShootingStars, queryStars, getStarSecond, isLightShowerPattern, isHeavyShowerPattern, isPatternPossibleAtDate, GuessData, getPatternKind, PatternKind, SpWeatherLevel, getSpWeatherLevel, Constellation, getConstellation, getWindPowerMin, getWindPowerMax, getSpecialCloudInfo, SpecialCloud} from '../pkg'
 export {Hemisphere, Weather, SpecialDay, getMonthLength}
 
 export enum AmbiguousWeather {
@@ -407,6 +407,7 @@ export class DayForecast {
 	readonly date: Date
 	readonly pattern: Pattern
 	readonly weather: Weather[]
+	readonly specialClouds: SpecialCloud[]
 	readonly windPower: number[]
 	readonly windPowerMin: number[]
 	readonly windPowerMax: number[]
@@ -455,6 +456,7 @@ export class DayForecast {
 		this.patternPreviewMode = (seed === null)
 
 		let prevDay = day - 1, prevMonth = month, prevYear = year
+		let nextDay = day + 1, nextMonth = month, nextYear = year
 		if (prevDay == 0) {
 			prevMonth -= 1
 			if (prevMonth == 0) {
@@ -462,6 +464,14 @@ export class DayForecast {
 				prevYear -= 1
 			}
 			prevDay = getMonthLength(prevYear, prevMonth)
+		}
+		if (nextDay > getMonthLength(nextYear, nextMonth)) {
+			nextDay = 1
+			nextMonth += 1
+			if (nextMonth == 13) {
+				nextMonth = 1
+				nextYear += 1
+			}
 		}
 
 		// collect data from the library
@@ -485,12 +495,14 @@ export class DayForecast {
 		this.windPower = []
 		this.windPowerMin = []
 		this.windPowerMax = []
+		this.specialClouds = []
 		for (let hour = 0; hour < 24; hour++) {
 			this.weather.push(getWeather(hour, this.pattern))
 			this.windPowerMin.push(getWindPowerMin(hour, this.pattern))
 			this.windPowerMax.push(getWindPowerMax(hour, this.pattern))
 			if (seed !== null)
 				this.windPower.push(getWindPower(seed, year, month, day, hour, this.pattern))
+			this.specialClouds.push(SpecialCloud.None)
 		}
 
 		this.heavyFog = false
@@ -511,6 +523,24 @@ export class DayForecast {
 				this.waterFog =
 					(this.fogLevel != FogLevel.None) &&
 					checkWaterFog(seed, year, month, day)
+			}
+
+			const nextPattern = getPattern(hemisphere, seed, nextYear, nextMonth, nextDay)
+			const specialCloudInfo = getSpecialCloudInfo(hemisphere, seed || 0, year, month, day, this.pattern, nextPattern)
+			if (specialCloudInfo !== undefined) {
+				const allowMultipleBlocks = (specialCloudInfo.cloud == SpecialCloud.Cumulonimbus)
+				let seenFirstBlock = false
+				for (let hour = specialCloudInfo.range_start; hour <= specialCloudInfo.range_end; hour++) {
+					const weather = this.weather[hour % 24]
+					if (weather == Weather.Clear || weather == Weather.Sunny) {
+						seenFirstBlock = true
+						this.specialClouds[hour % 24] = specialCloudInfo.cloud
+					} else {
+						if (seenFirstBlock && !allowMultipleBlocks)
+							break
+					}
+				}
+				specialCloudInfo.free()
 			}
 
 			for (let linearHour = 0; linearHour < 9; linearHour++) {
@@ -540,6 +570,7 @@ export class DayForecast {
 			windPower: this.windPower,
 			windPowerMin: this.windPowerMin,
 			windPowerMax: this.windPowerMax,
+			specialClouds: this.specialClouds.map(c => SpecialCloud[c]),
 			constellation: Constellation[this.constellation],
 			specialDay: SpecialDay[this.specialDay],
 			snowLevel: SnowLevel[this.snowLevel],

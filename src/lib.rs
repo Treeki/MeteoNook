@@ -411,6 +411,108 @@ pub fn is_light_shower_pattern(pattern: Pattern) -> bool {
 }
 
 
+#[wasm_bindgen]
+#[derive(PartialEq, Clone, Copy, Debug)]
+pub enum SpecialCloud {
+	None = 0,
+	Cumulonimbus = 1,
+	Cirrus = 2,
+	Cirrocumulus = 3,
+	ThinClouds = 4,
+	BillowClouds = 5
+}
+
+#[wasm_bindgen]
+pub struct SpecialCloudInfo {
+	pub cloud: SpecialCloud,
+	// TODO: not working?
+	//#[wasm_bindgen(js_name = rangeStart)]
+	pub range_start: u8,
+	//#[wasm_bindgen(js_name = rangeEnd)]
+	pub range_end: u8
+}
+
+#[wasm_bindgen(js_name = getSpecialCloudInfo)]
+pub fn get_special_cloud_info(hemi: Hemisphere, seed: u32, year: u16, month: u8, day: u8, today: Pattern, tomorrow: Pattern) -> Option<SpecialCloudInfo> {
+	use PatternKind::*;
+
+	let level = get_cloud_level(hemi, month, day);
+	if level == CloudLevel::None {
+		// bail out early and skip RNG stuff in this case
+		return None
+	}
+
+	let seed = compute_seed_ymd(seed, 0x1000000, 0x40000, 0x1000, year, month, day);
+	let mut rng = Random::with_seed(seed);
+	rng.roll();
+	rng.roll();
+	if (rng.roll() & 0x80000000u32) != 0 {
+		return None
+	}
+
+	match level {
+		CloudLevel::None => None,
+		CloudLevel::Cumulonimbus => {
+			match today.kind() {
+				Fine | FineCloud | CloudFine | FineRain | EventDay => {
+					Some(SpecialCloudInfo {
+						cloud: SpecialCloud::Cumulonimbus,
+						range_start: 9,
+						range_end: 20
+					})
+				}
+				_ => None
+			}
+		}
+		CloudLevel::Cirrus => {
+			let range_len = rng.roll_max8(8);
+			let range_start = 6 + rng.roll_max8(21 - range_len);
+			match today.kind() {
+				Cloud | FineCloud | FineRain | CloudFine | CloudRain | RainCloud | EventDay => {
+					Some(SpecialCloudInfo {
+						cloud: SpecialCloud::Cirrocumulus,
+						range_start, range_end: range_start + range_len
+					})
+				},
+				Fine => {
+					Some(SpecialCloudInfo {
+						cloud: SpecialCloud::Cirrus,
+						range_start, range_end: range_start + range_len
+					})
+				},
+				_ => None
+			}
+		}
+		CloudLevel::Billow => {
+			match tomorrow.kind() {
+				Cloud | Rain | FineCloud | CloudFine | CloudRain | RainCloud | FineRain | EventDay => {
+					let range_len = rng.roll_max8(8);
+					let range_start = 6 + rng.roll_max8(11 - range_len);
+					Some(SpecialCloudInfo {
+						cloud: SpecialCloud::BillowClouds,
+						range_start, range_end: range_start + range_len
+					})
+				}
+				_ => None
+			}
+		}
+		CloudLevel::Thin => {
+			match tomorrow.kind() {
+				Cloud | Rain | FineCloud | CloudFine | CloudRain | RainCloud | FineRain | EventDay => {
+					let range_len = rng.roll_max8(8);
+					let range_start = 6 + rng.roll_max8(21 - range_len);
+					Some(SpecialCloudInfo {
+						cloud: SpecialCloud::ThinClouds,
+						range_start, range_end: range_start + range_len
+					})
+				}
+				_ => None
+			}
+		}
+	}
+}
+
+
 #[wasm_bindgen(js_name = getWindPower)]
 pub fn get_wind_power(seed: u32, year: u16, month: u8, day: u8, hour: u8, pattern: Pattern) -> u8 {
 	use WindType::*;

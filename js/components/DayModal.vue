@@ -22,6 +22,9 @@
 				<span v-if='hour == 7 && day.waterFog'>
 					🌫 {{ $t('dWaterFog') }}
 				</span>
+				<span v-if='day.specialClouds[hour]'>
+					🌀 {{ $t('lstSpecialClouds' + (day.specialClouds[hour] - 1)) }}
+				</span>
 				<span v-if='!day.patternPreviewMode && hour == day.rainbowHour && day.rainbowCount == 1'>
 					🌈 {{ $t('dRainbowSingle') }}
 				</span>
