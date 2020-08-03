@@ -306,7 +306,7 @@ export default class SeedFinder extends Vue {
 		)
 	}
 	get billowBlurb() {
-		return this.makeSpecialCloudBlurb('Uncertain', 6, 4, '10', '15', true)
+		return this.makeSpecialCloudBlurb('Uncertain', 6, 17, '10', '15', true)
 	}
 	get thinDates() {
 		return this.makeSpecialCloudDateText(
@@ -315,7 +315,7 @@ export default class SeedFinder extends Vue {
 		)
 	}
 	get thinBlurb() {
-		return this.makeSpecialCloudBlurb('Uncertain', 6, 17, '5', '10', true)
+		return this.makeSpecialCloudBlurb('Uncertain', 6, 4, '5', '10', true)
 	}
 }
 </script>
