@@ -3,6 +3,9 @@ export function makeTime(hours: number, minutes: number, seconds?: number): Date
 	// but this doesn't play nicely with some timezones, like Portugal
 	return new Date(2020, 6, 30, hours, minutes, seconds || 0)
 }
+export function makeDayMonth(day: number, month: number): Date {
+	return new Date(2020, month - 1, day, 5, 0, 0)
+}
 
 export function readStorageObject<T>(key: string, validCallback?: (value: T) => boolean): T|null {
 	try {

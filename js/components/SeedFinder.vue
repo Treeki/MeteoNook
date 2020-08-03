@@ -13,6 +13,74 @@
 			<span class='wte5'>{{ $t('lstPatternNoSnow5') }}</span>
 		</div>
 		<div v-html="timeify($t('sTypes2'))"></div>
+
+		<h4>{{ $t('spcHeader') }} {{ $t('newSuffix') }}</h4>
+		<div v-html="$t('spcBlurb')"></div>
+		<b-card no-body>
+			<b-tabs card>
+				<b-tab :title="$t('lstSpecialCloudsLevels1')">
+					<p v-html='cumulonimbusDates'></p>
+					<p>{{ cumulonimbusBlurb }}</p>
+					<p>
+						{{ $t('spcExamplePrompt') }}
+						<b-button variant='outline-secondary' size='sm' href='example_cumulonimbus_clear.jpg' target='_blank'>
+							{{ $t('lstPatternChoices0') }}
+						</b-button>
+						<b-button variant='outline-secondary' size='sm' href='example_cumulonimbus_sunny.jpg' target='_blank'>
+							{{ $t('lstPatternChoices1') }}
+						</b-button>
+					</p>
+				</b-tab>
+				<b-tab :title="$t('lstSpecialCloudsLevels2')">
+					<p v-html='cirrusDates'></p>
+					<p>{{ $t('spcCirrus') }}</p>
+					<p>{{ cirrusBlurb }}</p>
+					<p>
+						{{ $t('spcExamplePrompt') }}
+						<b-button variant='outline-secondary' size='sm' href='example_cirrus_clear.jpg' target='_blank'>
+							{{ $t('lstSpecialClouds1') }} ({{ $t('lstPatternChoices0') }})
+						</b-button>
+						<b-button variant='outline-secondary' size='sm' href='example_cirrus_sunny.jpg' target='_blank'>
+							{{ $t('lstSpecialClouds1') }} ({{ $t('lstPatternChoices1') }})
+						</b-button>
+						<b-button variant='outline-secondary' size='sm' href='example_cirrocumulus_clear.jpg' target='_blank'>
+							{{ $t('lstSpecialClouds2') }} ({{ $t('lstPatternChoices0') }})
+						</b-button>
+						<b-button variant='outline-secondary' size='sm' href='example_cirrocumulus_sunny.jpg' target='_blank'>
+							{{ $t('lstSpecialClouds2') }} ({{ $t('lstPatternChoices1') }})
+						</b-button>
+					</p>
+				</b-tab>
+				<b-tab :title="$t('lstSpecialCloudsLevels4')">
+					<p v-html='billowDates'></p>
+					<p>{{ billowBlurb }}</p>
+					<p>{{ $t('spcDifficultWarning') }}</p>
+					<p>
+						{{ $t('spcExamplePrompt') }}
+						<b-button variant='outline-secondary' size='sm' href='example_billow_clear.jpg' target='_blank'>
+							{{ $t('lstPatternChoices0') }}
+						</b-button>
+						<b-button variant='outline-secondary' size='sm' href='example_billow_sunny.jpg' target='_blank'>
+							{{ $t('lstPatternChoices1') }}
+						</b-button>
+					</p>
+				</b-tab>
+				<b-tab :title="$t('lstSpecialCloudsLevels3')">
+					<p v-html='thinDates'></p>
+					<p>{{ thinBlurb }}</p>
+					<p>
+						{{ $t('spcExamplePrompt') }}
+						<b-button variant='outline-secondary' size='sm' href='example_thin_clear.jpg' target='_blank'>
+							{{ $t('lstPatternChoices0') }}
+						</b-button>
+						<b-button variant='outline-secondary' size='sm' href='example_thin_sunny.jpg' target='_blank'>
+							{{ $t('lstPatternChoices1') }}
+						</b-button>
+					</p>
+				</b-tab>
+			</b-tabs>
+		</b-card>
+
 		<h4 class='mt-4'>{{ $t('sTStars') }}</h4>
 		<div v-html="timeify($t('sStars'))"></div>
 		<h4 class='mt-4'>{{ $t('sTTips') }}</h4>
@@ -75,21 +143,33 @@ import { Vue, Component, Watch } from 'vue-property-decorator'
 import DayEditor from './DayEditor.vue'
 import GuessWorkerView from './GuessWorkerView.vue'
 import {createDayInfo, DayInfo, DayType, ShowerType, Hemisphere, isDayNonEmpty, DayForecast} from '../model'
-import {readStorageObject, readStorage, writeStorageObject, writeStorage, makeTime} from '../utils'
+import {readStorageObject, readStorage, writeStorageObject, writeStorage, makeTime, makeDayMonth} from '../utils'
 import { BFormTextarea } from 'bootstrap-vue'
 
 export type SeedFinderDays = {[key: string]: DayInfo}
+
+function updateSFDays(days: SeedFinderDays) {
+	for (const day of Object.values(days)) {
+		for (const type of day.types) {
+			if (type.specialCloud === undefined)
+				type.specialCloud = null
+		}
+	}
+}
 
 const sfDaysKey = 'meteonook_sf_days'
 const sfHemisphereKey = 'meteonook_sf_hemisphere'
 function loadSFDays(): SeedFinderDays {
 	let obj = readStorageObject<SeedFinderDays>(sfDaysKey)
-	if (obj !== null)
+	if (obj !== null) {
+		updateSFDays(obj)
 		return obj
+	}
 
 	obj = readStorageObject<SeedFinderDays>('meteonook_data', (data: any) => data.version === 2)
 	if (obj !== null) {
 		delete obj.version
+		updateSFDays(obj)
 		return obj
 	}
 
@@ -182,6 +262,60 @@ export default class SeedFinder extends Vue {
 	selectAllExportData() {
 		const textarea = this.$refs.exportedDataTextarea.$el as HTMLTextAreaElement
 		textarea.setSelectionRange(0, textarea.value.length)
+	}
+
+
+	makeSpecialCloudDateText(startN: Date, endN: Date, startS: Date, endS: Date) {
+		return this.$t('spcDates', {
+			startN: this.$d(startN, 'monthDay'),
+			endN: this.$d(endN, 'monthDay'),
+			startS: this.$d(startS, 'monthDay'),
+			endS: this.$d(endS, 'monthDay')
+		})
+	}
+	makeSpecialCloudBlurb(certainty: string, startHour: number, endHour: number, startThreshold: string, endThreshold: string, groupNote: boolean) {
+		const appearTime = this.$t(`spc${certainty}AppearTime`, {
+			startTime: this.$d(makeTime(startHour, 0), 'timeH'),
+			endTime: this.$d(makeTime(endHour, 0), 'timeH')
+		})
+		const fadeNote = this.$t('spcFadeNote', {start: startThreshold, end: endThreshold})
+		return [appearTime, groupNote ? this.$t('spcGroupNote') : '', fadeNote].join(' ')
+	}
+	get cumulonimbusDates() {
+		return this.makeSpecialCloudDateText(
+			makeDayMonth(21, 7), makeDayMonth(15, 9),
+			makeDayMonth(21, 1), makeDayMonth(15, 3)
+		)
+	}
+	get cumulonimbusBlurb() {
+		return this.makeSpecialCloudBlurb('Certain', 9, 21, '5', '5', false)
+	}
+	get cirrusDates() {
+		return this.makeSpecialCloudDateText(
+			makeDayMonth(16, 9), makeDayMonth(30, 11),
+			makeDayMonth(16, 3), makeDayMonth(31, 5)
+		)
+	}
+	get cirrusBlurb() {
+		return this.makeSpecialCloudBlurb('Uncertain', 6, 4, '10', '10', true)
+	}
+	get billowDates() {
+		return this.makeSpecialCloudDateText(
+			makeDayMonth(1, 12), makeDayMonth(29, 2),
+			makeDayMonth(1, 6), makeDayMonth(31, 8)
+		)
+	}
+	get billowBlurb() {
+		return this.makeSpecialCloudBlurb('Uncertain', 6, 4, '10', '15', true)
+	}
+	get thinDates() {
+		return this.makeSpecialCloudDateText(
+			makeDayMonth(1, 3), makeDayMonth(31, 5),
+			makeDayMonth(1, 9), makeDayMonth(30, 11)
+		)
+	}
+	get thinBlurb() {
+		return this.makeSpecialCloudBlurb('Uncertain', 6, 17, '5', '10', true)
 	}
 }
 </script>

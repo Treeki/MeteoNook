@@ -63,6 +63,7 @@
 				<b-form-select v-model.number='type.time' :options='hourOptions'></b-form-select>
 				<b-form-select v-model.number='type.type' :options='weatherTypeOptions'></b-form-select>
 				<b-input-group-append>
+					<b-button variant='outline-secondary' v-if='showsSpecialCloudOptions(index)' @click='cycleSpecialCloudType(index)'>{{ specialCloudIcon(index) }}</b-button>
 					<b-button variant='outline-danger' @click='removeType(index)'>✖️</b-button>
 				</b-input-group-append>
 			</b-input-group>
@@ -98,6 +99,9 @@
 			<span v-show='possiblePatternNames.length == 0' v-html="$t('tPatternsNone')"></span>
 			<span class='patNameInList' v-for='pat in possiblePatternNames' :key='pat' @click='demoPattern(pat)'>{{ pat }}</span>
 		</p>
+		<p class='mt-2'>
+			🌀 <b>Special cloud type:</b> {{ cloudLevelName }}
+		</p>
 
 		<b-modal id='secondsEditor' :title='starSecondsTitle' :ok-title="$t('tsSave')" :cancel-title="$t('tsCancel')" scrollable @ok='saveSeconds'>
 			<p>{{ $t('tsHeader') }}</p>
@@ -113,8 +117,8 @@
 
 <script lang='ts'>
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import {DayInfo, DayType, AmbiguousWeather, ShowerType, StarInfo, dayUsesTypes, getPossiblePatternsForDay, rainbowPatternsByTime, DayForecast} from '../model'
-import {isSpecialDay, SpecialDay, Hemisphere, SpWeatherLevel, getSpWeatherLevel, Weather, Pattern} from '../../pkg'
+import {DayInfo, DayType, AmbiguousWeather, ShowerType, StarInfo, dayUsesTypes, getPossiblePatternsForDay, rainbowPatternsByTime, DayForecast, isSpecialCloudEntryAllowed} from '../model'
+import {isSpecialDay, SpecialDay, Hemisphere, SpWeatherLevel, getSpWeatherLevel, Weather, Pattern, CloudLevel, getCloudLevel} from '../../pkg'
 import { TranslateResult } from 'vue-i18n'
 import { makeTime } from '../utils'
 
@@ -122,6 +126,13 @@ import { makeTime } from '../utils'
 export default class DayEditor extends Vue {
 	@Prop(Object) readonly day!: DayInfo
 	@Prop(Number) readonly hemisphere!: Hemisphere
+
+	get cloudLevel(): CloudLevel {
+		return getCloudLevel(this.hemisphere, this.day.m, this.day.d)
+	}
+	get cloudLevelName(): TranslateResult {
+		return this.$t('lstSpecialCloudsLevels' + this.cloudLevel)
+	}
 
 	get hourOptions() {
 		const options = []
@@ -391,10 +402,30 @@ export default class DayEditor extends Vue {
 			else
 				hour += 1
 		}
-		this.day.types.push({time: hour, type: Weather.Clear})
+		this.day.types.push({time: hour, type: Weather.Clear, specialCloud: null})
 	}
 	removeType(index: number) {
 		this.day.types.splice(index, 1)
+	}
+
+	specialCloudIcon(index: number): string {
+		switch (this.day.types[index].specialCloud) {
+			case null:  return '🌀❓'
+			case true:  return '🌀✔'
+			case false: return '🌀🚫'
+		}
+	}
+	cycleSpecialCloudType(index: number) {
+		const type = this.day.types[index]
+		switch (type.specialCloud) {
+			case null:  type.specialCloud = true;  return
+			case true:  type.specialCloud = false; return
+			case false: type.specialCloud = null;  return
+		}
+	}
+
+	showsSpecialCloudOptions(index: number): boolean {
+		return isSpecialCloudEntryAllowed(this.day.types[index].type, this.cloudLevel, this.day.types[index].time)
 	}
 }
 </script>

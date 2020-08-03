@@ -31,7 +31,10 @@ pub enum SnowLevel {
 #[wasm_bindgen]
 #[derive(PartialEq, Clone, Copy, Debug)]
 pub enum CloudLevel {
-	None, Cumulonimbus, Cirrus, Billow, Thin
+	None, Cumulonimbus, Cirrus, Thin, Billow
+}
+impl Default for CloudLevel {
+	fn default() -> Self { CloudLevel::None }
 }
 #[wasm_bindgen]
 #[derive(PartialEq, Clone, Copy, Debug)]

@@ -13,6 +13,16 @@ macro_rules! log {
 mod data;
 pub use data::*;
 
+#[derive(PartialEq, Clone, Copy, Debug)]
+enum TriState {
+	Never,     // non-special days
+	Sometimes, // special days dependent on game flags or updates
+	Certain    // permanent special days
+}
+impl Default for TriState {
+	fn default() -> Self { TriState::Never }
+}
+
 #[wasm_bindgen(js_name = isSpecialDay)]
 pub fn is_special_day(hemi: Hemisphere, y: u16, m: u8, d: u8) -> SpecialDay {
 	use SpecialDay::*;
@@ -44,6 +54,19 @@ pub fn is_special_day(hemi: Hemisphere, y: u16, m: u8, d: u8) -> SpecialDay {
 	}
 	if m == 12 && d == 31 { return Countdown; }
 	return None;
+}
+
+fn is_eventday_forced(hemi: Hemisphere, y: u16, m: u8, d: u8) -> TriState {
+	use SpecialDay::*;
+	use TriState::*;
+	match is_special_day(hemi, y, m, d) {
+		Easter => Certain,
+		FishCon => Sometimes,
+		InsectCon => Sometimes,
+		Countdown => Certain,
+		Fireworks => Sometimes,
+		None => Never
+	}
 }
 
 
@@ -430,6 +453,25 @@ pub enum SpecialCloud {
 	BillowClouds = 5
 }
 
+fn get_special_cloud_time_range(level: CloudLevel, rng: &mut Random) -> (u8, u8) {
+	use CloudLevel::*;
+	match level {
+		None => unreachable!(),
+		Cumulonimbus => (9, 20),
+		Cirrus | Thin => {
+			let range_len = rng.roll_max8(8);
+			let range_start = 6 + rng.roll_max8(21 - range_len);
+			(range_start, range_start + range_len)
+		}
+		Billow => {
+			let range_len = rng.roll_max8(8);
+			let range_start = 6 + rng.roll_max8(11 - range_len);
+			(range_start, range_start + range_len)
+		}
+	}
+}
+
+
 #[wasm_bindgen]
 pub struct SpecialCloudInfo {
 	pub cloud: SpecialCloud,
@@ -470,65 +512,40 @@ fn get_special_cloud_info(hemi: Hemisphere, seed: u32, year: u16, month: u8, day
 		return None
 	}
 
-	match level {
-		CloudLevel::None => None,
+	let cloud = match level {
+		CloudLevel::None => SpecialCloud::None,
 		CloudLevel::Cumulonimbus => {
 			match today.kind() {
-				Fine | FineCloud | CloudFine | FineRain | EventDay => {
-					Some(SpecialCloudInfo {
-						cloud: SpecialCloud::Cumulonimbus,
-						range_start: 9,
-						range_end: 20
-					})
-				}
-				_ => None
+				Fine | FineCloud | CloudFine | FineRain | EventDay => SpecialCloud::Cumulonimbus,
+				_ => SpecialCloud::None
 			}
 		}
 		CloudLevel::Cirrus => {
-			let range_len = rng.roll_max8(8);
-			let range_start = 6 + rng.roll_max8(21 - range_len);
 			match today.kind() {
-				Cloud | FineCloud | FineRain | CloudFine | CloudRain | RainCloud | EventDay => {
-					Some(SpecialCloudInfo {
-						cloud: SpecialCloud::Cirrocumulus,
-						range_start, range_end: range_start + range_len
-					})
-				},
-				Fine => {
-					Some(SpecialCloudInfo {
-						cloud: SpecialCloud::Cirrus,
-						range_start, range_end: range_start + range_len
-					})
-				},
-				_ => None
+				Cloud | FineCloud | FineRain | CloudFine | CloudRain | RainCloud | EventDay => SpecialCloud::Cirrocumulus,
+				Fine => SpecialCloud::Cirrus,
+				_ => SpecialCloud::None
 			}
 		}
 		CloudLevel::Billow => {
 			match tomorrow.kind() {
-				Cloud | Rain | FineCloud | CloudFine | CloudRain | RainCloud | FineRain | EventDay => {
-					let range_len = rng.roll_max8(8);
-					let range_start = 6 + rng.roll_max8(11 - range_len);
-					Some(SpecialCloudInfo {
-						cloud: SpecialCloud::BillowClouds,
-						range_start, range_end: range_start + range_len
-					})
-				}
-				_ => None
+				Cloud | Rain | FineCloud | CloudFine | CloudRain | RainCloud | FineRain | EventDay => SpecialCloud::BillowClouds,
+				_ => SpecialCloud::None
 			}
 		}
 		CloudLevel::Thin => {
 			match tomorrow.kind() {
-				Cloud | Rain | FineCloud | CloudFine | CloudRain | RainCloud | FineRain | EventDay => {
-					let range_len = rng.roll_max8(8);
-					let range_start = 6 + rng.roll_max8(21 - range_len);
-					Some(SpecialCloudInfo {
-						cloud: SpecialCloud::ThinClouds,
-						range_start, range_end: range_start + range_len
-					})
-				}
-				_ => None
+				Cloud | Rain | FineCloud | CloudFine | CloudRain | RainCloud | FineRain | EventDay => SpecialCloud::ThinClouds,
+				_ => SpecialCloud::None
 			}
 		}
+	};
+
+	if cloud == SpecialCloud::None {
+		None
+	} else {
+		let (range_start, range_end) = get_special_cloud_time_range(level, &mut rng);
+		Some(SpecialCloudInfo { cloud, range_start, range_end })
 	}
 }
 
@@ -675,21 +692,149 @@ impl Default for HourGuess {
 #[derive(Default, Clone, Copy)]
 struct DayGuess {
 	seed_add: u32,
+	tomorrow_seed_add: u32,
 	rainbow_seed_add: u32,
+	true_special_cloud_mask: u32,
+	false_special_cloud_mask: u32,
 	pattern_mask: u64,
 	month: u8,
 	day: u8,
+	tomorrow_month: u8,
+	tomorrow_day: u8,
+	tomorrow_event_forcing: TriState,
 	rainbow_count: u8,
+	cloud_level: CloudLevel,
 	hour_mask: u16,
 	hours: [HourGuess;9]
 }
 
 impl DayGuess {
-	pub fn check(&self, seed: u32, pattern: Pattern) -> bool {
+	fn special_clouds_expected(&self, hemisphere: Hemisphere, seed: u32, pattern: Pattern) -> TriState {
+		use TriState::*;
+		use PatternKind::*;
+
+		match self.cloud_level {
+			CloudLevel::None => Never,
+			CloudLevel::Cumulonimbus => {
+				match pattern.kind() {
+					Fine | FineCloud | CloudFine | FineRain | EventDay => Certain,
+					_ => Never
+				}
+			}
+			CloudLevel::Cirrus => {
+				match pattern.kind() {
+					Fine | Cloud | FineCloud | FineRain | CloudFine | CloudRain | RainCloud | EventDay => Certain,
+					_ => Never
+				}
+			}
+			// fun checks dependent on tomorrow's pattern
+			CloudLevel::Billow | CloudLevel::Thin => {
+				if self.tomorrow_event_forcing == Certain {
+					// EventDay is always eligible so we can shortcut here
+					return Certain
+				}
+
+				// what's tomorrow?
+				let mut rng = Random::with_seed(seed.wrapping_add(self.tomorrow_seed_add));
+				rng.roll();
+				rng.roll();
+				let rate_set = match hemisphere {
+					Hemisphere::Northern => RATE_LOOKUP_N[(self.tomorrow_month - 1) as usize][(self.tomorrow_day - 1) as usize],
+					Hemisphere::Southern => RATE_LOOKUP_S[(self.tomorrow_month - 1) as usize][(self.tomorrow_day - 1) as usize]
+				};
+				let pattern = Pattern::from_u8(RATE_MAPS[rate_set as usize][rng.roll_max(100) as usize]);
+				
+				let (valid, invalid) = match self.tomorrow_event_forcing {
+					Certain   => (Certain, Certain),
+					Sometimes => (Certain, Sometimes),
+					Never     => (Sometimes, Never)
+				};
+
+				match pattern.kind() {
+					Cloud | Rain | FineCloud | CloudFine | CloudRain | RainCloud | FineRain | EventDay => valid,
+					_ => invalid
+				}
+			}
+		}
+	}
+
+	fn check_special_clouds_precisely(&self, pattern: Pattern, rng: &mut Random, ignore_falses: bool) -> bool {
+		let (start, end) = get_special_cloud_time_range(self.cloud_level, rng);
+
+		let mut pending_matches = self.true_special_cloud_mask;
+		let mut group_started = false;
+		let mut group_ended = false;
+		for ext_hour in 5..29 {
+			let hour = ext_hour % 24;
+			let hour_bit = 1u32 << hour;
+			let w = PATTERNS[pattern as usize][hour as usize];
+			let has_cloud =
+				!group_ended &&
+				(ext_hour >= start) &&
+				(ext_hour <= end) &&
+				((w == Weather::Clear) || w == Weather::Sunny);
+
+			if has_cloud {
+				group_started = true;
+				if (pending_matches & hour_bit) != 0 {
+					pending_matches ^= hour_bit;
+				}
+				if !ignore_falses && (self.false_special_cloud_mask & hour_bit) != 0 {
+					return false
+				}
+			} else {
+				if (pending_matches & hour_bit) != 0 {
+					return false
+				}
+
+				if group_started {
+					group_ended = true;
+					if pending_matches != 0 {
+						// can instantly bail, these will never match
+						return false
+					}
+				}
+			}
+		}
+		true
+	}
+
+	pub fn check(&self, hemisphere: Hemisphere, seed: u32, pattern: Pattern) -> bool {
 		// pattern check
 		let pattern_bit = 1u64 << (pattern as u8);
 		if (self.pattern_mask & pattern_bit) == 0 {
 			return false;
+		}
+
+		if (self.true_special_cloud_mask != 0) || (self.false_special_cloud_mask != 0) {
+			use TriState::*;
+			let mut rng = Random::with_seed(seed.wrapping_add(self.rainbow_seed_add));
+			rng.roll();
+			rng.roll();
+			if (rng.roll() & 0x80000000u32) == 0 {
+				// this seed may show clouds
+				// do we expect to see them on this pattern?
+				let pattern_ok = self.special_clouds_expected(hemisphere, seed, pattern);
+				if self.true_special_cloud_mask != 0 && pattern_ok == Never {
+					return false
+				}
+
+				// when would they show?
+				// precise checks required for anything but cumulonimbus
+				if self.cloud_level != CloudLevel::None && self.cloud_level != CloudLevel::Cumulonimbus {
+					// this takes care of the case where a player may not have
+					// seen special weather because of a conditional EventDay
+					let ignore_falses = (self.true_special_cloud_mask == 0) && (pattern_ok != Certain);
+					if !self.check_special_clouds_precisely(pattern, &mut rng, ignore_falses) {
+						return false
+					}
+				}
+			} else {
+				// no clouds
+				if self.true_special_cloud_mask != 0 {
+					return false
+				}
+			}
 		}
 
 		// rainbow check
@@ -842,7 +987,13 @@ impl GuessData {
 		dg.month = month;
 		dg.day = day;
 		dg.seed_add = seed_add;
+		let (next_y, next_m, next_d) = get_next_day(year, month, day);
+		dg.tomorrow_month = next_m;
+		dg.tomorrow_day = next_d;
+		dg.tomorrow_seed_add = compute_seed_ymd(0, 0x2000000, 0x200000, 0x10000, next_y, next_m, next_d);
+		dg.tomorrow_event_forcing = is_eventday_forced(self.hemisphere, next_y, next_m, next_d);
 		dg.rainbow_seed_add = compute_seed_ymd(0, 0x1000000, 0x40000, 0x1000, year, month, day);
+		dg.cloud_level = get_cloud_level(self.hemisphere, month, day);
 		for linear_hour in 0..9 {
 			let hour = from_linear_hour(linear_hour);
 			let (n_year, n_month, n_day) = normalise_late_ymd(year, month, day, hour);
@@ -859,6 +1010,19 @@ impl GuessData {
 			Some(dg) => {
 				// log!("+pat {}-{}-{} = {:?}", year, month, day, pat);
 				dg.pattern_mask |= 1u64 << (pat as u32);
+				true
+			}
+		}
+	}
+
+	#[wasm_bindgen(js_name = addSpecialCloudInfo)]
+	pub fn add_special_cloud_info(&mut self, year: u16, month: u8, day: u8, true_mask: u32, false_mask: u32) -> bool {
+		match self.find_day(year, month, day) {
+			None => false,
+			Some(dg) => {
+				// log!("+spcloud {}-{}-{} = {} {}", year, month, day, true_mask, false_mask);
+				dg.true_special_cloud_mask = true_mask;
+				dg.false_special_cloud_mask = false_mask;
 				true
 			}
 		}
@@ -928,7 +1092,7 @@ impl GuessData {
 			};
 			let pattern = Pattern::from_u8(RATE_MAPS[rate_set as usize][rng.roll_max(100) as usize]);
 
-			if !dg.check(seed, pattern) {
+			if !dg.check(self.hemisphere, seed, pattern) {
 				return false
 			}
 		}

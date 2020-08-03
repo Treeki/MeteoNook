@@ -108,7 +108,8 @@ const dtfBase: DateTimeFormat = {
 	short: {year: 'numeric', month: '2-digit', day: '2-digit'},
 	long: {year: 'numeric', month: 'long', day: 'numeric'},
 	yearMonth: {year: 'numeric', month: 'long'},
-	weekDayMonth: {weekday: 'short', day: 'numeric', month: 'numeric'}
+	weekDayMonth: {weekday: 'short', day: 'numeric', month: 'numeric'},
+	monthDay: {day: 'numeric', month: 'long'}
 }
 const dtf24: DateTimeFormat = {}, dtf12: DateTimeFormat = {}
 Object.assign(dtf24, dtfBase)

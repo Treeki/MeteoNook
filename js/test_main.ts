@@ -1,5 +1,5 @@
-import { Forecast, Hemisphere, MonthForecast, DayForecast, DayInfo, createDayInfo, populateGuessData, DayType, ShowerType, AmbiguousWeather, StarInfo } from './model'
-import { Guesser, GuessData, GuesserResult, Random, SpecialDay, Weather, Pattern } from '../pkg'
+import { Forecast, Hemisphere, MonthForecast, DayForecast, DayInfo, createDayInfo, populateGuessData, DayType, ShowerType, AmbiguousWeather, StarInfo, IslandInfo } from './model'
+import { Guesser, GuessData, GuesserResult, Random, SpecialDay, Weather, Pattern, SpecialCloud } from '../pkg'
 
 const ambiguousWeatherTypes = {
 	[Weather.Clear]: [AmbiguousWeather.NoRain, AmbiguousWeather.ClearOrSunny],
@@ -84,14 +84,18 @@ function makeTestDay(rng: Random, forecast: DayForecast): DayInfo {
 	for (let hour = 0; hour < 24; hour++) {
 		if (rng.rollMax(100) < 10) {
 			const weather = forecast.weather[hour]
+			let specialCloud = null
+			if (rng.rollMax(100) < 45) {
+				specialCloud = (forecast.specialClouds[hour] !== SpecialCloud.None)
+			}
 			if (rng.rollMax(100) < 60) {
 				// pick ambiguous weather
 				const options = ambiguousWeatherTypes[weather]
 				const amb = options[rng.rollMax(options.length)]
-				info.types.push({time: hour, type: amb})
+				info.types.push({time: hour, type: amb, specialCloud})
 			} else {
 				// pick exact weather
-				info.types.push({time: hour, type: weather})
+				info.types.push({time: hour, type: weather, specialCloud})
 			}
 		}
 	}
@@ -105,7 +109,7 @@ interface Outcome {
 	results: number[]
 }
 
-const checkRange = 0xFFFFF
+const checkRange = 0xFFFF
 
 function performTests(weatherSeed: number, testSeed: number, hemisphere: Hemisphere, year: number, month: number): Outcome {
 	const rng = Random.withSeed(testSeed)
@@ -166,7 +170,7 @@ if (args.length > 0) {
 	]
 	for (const weatherSeed of weatherSeeds) {
 		const testSeedMin = weatherSeed >>> 4
-		const testSeedMax = testSeedMin + 20
+		const testSeedMax = testSeedMin + 50
 		for (const hemisphere of [Hemisphere.Northern, Hemisphere.Southern]) {
 			console.log(`Testing ${weatherSeed} in hemisphere ${hemisphere}...`)
 			let ok = 0, tooMany = 0, fail = 0

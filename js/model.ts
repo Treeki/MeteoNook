@@ -13,7 +13,7 @@ export enum AmbiguousWeather {
 }
 
 export interface WeatherTypeInfo {
-	time: number, type: Weather|AmbiguousWeather
+	time: number, type: Weather|AmbiguousWeather, specialCloud: boolean|null
 }
 export interface StarInfo {
 	hour: number, minute: number, seconds: number[]
@@ -94,7 +94,38 @@ function getOldWeather(hour: number, pat: Pattern): Weather|undefined {
 	return undefined
 }
 
-function checkPatternAgainstTypes(pat: Pattern, types: WeatherTypeInfo[]): boolean {
+const cumulonimbusPatterns = [
+	PatternKind.Fine,
+	PatternKind.FineCloud,
+	PatternKind.CloudFine,
+	PatternKind.FineRain,
+	PatternKind.EventDay
+]
+const cirrusPatterns = [
+	PatternKind.Fine,
+	PatternKind.Cloud,
+	PatternKind.FineCloud,
+	PatternKind.FineRain,
+	PatternKind.CloudFine,
+	PatternKind.CloudRain,
+	PatternKind.RainCloud,
+	PatternKind.EventDay
+]
+
+export function isSpecialCloudEntryAllowed(claimedWeather: Weather|AmbiguousWeather, cloudLevel: CloudLevel, hour: number): boolean {
+	if (claimedWeather != Weather.Clear && claimedWeather != Weather.Sunny && claimedWeather != AmbiguousWeather.ClearOrSunny)
+		return false
+
+	switch (cloudLevel) {
+		case CloudLevel.Cumulonimbus: return (hour >= 9) && (hour <= 20)
+		case CloudLevel.Cirrus: return (hour >= 6) || (hour <= 3)
+		case CloudLevel.Billow: return (hour >= 6) && (hour <= 16)
+		case CloudLevel.Thin: return (hour >= 6) || (hour <= 3)
+	}
+	return false
+}
+
+function checkPatternAgainstTypes(pat: Pattern, cloudLevel: CloudLevel, types: WeatherTypeInfo[]): boolean {
 	for (const typeInfo of types) {
 		const hour = typeInfo.time
 		const claimedWeather = typeInfo.type
@@ -104,6 +135,18 @@ function checkPatternAgainstTypes(pat: Pattern, types: WeatherTypeInfo[]): boole
 			const oldWeather = getOldWeather(hour, pat)
 			if (oldWeather === undefined || checkTypeMatch(oldWeather, claimedWeather) == false)
 				return false
+		}
+		if (typeInfo.specialCloud === true && isSpecialCloudEntryAllowed(claimedWeather, cloudLevel, hour)) {
+			switch (cloudLevel) {
+				case CloudLevel.Cumulonimbus:
+					if (!cumulonimbusPatterns.includes(getPatternKind(pat)))
+						return false
+					break
+				case CloudLevel.Cirrus:
+					if (!cirrusPatterns.includes(getPatternKind(pat)))
+						return false
+					break
+			}
 		}
 	}
 	return true
@@ -121,6 +164,7 @@ export const rainbowPatternsByTime: {[hour: number]: Pattern} = {
 
 export function getPossiblePatternsForDay(hemisphere: Hemisphere, day: DayInfo): Pattern[] {
 	const results: Pattern[] = []
+	const cloudLevel = getCloudLevel(hemisphere, day.m, day.d)
 
 	for (let pat: Pattern = 0; pat <= maxPattern; pat++) {
 		const isHeavy = isHeavyShowerPattern(pat)
@@ -154,7 +198,7 @@ export function getPossiblePatternsForDay(hemisphere: Hemisphere, day: DayInfo):
 		if (!isPatternPossibleAtDate(hemisphere, day.m, day.d, pat))
 			continue
 
-		if (dayUsesTypes(day) && !checkPatternAgainstTypes(pat, day.types))
+		if (dayUsesTypes(day) && !checkPatternAgainstTypes(pat, cloudLevel, day.types))
 			continue
 
 		results.push(pat)
@@ -166,12 +210,15 @@ export function getPossiblePatternsForDay(hemisphere: Hemisphere, day: DayInfo):
 
 export enum PopulateErrorKind {
 	NoPatterns,
-	StarConflict
+	StarConflict,
+	SpecialCloudGap,
+	SpecialCloudTooLong
 }
 export interface PopulateError {
 	kind: PopulateErrorKind,
 	hour?: number,
-	minute?: number
+	minute?: number,
+	hourCount?: number
 }
 
 export function populateGuessData(hemisphere: Hemisphere, data: GuessData, day: DayInfo): PopulateError | undefined {
@@ -181,6 +228,37 @@ export function populateGuessData(hemisphere: Hemisphere, data: GuessData, day: 
 
 	for (const pattern of patterns) {
 		data.addPattern(day.y, day.m, day.d, pattern)
+	}
+
+	const cloudLevel = getCloudLevel(hemisphere, day.m, day.d)
+	let cloudTrueMask = 0, cloudFalseMask = 0
+	let cloudMinHour = 999, cloudMaxHour = 0
+	for (const type of day.types) {
+		if (type.specialCloud !== null && isSpecialCloudEntryAllowed(type.type, cloudLevel, type.time)) {
+			if (type.specialCloud) {
+				cloudTrueMask |= (1 << type.time)
+				const adjustedHour = (type.time < 5) ? (24 + type.time) : type.time
+				if (adjustedHour < cloudMinHour)
+					cloudMinHour = adjustedHour
+				if (adjustedHour > cloudMaxHour)
+					cloudMaxHour = adjustedHour
+			} else {
+				cloudFalseMask |= (1 << type.time)
+			}
+		}
+	}
+
+	data.addSpecialCloudInfo(day.y, day.m, day.d, cloudTrueMask, cloudFalseMask)
+
+	if (cloudTrueMask !== 0 && cloudLevel !== CloudLevel.Cumulonimbus) {
+		// cirrus, billow and thin clouds must show up in a contiguous group
+		for (let hour = cloudMinHour; hour < cloudMaxHour; hour++) {
+			if ((cloudFalseMask & (1 << (hour % 24))) !== 0)
+				return {kind: PopulateErrorKind.SpecialCloudGap}
+		}
+		const hourCount = (cloudMaxHour - cloudMinHour) + 1
+		if (hourCount > 8)
+			return {kind: PopulateErrorKind.SpecialCloudTooLong, hourCount}
 	}
 
 	if (day.dayType == DayType.Rainbow)

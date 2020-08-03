@@ -65,6 +65,12 @@ export default class GuessWorkerView extends Vue {
 					case PopulateErrorKind.StarConflict:
 						this.errorText = this.$t('tErrStarConflict', {date: this.$d(date, 'long'), time: this.$d(date, 'timeHM')})
 						break
+					case PopulateErrorKind.SpecialCloudGap:
+						this.errorText = this.$t('tErrSpecialCloudGap', {date: this.$d(date, 'long')})
+						break
+					case PopulateErrorKind.SpecialCloudTooLong:
+						this.errorText = this.$t('tErrSpecialCloudTooLong', {date: this.$d(date, 'long'), count: error.hourCount||0, max: 8})
+						break
 				}
 				return
 			}
