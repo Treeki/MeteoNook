@@ -219,5 +219,19 @@
     "lstSpecialClouds": "Cumulonimbus%%Cirrus%%Cirrocumulus%%Thin clouds%%Billow clouds",
     "hLog20200802": "Added predictions for special types of clouds that appear during certain parts of the year (displayed using the 🌀 symbol), and the fireworks show added in 1.4.0.",
     "hQEventDay": "The predictions were perfect for weeks and are now suddenly wrong! What happened?",
-    "hAEventDay": "On certain days, Animal Crossing will ignore the weather pattern selected by your seed and instead use the fixed EventDay00 pattern (clear weather all day, without shooting stars). MeteoNook shows most of these, like the Bug-Off and fireworks shows, with two exceptions: the day of <b>K.K. Slider's first concert</b> and any day on which you <b>add a new resident player</b>. So, if your weather forecast suddenly looks wrong after making a new profile or after you've just reached 3 stars, don't worry, that's supposed to happen. It will return to normal within the next couple of days!"
+    "hAEventDay": "On certain days, Animal Crossing will ignore the weather pattern selected by your seed and instead use the fixed EventDay00 pattern (clear weather all day, without shooting stars). MeteoNook shows most of these, like the Bug-Off and fireworks shows, with two exceptions: the day of <b>K.K. Slider's first concert</b> and any day on which you <b>add a new resident player</b>. So, if your weather forecast suddenly looks wrong after making a new profile or after you've just reached 3 stars, don't worry, that's supposed to happen. It will return to normal within the next couple of days!",
+    "spcHeader": "Special Cloud Types",
+    "spcBlurb": "During certain times of the year, special clouds can appear during hours which are <b>clear/fine</b> or <b>sunny</b>. These can help to identify your day's weather pattern, and since their appearance has a random factor involved, their presence can also rule out some seeds and speed up the process.%%If you've marked an hour as <b>clear/fine</b> or as <b>sunny</b>, you'll see a 🌀 button next to it. By default, it will say ❓. If you see the special cloud within this hour, click once to change it to ✔. If you don't see the special cloud, click twice to change it to 🚫.",
+    "spcDates": "<b>Possible between these dates:</b> {startN} to {endN} (northern hemisphere), {startS} to {endS} (southern hemisphere)",
+    "spcCertainAppearTime": "These clouds appear between {startTime} and {endTime}.",
+    "spcUncertainAppearTime": "These clouds may appear between {startTime} and {endTime}.",
+    "spcCirrus": "This period has two kinds of special clouds: cirrus (on days with patterns named 'FineXX') and cirrocumulus (on days with other patterns).",
+    "spcGroupNote": "They can last multiple hours, but will only appear once in a day, so if they disappear at any point, they won't come back later that day.",
+    "spcFadeNote": "They appear roughly {start} minutes after the start of the hour, and disappear roughly {end} minutes before the end of the hour.",
+    "spcDifficultWarning": "Be careful with these: during the evening, they can be quite difficult to identify!",
+    "spcExamplePrompt": "Example images (click to open in a new window):",
+    "tErrSpecialCloudGap": "On {date}, you have entered multiple sets of special clouds with a gap between them. This is not possible since these clouds can only appear once a day, so please correct that data.",
+    "tErrSpecialCloudTooLong": "On {date}, you have entered {count} hours worth of special clouds. This is not possible since these clouds can only appear for a maximum of {max} hours, so please correct that data.",
+    "lstSpecialCloudsLevels": "No special clouds%%Cumulonimbus%%Cirrus or cirrocumulus%%Thin clouds%%Billow clouds",
+    "newSuffix": "(New!)"
 }
