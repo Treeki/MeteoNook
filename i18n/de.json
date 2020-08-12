@@ -233,5 +233,6 @@
     "tErrSpecialCloudGap": "On {date}, you have entered multiple sets of special clouds with a gap between them. This is not possible since these clouds can only appear once a day, so please correct that data.",
     "tErrSpecialCloudTooLong": "On {date}, you have entered {count} hours worth of special clouds. This is not possible since these clouds can only appear for a maximum of {max} hours, so please correct that data.",
     "lstSpecialCloudsLevels": "No special clouds%%Cumulonimbus%%Cirrus or cirrocumulus%%Thin clouds%%Billow clouds",
-    "newSuffix": "(New!)"
+    "newSuffix": "(New!)",
+    "spcTypePrefix": "Special cloud type:"
 }
