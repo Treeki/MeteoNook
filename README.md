@@ -21,7 +21,7 @@ Special thanks to the following contributors:
 - **Russian translation**: [@yozhique_acnh](https://twitter.com/yozhique_acnh)
 - **Korean translation**: Like_it, Kuiprux
 - **Dutch translation**: Angela, Mees Muller, Bjørn, Thijsvb
-- **Czech translation**: RadarCZ
+- **Czech translation**: [@lukix1995](https://twitter.com/lukix1995)
 
 Translations are managed centrally using POEditor. Join the project here to contribute: https://poeditor.com/join/project/CerldM8Yc9 - There's no good way for me to map POEditor accounts to users for crediting above and in the app, so to be added, please let me know who you are by submitting a pull request, commenting on issue #6 or mentioning me on Twitter.
 
