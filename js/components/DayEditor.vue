@@ -100,7 +100,7 @@
 			<span class='patNameInList' v-for='pat in possiblePatternNames' :key='pat' @click='demoPattern(pat)'>{{ pat }}</span>
 		</p>
 		<p class='mt-2'>
-			🌀 <b>Special cloud type:</b> {{ cloudLevelName }}
+			🌀 <b>{{ $t('spcTypePrefix') }}</b> {{ cloudLevelName }}
 		</p>
 
 		<b-modal id='secondsEditor' :title='starSecondsTitle' :ok-title="$t('tsSave')" :cancel-title="$t('tsCancel')" scrollable @ok='saveSeconds'>
