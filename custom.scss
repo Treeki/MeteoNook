@@ -1,2 +1,141 @@
+$bv-enable-table-stacked: false;
+$bv-enable-table-sticky: false;
+$bv-enable-tooltip-variants: false;
+$bv-enable-popover-variants: false;
+$enable-shadows: true;
+$enable-gradients: true;
+
+
+// todo:
+//  - generate multiple css files probably?
+//  - change non-outline button backgrounds
+//  - change css defined in MeteoNook components
+
+
+// copied from bootstrap wholesale
+// they're just here so I can reference them
+$white:    #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black:    #000;
+
+$blue:    #0d6efd;
+$indigo:  #6610f2;
+$purple:  #6f42c1;
+$pink:    #d63384;
+$red:     #dc3545;
+$orange:  #fd7e14;
+$yellow:  #ffc107;
+$green:   #198754;
+$teal:    #20c997;
+$cyan:    #0dcaf0;
+
+$primary:       lighten($blue, 15%);
+$secondary:     $gray-500;
+$success:       $green;
+$info:          $cyan;
+$warning:       $yellow;
+$danger:        $red;
+$light:         $gray-800;
+$dark:          $gray-100;
+
+$body-bg:                   $gray-900;
+$body-color:                $white;
+
+$link-color:                              lighten($primary, 15%);
+$link-hover-color:                        lighten($link-color, 10%);
+
+$border-color:                $gray-700;
+
+$alert-bg-level: 10;
+$alert-border-level: 3;
+$alert-color-level: -3;
+
+$component-active-color:      $white !default;
+$component-active-bg:         $primary !default;
+
+$text-muted:                  $gray-500 !default;
+$blockquote-footer-color:     $gray-500 !default;
+
+$input-bg:                              $gray-800;
+$input-disabled-bg:                     $gray-900;
+
+$input-color:                           $white;
+$input-border-color:                    $gray-600;
+
+// revise?
+$input-placeholder-color:               $gray-600 !default;
+$input-plaintext-color:                 $body-color !default;
+
+// probably revise
+$input-group-addon-color:               $input-color !default;
+$input-group-addon-bg:                  $gray-200 !default;
+$input-group-addon-border-color:        $input-border-color !default;
+
+$form-select-color:                 $input-color !default;
+$form-select-disabled-color:        $gray-600 !default;
+$form-select-bg:                    $input-bg !default;
+$form-select-disabled-bg:           $gray-200 !default;
+$form-select-indicator-color:       $gray-800 !default;
+$form-select-border-color:        $input-border-color !default;
+
+$nav-link-disabled-color:           $gray-300;
+
+
+// ok
+$nav-tabs-border-color:             $gray-600;
+$nav-tabs-link-hover-border-color:  $gray-300 $gray-300 $nav-tabs-border-color;
+$nav-tabs-link-active-color:        $gray-200;
+$nav-tabs-link-active-bg:           $body-bg;
+$nav-tabs-link-active-border-color: $gray-600 $gray-600 $nav-tabs-link-active-bg;
+
+$navbar-light-color:                rgba($white, .55);
+$navbar-light-hover-color:          rgba($white, .7);
+$navbar-light-active-color:         rgba($white, .9);
+$navbar-light-disabled-color:       rgba($white, .3);
+$navbar-light-toggler-border-color: rgba($white, .1);
+
+$dropdown-color:                    $body-color;
+$dropdown-bg:                       $gray-800;
+$dropdown-border-color:             rgba($white, .15);
+$dropdown-link-color:               $gray-100;
+$dropdown-link-hover-color:         lighten($gray-100, 5%);
+$dropdown-link-hover-bg:            $gray-600;
+$dropdown-link-active-color:        $component-active-color;
+$dropdown-link-active-bg:           $component-active-bg;
+$dropdown-link-disabled-color:      $gray-600;
+$dropdown-header-color:             $gray-400;
+$dropdown-divider-bg:               $dropdown-border-color;
+
+$card-border-color:                 rgba($white, .125);
+$card-cap-bg:                       rgba($white, .03);
+$card-bg:                           $gray-900;
+
+// not changed, probably ok?
+$tooltip-color:                     $white;
+$tooltip-bg:                        $black;
+$tooltip-arrow-color:               $tooltip-bg;
+
+$modal-content-bg:                  $gray-800;
+$modal-content-border-color:        rgba($white, .2);
+
+$progress-bg:                       $gray-700;
+$progress-bar-color:                $gray-100;
+$progress-bar-bg:                   darken($primary, 15%);
+
+$thumbnail-border-color:            $gray-600;
+
+$close-color:                       $white;
+$close-text-shadow:                 0 1px 0 $black;
+
+
+
 @import '~bootstrap';
 @import '~bootstrap-vue';
