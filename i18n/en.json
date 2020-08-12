@@ -96,7 +96,7 @@
     "tInfoRunning": "Searching, hold on...",
     "tInfoRunningC": "Searching, hold on... Found {count} so far: {seeds}",
     "tInfoPossibleSeeds": "1 possible seed | {n} possible seeds",
-    "tInfoMoreData": "You haven't entered enough weather information to narrow down your island's seed.",
+    "tInfoMoreData": "You haven't entered enough weather information to narrow down your island's seed. You will need to add details for more days, or more types of data to the days you already have.",
     "tInfoNoSeeds": "There are no seeds that match the information you entered. Please double-check it!",
     "tInfoMultiSeed": "It looks like there are {count} seeds that fit the information you've given: {seeds}. You can look at these by clicking on each one to try it and to see how it compares to your island, or you can add more data above and try searching again.",
     "tInfoSeed": "Your island's weather seed is <b>{seed}</b>. Write it down somewhere for safekeeping. Once you've done that, go to the 'Overview' tab to finish the process and see your forecast.",
@@ -234,5 +234,7 @@
     "tErrSpecialCloudTooLong": "On {date}, you have entered {count} hours worth of special clouds. This is not possible since these clouds can only appear for a maximum of {max} hours, so please correct that data.",
     "lstSpecialCloudsLevels": "No special clouds%%Cumulonimbus%%Cirrus or cirrocumulus%%Thin clouds%%Billow clouds",
     "newSuffix": "(New!)",
-    "spcTypePrefix": "Special cloud type:"
+    "spcTypePrefix": "Special cloud type:",
+    "helpPossiblePatterns": "These are the patterns that match the weather types you've entered for this day. Click on a name to see the full details for that pattern.",
+    "helpCloudType": "This is the special cloud type that you might see on this date. See the 'special cloud types' section above for examples of what this would look like."
 }

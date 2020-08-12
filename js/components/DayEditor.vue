@@ -96,11 +96,14 @@
 
 		<p class='mt-2'>
 			<b>{{ $t('tPatterns') }}</b>
+			<help-button string-key='helpPossiblePatterns'></help-button>
 			<span v-show='possiblePatternNames.length == 0' v-html="$t('tPatternsNone')"></span>
 			<span class='patNameInList' v-for='pat in possiblePatternNames' :key='pat' @click='demoPattern(pat)'>{{ pat }}</span>
 		</p>
 		<p class='mt-2'>
-			🌀 <b>{{ $t('spcTypePrefix') }}</b> {{ cloudLevelName }}
+			🌀 <b>{{ $t('spcTypePrefix') }}</b>
+			<help-button string-key='helpCloudType'></help-button>
+			{{ cloudLevelName }}
 		</p>
 
 		<b-modal id='secondsEditor' :title='starSecondsTitle' :ok-title="$t('tsSave')" :cancel-title="$t('tsCancel')" scrollable @ok='saveSeconds'>
@@ -119,10 +122,11 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import {DayInfo, DayType, AmbiguousWeather, ShowerType, StarInfo, dayUsesTypes, getPossiblePatternsForDay, rainbowPatternsByTime, DayForecast, isSpecialCloudEntryAllowed} from '../model'
 import {isSpecialDay, SpecialDay, Hemisphere, SpWeatherLevel, getSpWeatherLevel, Weather, Pattern, CloudLevel, getCloudLevel} from '../../pkg'
+import HelpButton from './HelpButton.vue'
 import { TranslateResult } from 'vue-i18n'
 import { makeTime } from '../utils'
 
-@Component
+@Component({components: {HelpButton}})
 export default class DayEditor extends Vue {
 	@Prop(Object) readonly day!: DayInfo
 	@Prop(Number) readonly hemisphere!: Hemisphere
