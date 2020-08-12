@@ -76,6 +76,7 @@ function fixI18N(strs: {[key: string]: string}): {[key: string]: string} {
 }
 
 const messages = {
+	cs: fixI18N(require('../i18n/cs.json')),
 	en: fixI18N(require('../i18n/en.json')),
 	es: fixI18N(require('../i18n/es.json')),
 	de: fixI18N(require('../i18n/de.json')),
