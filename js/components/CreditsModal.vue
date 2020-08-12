@@ -27,7 +27,8 @@
 				<a href='https://github.com/yuma-m'>@yuma-m</a>,
 				<a href='https://github.com/Starwort'>@Starwort</a> <i>(日本語)</i>,
 				<a href='https://twitter.com/yozhique_acnh'>@yozhique_acnh</a> <i>(Русский)</i>,
-				Like_it, Kuiprux (한국어), Angela, Mees Muller, Bjørn, Thijsvb (Nederlands)
+				Like_it, Kuiprux (한국어), Angela, Mees Muller, Bjørn, Thijsvb <i>(Nederlands)</i>,
+				RadarCZ <i>(Česky)</i>
 			</li>
 		</ul>
 		<p class='font-weight-bold'>{{ $t('credThank2') }}</p>
@@ -38,7 +39,7 @@
 		</ul>
 		<p class='font-weight-bold'>{{ $t('credThank3') }}</p>
 		<ul>
-			<li><a href='https://github.com/zeldamods/byml-v2'>byml-v2</a>, for BYML parsing tools</li>
+			<li><a href='https://github.com/zeldamods/byml-v2'>byml-v2</a></li>
 		</ul>
 	</b-modal>
 </template>
