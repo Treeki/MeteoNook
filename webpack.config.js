@@ -13,7 +13,7 @@ const { DefinePlugin } = require('webpack')
 const gitCommitShort = child_process.execSync('git rev-parse --short HEAD').toString().trim()
 const gitCommitHash = child_process.execSync('git rev-parse HEAD').toString().trim()
 const gitURL = 'https://github.com/Treeki/MeteoNook/commit/' + gitCommitHash
-const gitCommitStamp = child_process.execSync('git log -1 --format=%cd').toString().trim()
+const gitCommitStamp = parseInt(child_process.execSync('git log -1 --date=unix --format=%cd').toString().trim(), 10)
 
 const dist = path.resolve(__dirname, 'dist')
 

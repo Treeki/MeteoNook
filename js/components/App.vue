@@ -92,7 +92,7 @@
 <script lang='ts'>
 declare var METEONOOK_GIT_COMMIT_SHORT: string
 declare var METEONOOK_GIT_COMMIT_URL: string
-declare var METEONOOK_GIT_COMMIT_STAMP: string
+declare var METEONOOK_GIT_COMMIT_STAMP: number
 
 import Vue from 'vue'
 import Component from 'vue-class-component'
@@ -294,7 +294,10 @@ export default class App extends Vue {
 
 	get gitCommitUrl(): string { return METEONOOK_GIT_COMMIT_URL }
 	get gitCommitShort(): string { return METEONOOK_GIT_COMMIT_SHORT }
-	get gitCommitStamp(): string { return METEONOOK_GIT_COMMIT_STAMP }
+	get gitCommitStamp(): string {
+		const d = new Date(METEONOOK_GIT_COMMIT_STAMP * 1000)
+		return this.$d(d, 'dateTimeHMS')
+	}
 
 	@Watch('forecast.islandName', {immediate: true})
 	@Watch('$i18n.locale')

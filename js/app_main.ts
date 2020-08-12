@@ -123,6 +123,8 @@ dtf12.timeHMS = {hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycl
 dtf12.timeHM = {hour: '2-digit', minute: '2-digit', hourCycle: 'h12'}
 dtf12.timeH = {hour: '2-digit', hourCycle: 'h12'}
 dtf12.timeHOnly = {hour: '2-digit', hourCycle: 'h12'}
+dtf24.dateTimeHMS = {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'}
+dtf12.dateTimeHMS = {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h12'}
 
 const startTime12 = readStorage('meteonook_timeFormat', (e) => e == '12') || false
 
