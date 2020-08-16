@@ -96,7 +96,7 @@
     "tInfoRunning": "持续搜索中，请等待……",
     "tInfoRunningC": "持续搜索中，请等待……找到 {count} 个近似：{seeds}",
     "tInfoPossibleSeeds": "1 个可能的种子 | {n} 个可能的种子",
-    "tInfoMoreData": "没能提供足够的天气数据去确定你岛的唯一种子。",
+    "tInfoMoreData": "没能提供足够的天气数据去确定你岛的唯一种子。你需要提供更多天气数据。",
     "tInfoNoSeeds": "未找到符合数据的种子。请再次检查数据！",
     "tInfoMultiSeed": "看起来有 {count} 个种子符合你的数据：{seeds}。你可以逐个点击它们来预览其是否符合你的岛，或添加更多数据重新搜索。",
     "tInfoSeed": "你的岛天气种子为 <b>{seed}</b>。记录下来以防丢失。完成之后，切换到“预览”页来完成搜索并开始查看天气预报。",
@@ -234,5 +234,7 @@
     "tErrSpecialCloudTooLong": "在 {date}，根据你提供的信息，特殊云一共出现了 {count} 小时。这种情况是不可能的，因为它最多持续 {max} 小时，请更正你提供的信息。",
     "lstSpecialCloudsLevels": "无特殊云%%积雨云%%卷云 或 卷积云%%薄云%%波状云",
     "newSuffix": "(New!)",
-    "spcTypePrefix": "Special cloud type:"
+    "spcTypePrefix": "特殊云类型：",
+    "helpPossiblePatterns": "这些是符合这一天数据的天气模式。点击名字查看详情。",
+    "helpCloudType": "这是你在这一天可能看到的特殊云类型。示例图请查看上面的“特殊云类型”部分。"
 }

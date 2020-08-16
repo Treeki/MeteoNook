@@ -234,5 +234,7 @@
     "tErrSpecialCloudTooLong": "{date}共有 {count} 小時為特殊雲型。這種雲型最多只能出現 {max} 小時，所以數據無效，請更正數據。",
     "lstSpecialCloudsLevels": "無特殊雲型%%積雨雲%%卷雲或卷積雲%%薄雲%%波狀雲",
     "newSuffix": "（新功能！）",
-    "spcTypePrefix": "Special cloud type:"
+    "spcTypePrefix": "特殊雲型：",
+    "helpPossiblePatterns": "這些是符合當天數據的天氣模式。點擊名字查看完整詳情。",
+    "helpCloudType": "這是在這一天可能看到的特殊雲型。例圖請查看上面的“特殊雲型”部分"
 }

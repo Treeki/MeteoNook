@@ -234,5 +234,7 @@
     "tErrSpecialCloudTooLong": "Le {date}, vous avez entré que des nuages spéciaux sont apparus pendant {count} heures. Ce n'est pas possible car ils ne peuvent apparaître qu'au maximum {max} heures, veuillez corriger vos données.",
     "lstSpecialCloudsLevels": "Pas de nuages spéciaux%%Cumulonimbus%%Cirrus or cirrocumulus%%Flocus%%Undulutus",
     "newSuffix": "(Nouveau!)",
-    "spcTypePrefix": "Special cloud type:"
+    "spcTypePrefix": "Nuages spéciaux :",
+    "helpPossiblePatterns": "Motifs possibles pour les informations saisies aujourd'hui.\nCliquez sur les noms pour obtenir des informations sur ces motifs.",
+    "helpCloudType": "Voici le type de nuage spécial que vous pourriez voir à cette date. Rapportez vous à la section 'nuages spéciaux' pour voir des exemples de ces nuages."
 }

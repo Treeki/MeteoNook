@@ -234,5 +234,7 @@
     "tErrSpecialCloudTooLong": "{date}에 {count}시간 동안 특별한 구름들이 유지된다고 입력하였습니다. 하지만 이러한 구름들은 최대 {max}시간 동안만 나타날 수 있습니다. 입력하신 정보를 다시 확인해 주세요!",
     "lstSpecialCloudsLevels": "특별한 구름 없음%%소나기구름%%새털구름 또는 조개구름%%옅은 구름%%물결구름",
     "newSuffix": "(신규!)",
-    "spcTypePrefix": "Special cloud type:"
+    "spcTypePrefix": "Special cloud type:",
+    "helpPossiblePatterns": "These are the patterns that match the weather types you've entered for this day. Click on a name to see the full details for that pattern.",
+    "helpCloudType": "This is the special cloud type that you might see on this date. See the 'special cloud types' section above for examples of what this would look like."
 }

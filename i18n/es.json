@@ -96,7 +96,7 @@
     "tInfoRunning": "Buscando, espera...",
     "tInfoRunningC": "Buscando, espera... {count} encontrada: {seeds}",
     "tInfoPossibleSeeds": "1 semilla posible | {n} semillas posibles",
-    "tInfoMoreData": "Estos datos no son suficientes para determinar la semilla ambiental en tu isla.",
+    "tInfoMoreData": "Estos datos no son suficientes para determinar la semilla ambiental en tu isla. Necesitas añadir detalles para más días, o mas tipos de datos para los días que ya has introducido.",
     "tInfoNoSeeds": "No hay semillas que encajen con los datos que has puesto. ¡Compruébalos, por favor!",
     "tInfoMultiSeed": "Parece que hay {count} semillas que encajan con la información que has puesto: {seeds}. Si quieres comprobarlas, puedes hacer clic en cada una para probarla y ver cómo se comparan con el tiempo en tu isla. Si no, añade más datos en este paso e intenta buscar otra vez.",
     "tInfoSeed": "La semilla ambiental en tu isla es <b>{seed}</b>. Apúntala en algún lado para no perderla. Cuando la hayas guardado, pásate a la pestaña 'Ahora' para completar los datos y ver tu pronóstico.",
@@ -234,5 +234,7 @@
     "tErrSpecialCloudTooLong": "El {date}, has introducido {count} horas de nubes especiales. Esto no es posible porque estas nubes especiales solo pueden aparecer un maximo de {max} hours. Por favor, corrige estos datos.",
     "lstSpecialCloudsLevels": "No hay nubes especiales%%Cumulonimbos%%Cirrus o cirrocúmulos%%Nubes finas%%Nubes onduladas",
     "newSuffix": "(¡Novedad!)",
-    "spcTypePrefix": "Tipo de nube especial:"
+    "spcTypePrefix": "Tipo de nube especial:",
+    "helpPossiblePatterns": "Estos patrones son los que encajan con los tipos de tiempo que has introducido en este día. Haz clic en un nombre para ver los detalles completos de cualquier patrón.",
+    "helpCloudType": "Este es el tipo de nubes especiales que puede aparecer en esta fecha. Mira la sección ‘tipos de nubes especiales’ arriba en la pagina para ver ejemplares de estas nubes."
 }

@@ -234,5 +234,7 @@
     "tErrSpecialCloudTooLong": "Op {date} heb je {count} uur aan speciale clouds ingevoerd. Dit is niet mogelijk aangezien deze wolken slechts maximaal {max} uur kunnen verschijnen, dus corrigeer die gegevens.",
     "lstSpecialCloudsLevels": "Geen speciale wolken%%Cumulonimbus%% Cirrus%% Cirrocumulus%%Veerwolken%%Lenticularis ",
     "newSuffix": "(Nieuw!)",
-    "spcTypePrefix": "Special cloud type:"
+    "spcTypePrefix": "Speciale wolk type:",
+    "helpPossiblePatterns": "Dit zijn de patronen die overeen komen met de weer types die je heb ingevoerd voor deze dag. Klik op een naam om de volledige details te zien van het patroon.",
+    "helpCloudType": "Dit is het speciale wolk type die je misschien deze datum kan zien. Zie de 'speciale wolk types' sectie hierboven voor voorbeelden van wat je kan zien."
 }

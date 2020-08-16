@@ -234,5 +234,7 @@
     "tErrSpecialCloudTooLong": "Il {date}, hai inserito dati che evidenziano la presenza per {count} ore di nuvole speciali. Ciò non è possibile, in quanto queste nuvole possono essere presenti solo per un massimo di {max} ore, quindi ti preghiamo di correggere i dati.",
     "lstSpecialCloudsLevels": "Nessuna nuvola speciale%%Cumulonembo%%Cirro o cirrocumulo%%Nuvole sottili%%Nuvole ondulate",
     "newSuffix": "(Nuovo!)",
-    "spcTypePrefix": "Special cloud type:"
+    "spcTypePrefix": "Special cloud type:",
+    "helpPossiblePatterns": "These are the patterns that match the weather types you've entered for this day. Click on a name to see the full details for that pattern.",
+    "helpCloudType": "This is the special cloud type that you might see on this date. See the 'special cloud types' section above for examples of what this would look like."
 }
