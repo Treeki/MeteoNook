@@ -314,10 +314,11 @@ export class IslandInfo {
 			this.offsetMinutes = (bits[4] === undefined) ? 0 : parseInt(decodeURIComponent(bits[4]), 10)
 		} else {
 			// copy of existing IslandInfo
-			this.hemisphere = other.hemisphere
-			this.name = other.name
-			this.seed = other.seed
-			this.offsetMinutes = other.offsetMinutes
+			// this is a potential fix for corrupted data causing issue #33
+			this.hemisphere = (typeof other.hemisphere == 'number') ? other.hemisphere : Hemisphere.Northern
+			this.name = (typeof other.name == 'string') ? other.name : 'Anyisle'
+			this.seed = (typeof other.seed == 'number') ? other.seed : 1856402561
+			this.offsetMinutes = (typeof other.offsetMinutes == 'number') ? other.offsetMinutes : 0
 		}
 	}
 
