@@ -28,7 +28,7 @@
 				<a href='https://github.com/Starwort'>@Starwort</a> <i>(日本語)</i>,
 				<a href='https://twitter.com/yozhique_acnh'>@yozhique_acnh</a> <i>(Русский)</i>,
 				Like_it, Kuiprux (한국어), Angela, Mees Muller, Bjørn, Thijsvb <i>(Nederlands)</i>,
-				RadarCZ <i>(Česky)</i>
+				<a href='https://twitter.com/lukix1995'>@lukix1995</a> <i>(Česky)</i>
 			</li>
 		</ul>
 		<p class='font-weight-bold'>{{ $t('credThank2') }}</p>
