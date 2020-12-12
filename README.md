@@ -34,3 +34,18 @@ Additionally, there's no obligation to do so, but if you'd like to support my wo
 - Some sort of hosted API
 - Dark mode
 - Toggle to use system-agnostic icons for those stuck on Windows 7 without emoji support
+
+## Software development
+
+To help contribute to this website:
+
+### Prerequisites
+
+1. [Node](https://github.com/nvm-sh/nvm) with [Yarn](https://yarnpkg.com/getting-started/install) package manager
+1. [Rust](https://www.rust-lang.org/tools/install) tools
+
+### Setup
+
+1. Install dependencies: `yarn install`
+1. Run locally: `yarn run dev`
+1. View the site at <http://localhost:8080/>
