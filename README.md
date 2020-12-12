@@ -9,6 +9,7 @@ Documentation and code here (except where specified) is (c) 2020 Ash Wolf ("Ninj
 Special thanks to the following contributors:
 
 - **Testing and suggestions for v1**: Ahri, Alexis, andrewtabs, astro, capstone, ctar17, Denna, GoldenCrater, rainbowannie, robotic_scarab
+- **Meteor icon**: Chanut is Industries on [Iconfinder](https://www.iconfinder.com/icons/3285298/asteroid_comet_fireball_meteor_meteorite_space_icon), optimized for favicon usage
 - **Spanish translation proofreading**: [@jerdieh](https://twitter.com/jerdieh)
 - **Italian translation**: Thordgar
 - **French translation**: [@Swpolo](https://github.com/Swpolo)
