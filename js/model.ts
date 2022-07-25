@@ -630,9 +630,10 @@ export class DayForecast {
 					for (let minute = 0; minute < 60; minute++) {
 						const starsIterator = new StarsIterator(seed, year, month, day, hour, minute, this.pattern);
 						const star: StarInfo = {hour, minute, seconds: []}
-						let second = undefined;
 
-						while ((second = starsIterator.next()) != undefined) {
+						while (starsIterator.hasNext()) {
+							const second = starsIterator.next()!;
+
 							star.seconds.push(second);
 						}
 

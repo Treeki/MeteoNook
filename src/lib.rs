@@ -665,9 +665,14 @@ impl StarsIterator {
 		}
 	}
 
+	#[wasm_bindgen(js_name = hasNext)]
+	pub fn has_next(&self) -> bool {
+		self.star_count > 0
+	}
+
 	#[allow(clippy::should_implement_trait)]
 	pub fn next(&mut self) -> Option<u8> {
-		if self.star_count == 0 {
+		if !self.has_next() {
 			return None;
 		}
 
