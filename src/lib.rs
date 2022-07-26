@@ -641,34 +641,55 @@ fn query_stars_internal(seed_base: u32, minute: u8, pattern: Pattern) -> Option<
 }
 
 
+#[wasm_bindgen]
+pub struct StarsIterator {
+	star_count: u8,
+	star_field: u64,
+	second: u8,
+}
 
-static mut LAST_STAR_SECONDS: [u8;8] = [0;8];
+#[wasm_bindgen]
+impl StarsIterator {
+	#[wasm_bindgen(constructor)]
+	pub fn new(seed: u32, year: u16, month: u8, day: u8, hour: u8, minute: u8, pattern: Pattern) -> Self {
+		let (year, month, day) = normalise_late_ymd(year, month, day, hour);
+		let seed = compute_seed_ymdh(seed, 0x20000, 0x2000, 0x100, 0x10000, year, month, day, hour);
 
-#[wasm_bindgen(js_name = queryStars)]
-pub fn query_stars(seed: u32, year: u16, month: u8, day: u8, hour: u8, minute: u8, pattern: Pattern) -> u8 {
-	let (year, month, day) = normalise_late_ymd(year, month, day, hour);
-	let seed = compute_seed_ymdh(seed, 0x20000, 0x2000, 0x100, 0x10000, year, month, day, hour);
-	match query_stars_internal(seed, minute, pattern) {
-		None => 0,
-		Some((star_count, star_field)) => {
-			let mut index = 0;
-			for second in 0..60 {
-				let mask = 1u64 << second;
-				if (star_field & mask) != 0 {
-					unsafe { LAST_STAR_SECONDS[index] = second; }
-					index += 1;
-				}
-			}
-			star_count
+		let (star_count, star_field) = query_stars_internal(seed, minute, pattern)
+			.unwrap_or((0, 0));
+
+		Self {
+			star_count,
+			star_field,
+			second: 0,
 		}
 	}
-}
-#[wasm_bindgen(js_name = getStarSecond)]
-pub fn get_star_second(index: usize) -> u8 {
-	unsafe { LAST_STAR_SECONDS[index] }
-}
 
+	#[wasm_bindgen(js_name = hasNext)]
+	pub fn has_next(&self) -> bool {
+		self.star_count > 0
+	}
 
+	#[allow(clippy::should_implement_trait)]
+	pub fn next(&mut self) -> Option<u8> {
+		if !self.has_next() {
+			return None;
+		}
+
+		for second in self.second..60 {
+			let mask = 1u64 << second;
+
+			if (self.star_field & mask) != 0 {
+				self.second = second + 1;
+				self.star_count -= 1;
+
+				return Some(second);
+			}
+		}
+
+		None
+	}
+}
 
 
 #[derive(Clone, Copy)]
